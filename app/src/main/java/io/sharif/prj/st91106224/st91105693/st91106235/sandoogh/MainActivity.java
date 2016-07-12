@@ -1,5 +1,6 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+//import com.firebase.client.Firebase;
+
 public class MainActivity extends AppCompatActivity {
+
+//    private Firebase mRef;
 
     private String[] drawerItemsTitles;
     private DrawerLayout drawerLayout;
@@ -20,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         drawerItemsTitles = getResources().getStringArray(R.array.drawer_items_array);
@@ -31,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.activity_list_item, android.R.id.text1, drawerItemsTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+//        mRef = new Firebase(Constants.FIREBASE_URL);
+//        if (mRef.getAuth() == null) {
+//            loadLoginView();
+//        }
 
     }
 
@@ -84,5 +95,12 @@ public class MainActivity extends AppCompatActivity {
 //        mTitle = title;
 //        getActionBar().setTitle(mTitle);
 //    }
+
+    private void loadLoginView() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
 
 }
