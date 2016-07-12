@@ -1,38 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_height="match_parent"
-    android:paddingLeft="10dp" android:paddingRight="10dp"
-    android:background="@color/colorPrimary" android:layout_width="300dp" android:layout_gravity="center"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:paddingTop="10dp">
-    <EditText android:layout_height="wrap_content" android:id="@+id/txtUsername" android:singleLine="true"
-        android:gravity="right" android:layout_width="match_parent" android:hint="نام کاربری">
-        <requestFocus></requestFocus>
-    </EditText>
+
     <EditText
+        android:id="@+id/txtUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
+        android:gravity="right"
+        android:hint="نام کاربری"
+        android:singleLine="true">
+
+        <requestFocus></requestFocus>
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="right"
         android:hint="گذرواژه"
-        android:id="@+id/txtPass" />
+        android:inputType="textPassword" />
 
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-        <Button android:layout_width="wrap_content"
-                android:layout_gravity="center"
-            android:layout_height="wrap_content" android:layout_weight="0.5"
-            android:id="@+id/btnSignup" android:text="ثبت نام"/>
-        <Button android:layout_width="wrap_content"
-                android:layout_gravity="center"
-            android:layout_height="wrap_content" android:layout_weight="0.5"
-            android:id="@+id/btnLogin" android:text="ورود"/>
-        <Button android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content" android:layout_weight="0.5"
-                android:background="@color/transparent"
-                android:id="@+id/btnForget" android:text="رمز عبور خود را فراموش کرده ام"/>
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:text="ثبت نام" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:text="ورود" />
+
+        <Button
+            android:id="@+id/btnForget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:text="رمز عبور خود را فراموش کرده ام" />
     </LinearLayout>
 </LinearLayout>

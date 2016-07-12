@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "880931475809",
+    "firebase_url": "https://sandoogh-d22fc.firebaseio.com",
+    "project_id": "sandoogh-d22fc",
+    "storage_bucket": "sandoogh-d22fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880931475809:android:d6d2fa22a360d9e8",
+        "android_client_info": {
+          "package_name": "io.sharif.prj.st91106224.st91105693.st91106235.sandoogh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880931475809-j5ritq67r4sccf3nl79pr97c8quad78d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTpBZ8vUzDAF3CoSPeFkrLZMbQl_DfgeM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
