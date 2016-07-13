@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity {
 
+
     protected EditText passwordEditText;
     protected EditText emailEditText;
     protected Button signUpButton;
