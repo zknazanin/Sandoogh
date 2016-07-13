@@ -29,7 +29,7 @@ android:layout_height="match_parent">
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@mipmap/ic_add_circle_black_24dp"
+        android:src="@mipmap/ic_launcher"
         app:layout_anchor="@id/list"
         app:layout_anchorGravity="bottom|left"/>
 </android.support.design.widget.CoordinatorLayout>

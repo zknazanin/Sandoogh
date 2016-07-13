@@ -1,4 +1,4 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,22 +18,28 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
-public class SignUpActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-
-    protected EditText passwordEditText;
     protected EditText emailEditText;
-    protected Button signUpButton;
-    protected TextView signInTextView;
+    protected EditText passwordEditText;
+    protected Button loginButton;
+
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_login);
+
+
+        emailEditText = (EditText) findViewById(R.id.emailField);
+        passwordEditText = (EditText) findViewById(R.id.passwordField);
+        loginButton = (Button) findViewById(R.id.loginButton);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -44,10 +49,10 @@ public class SignUpActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.wtf("tag", "onAuthStateChanged:signed_in:" + user.getUid());
+                    Log.d("tag", "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
-                    Log.wtf("tag", "onAuthStateChanged:signed_out");
+                    Log.d("tag", "onAuthStateChanged:signed_out");
                 }
                 // ...
             }
@@ -58,59 +63,47 @@ public class SignUpActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        passwordEditText = (EditText) findViewById(R.id.passwordField);
-        emailEditText = (EditText) findViewById(R.id.emailField);
-        signUpButton = (Button) findViewById(R.id.signupButton);
-        signInTextView = (TextView) findViewById(R.id.signInText);
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String password = passwordEditText.getText().toString();
                 String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
 
-                password = password.trim();
                 email = email.trim();
+                password = password.trim();
 
-                if (password.isEmpty() || email.isEmpty()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
-                    builder.setMessage(R.string.signup_error_message)
-                            .setTitle(R.string.signup_error_title)
+                if (email.isEmpty() || password.isEmpty()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setMessage(R.string.login_error_message)
+                            .setTitle(R.string.login_error_title)
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else {
-
-                    createUser(email, password);
+                    //Login with an email/password combination
+                    signIn(email, password);
                 }
-            }
-        });
-
-        signInTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
             }
         });
     }
 
-    private void createUser(String email, String password) {
 
-        mAuth.createUserWithEmailAndPassword(email, password)
+    private void signIn(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("tag", "createUserWithEmail:onComplete:" + task.isSuccessful());
+                        Log.d("Tag", "signInWithEmail:onComplete:" + task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                            Log.w("tag", "signInWithEmail", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                     }
@@ -130,4 +123,5 @@ public class SignUpActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
 }

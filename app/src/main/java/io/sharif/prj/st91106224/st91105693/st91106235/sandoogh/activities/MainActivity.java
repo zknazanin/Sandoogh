@@ -1,4 +1,4 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,10 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments.AnotherFragment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments.HomeFragment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
 
 public class MainActivity extends AppCompatActivity {
