@@ -1,6 +1,8 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,16 +13,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-//import com.firebase.client.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private Firebase mRef;
+    private Boolean firstTime = null;
 
     private String[] drawerItemsTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private CharSequence mTitle;
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,25 +34,32 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        drawerItemsTitles = getResources().getStringArray(R.array.drawer_items_array);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
+        if (isFirstTime()) {
 
-        // Set the adapter for the list view
-        drawerList.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.activity_list_item, android.R.id.text1, drawerItemsTitles));
-        // Set the list's click listener
-        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+            Intent intent = new Intent(this, SignUpActivity.class);
+            startActivity(intent);
 
-//        mRef = new Firebase(Constants.FIREBASE_URL);
-//        if (mRef.getAuth() == null) {
-//            loadLoginView();
-//        }
+        } else {
 
+            setDrawer();
+
+//            firebaseAuth = FirebaseAuth.getInstance();
+//            user = firebaseAuth.getCurrentUser();
+//
+//            if (user != null) {
+//
+//                HomeFragment homeFragment = new HomeFragment();
+//
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.content_frame, homeFragment)
+//                        .commit();
+//            }
+
+        }
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
-
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -54,9 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Swaps fragments in the main content view
-     */
+
     private void selectItem(int position) {
         // Create a new fragment
         Fragment fragment;
@@ -96,11 +107,30 @@ public class MainActivity extends AppCompatActivity {
 //        getActionBar().setTitle(mTitle);
 //    }
 
-    private void loadLoginView() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+
+    private boolean isFirstTime() {
+        if (firstTime == null) {
+            SharedPreferences mPreferences = this.getSharedPreferences("first_time", Context.MODE_PRIVATE);
+            firstTime = mPreferences.getBoolean("firstTime", true);
+            if (firstTime) {
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean("firstTime", false);
+                editor.apply();
+            }
+        }
+        return firstTime;
+    }
+
+    private void setDrawer() {
+        drawerItemsTitles = getResources().getStringArray(R.array.drawer_items_array);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        drawerList.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.activity_list_item, android.R.id.text1, drawerItemsTitles));
+        // Set the list's click listener
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
 }

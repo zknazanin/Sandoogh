@@ -1,5 +1,6 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +24,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected EditText passwordEditText;
     protected EditText emailEditText;
     protected Button signUpButton;
+    protected TextView signInTextView;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -39,10 +42,10 @@ public class SignUpActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d("tag", "onAuthStateChanged:signed_in:" + user.getUid());
+                    Log.wtf("tag", "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
-                    Log.d("tag", "onAuthStateChanged:signed_out");
+                    Log.wtf("tag", "onAuthStateChanged:signed_out");
                 }
                 // ...
             }
@@ -51,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.passwordField);
         emailEditText = (EditText) findViewById(R.id.emailField);
         signUpButton = (Button) findViewById(R.id.signupButton);
+        signInTextView = (TextView) findViewById(R.id.signInText);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +78,14 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+
+        signInTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void createUser(String email, String password) {
@@ -90,9 +102,10 @@ public class SignUpActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            startActivity(intent);
                         }
-
-                        // ...
                     }
                 });
     }
