@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private Boolean firstTime = null;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+
         if (isFirstTime()) {
 
             Intent intent = new Intent(this, SignUpActivity.class);
@@ -43,18 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
             setDrawer();
 
-//            firebaseAuth = FirebaseAuth.getInstance();
-//            user = firebaseAuth.getCurrentUser();
-//
-//            if (user != null) {
-//
-//                HomeFragment homeFragment = new HomeFragment();
-//
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                fragmentManager.beginTransaction()
-//                        .replace(R.id.content_frame, homeFragment)
-//                        .commit();
-//            }
+            firebaseAuth = FirebaseAuth.getInstance();
+            user = firebaseAuth.getCurrentUser();
+
+            HomeFragment homeFragment = new HomeFragment();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, homeFragment)
+                    .commit();
+
 
         }
     }

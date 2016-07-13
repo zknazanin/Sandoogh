@@ -1,26 +1,27 @@
 <resources>
-    <string name="app_name">Sandoogh</string>
+    <string name="app_name">صندوق</string>
     <string name="action_settings">Settings</string>
 
     <string-array name="drawer_items_array">
-        <item>Home</item>
-        <item>Another Fragment</item>
+        <item>صندوق</item>
+        <item>مشخصات من</item>
     </string-array>
 
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_login">ورود</string>
+    <string name="title_activity_sign_up">ثبت نام</string>
 
-    <string name="password_hint">Password</string>
-    <string name="email_hint">Email</string>
-    <string name="sign_up_button_label">Sign Up</string>
-    <string name="signup_error_message">Please make sure you enter an email address and password!</string>
-    <string name="signup_error_title">Error!</string>
-    <string name="signup_success">Account successfully created! You can now Login.</string>
-    <string name="login_error_message">Please make sure you enter an email address and password!</string>
-    <string name="login_error_title">Error!</string>
-    <string name="login_button_label">Login</string>
-    <string name="sign_in_text">Sign In!</string>
+    <string name="password_hint">رمز عبور</string>
+    <string name="email_hint">آدرس ایمیل</string>
+    <string name="sign_up_button_label">ثبت نام</string>
+    <string name="signup_error_message">لطفا آدرس ایمیل و رمز عبور خود را وارد کنید</string>
+    <string name="signup_error_title">خطا!</string>
+    <string name="login_error_message">لطفا آدرس ایمیل و رمز عبور خود را وارد کنید</string>
+    <string name="login_error_title">خطا!</string>
+    <string name="login_button_label">ورود</string>
+    <string name="sign_in_text">ورود</string>
     <string name="add_item">Add New Item</string>
     <string name="action_logout">Logout</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
 
 </resources>
