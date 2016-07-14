@@ -9,38 +9,62 @@
         <include
             android:id="@+id/tool_bar"
             layout="@layout/toolbar" />
-
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sanType_des"
-            android:textAlignment="center"/>
-    </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_weight="3">
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sanType_A"/>
+            android:layout_weight="">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sanAntDes"
+                android:textAlignment="center"/>
+        </LinearLayout>
 
-        <Button
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sanType_B"/>
+            android:layout_gravity="center"
+            android:layout_weight="0">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/san_name"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/san_AccNum"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/san_CardNum"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/san_Period"
+                android:textAlignment="right"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/period_Array" />
+
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -57,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:clickable="true"
-                android:src="@mipmap/ic_highlight_off_black_24dp"
+                android:src="@mipmap/ic_chevron_left_black_24dp"
                 android:layout_gravity="bottom|left"/>
         </LinearLayout>
 
