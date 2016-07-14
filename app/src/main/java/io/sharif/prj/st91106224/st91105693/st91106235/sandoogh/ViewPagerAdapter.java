@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments.SandooghTypeFragment;
+
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -13,7 +15,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new TabFragment();
+
+        switch (position) {
+            case 0:
+                return new SandooghTypeFragment();
+            default:
+                return new TabFragment();
+        }
+
     }
 
     @Override
