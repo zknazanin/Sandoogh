@@ -8,6 +8,12 @@
         <item>راهنما</item>
     </string-array>
 
+    <string-array name="period_Array">
+        <item>ماهیانه</item>
+        <item>هفتگی</item>
+        <item>روزانه</item>
+    </string-array>
+
     <string name="title_activity_login">ورود</string>
     <string name="title_activity_sign_up">ثبت نام</string>
 
@@ -28,6 +34,10 @@
     <string name="sanType_A">صندوق قرض الحسنه</string>
     <string name="sanType_B">صندوق تصادفی</string>
     <string name="sanAntDes">مشخصات صندوق خود را وارد کنید:</string>
+    <string name="san_name">نام صندوق</string>
+    <string name="san_AccNum">شماره حساب</string>
+    <string name="san_CardNum">شماره کارت</string>
+    <string name="san_Period">مدت دوره</string>
 
     <string name="type_tab_title">نوع صندوق</string>
     <string name="info_tab_title">مشخصات</string>
