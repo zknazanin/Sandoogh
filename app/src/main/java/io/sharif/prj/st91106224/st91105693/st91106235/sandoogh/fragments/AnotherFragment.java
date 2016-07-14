@@ -8,6 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import android.content.Context;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.ViewPagerAdapter;
 
 public class AnotherFragment extends Fragment {
     @Override
@@ -24,29 +36,58 @@ public class AnotherFragment extends Fragment {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference("users");
 
-        myRef.setValue("Hello, World!");
-
+        myRef.child("user1").child("item1").setValue(1);
 
         // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.wtf("", "Value is: " + value);
-            }
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                String value = dataSnapshot.getValue(String.class);
+//                Log.wtf("", "Value is: " + value);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.wtf("", "Failed to read value.", error.toException());
+//            }
+//        });
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.wtf("", "Failed to read value.", error.toException());
-            }
-        });
+        View view = inflater.inflate(R.layout.another_fragment, container, false);
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.another_fragment, container, false);
+
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
+
+
+        final TabLayout.Tab type = tabLayout.newTab();
+        final TabLayout.Tab info = tabLayout.newTab();
+        final TabLayout.Tab members = tabLayout.newTab();
+        final TabLayout.Tab confirm = tabLayout.newTab();
+
+        type.setText(R.string.type_tab_title);
+        info.setText(R.string.info_tab_title);
+        members.setText(R.string.members_tab_title);
+        confirm.setText(R.string.confirm_tab_title);
+
+        tabLayout.addTab(type, 0);
+        tabLayout.addTab(info, 1);
+        tabLayout.addTab(members, 2);
+        tabLayout.addTab(confirm, 3);
+
+        tabLayout.setTabTextColors(ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        return view;
     }
 }
