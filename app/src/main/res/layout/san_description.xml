@@ -13,28 +13,23 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="3">
+        android:layout_weight="0.7"
+        android:layout_gravity="center">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sanAntDes"
-                android:textAlignment="center"/>
-        </LinearLayout>
-
+            android:text="@string/sanAntDes"
+            android:textAlignment="center"/>
+    </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0">
+            android:layout_weight="1">
 
             <EditText
                 android:layout_width="match_parent"
@@ -49,21 +44,30 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/san_CardNum"/>
         </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/san_Period"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/period_Array" />
-
+                android:entries="@array/period_Array"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_Period"/>
+        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -99,4 +103,5 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+
 
