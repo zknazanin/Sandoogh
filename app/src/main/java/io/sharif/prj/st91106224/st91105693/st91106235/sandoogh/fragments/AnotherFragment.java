@@ -59,35 +59,6 @@ public class AnotherFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.another_fragment, container, false);
 
-
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
-
-
-        final TabLayout.Tab type = tabLayout.newTab();
-        final TabLayout.Tab info = tabLayout.newTab();
-        final TabLayout.Tab members = tabLayout.newTab();
-        final TabLayout.Tab confirm = tabLayout.newTab();
-
-        type.setText(R.string.type_tab_title);
-        info.setText(R.string.info_tab_title);
-        members.setText(R.string.members_tab_title);
-        confirm.setText(R.string.confirm_tab_title);
-
-        tabLayout.addTab(type, 0);
-        tabLayout.addTab(info, 1);
-        tabLayout.addTab(members, 2);
-        tabLayout.addTab(confirm, 3);
-
-        tabLayout.setTabTextColors(ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
-        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
         return view;
     }
 }

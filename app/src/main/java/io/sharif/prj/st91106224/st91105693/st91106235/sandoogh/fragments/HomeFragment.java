@@ -3,7 +3,9 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -25,12 +27,12 @@ public class HomeFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
-        String[] Values = {"sandoogh 1","sandoogh 2", "sandoogh 3"};
-        SandooghArrayAdapter adapter = new SandooghArrayAdapter(getActivity(),Values);
-        ListView lv = (ListView)view.findViewById(R.id.list);
+        String[] Values = {"sandoogh 1", "sandoogh 2", "sandoogh 3"};
+        SandooghArrayAdapter adapter = new SandooghArrayAdapter(getActivity(), Values);
+        ListView lv = (ListView) view.findViewById(R.id.list);
         lv.setAdapter(adapter);
 
         // Setup Toolbar
@@ -40,6 +42,19 @@ public class HomeFragment extends Fragment {
         // Get current user from Firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateSandooghFragment createSandooghFragment = new CreateSandooghFragment();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(container.getId(), createSandooghFragment)
+                        .commit();
+            }
+        });
 
         return view;
     }
