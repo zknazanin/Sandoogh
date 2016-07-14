@@ -5,6 +5,7 @@
     <string-array name="drawer_items_array">
         <item>صندوق</item>
         <item>مشخصات من</item>
+        <item>راهنما</item>
     </string-array>
 
     <string name="title_activity_login">ورود</string>
@@ -23,5 +24,8 @@
     <string name="action_logout">Logout</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
-
+    <string name="sanType_des">برای ایجاد صندوق جدید نوع صندوق خود را انتخاب کنید.</string>
+    <string name="sanType_A">صندوق قرض الحسنه</string>
+    <string name="sanType_B">صندوق تصادفی</string>
+    <string name="sanAntDes">مشخصات صندوق خود را وارد کنید:</string>
 </resources>
