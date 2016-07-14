@@ -1,10 +1,8 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments.SandooghTypeFragment;
 
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -29,5 +27,4 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 4;
     }
-
 }

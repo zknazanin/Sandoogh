@@ -1,4 +1,4 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home;
 
 
 import android.content.Context;
@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh.CreateSandooghFragment;
 
 
 public class HomeFragment extends Fragment {

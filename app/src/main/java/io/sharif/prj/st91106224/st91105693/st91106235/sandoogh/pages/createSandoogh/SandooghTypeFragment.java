@@ -1,4 +1,4 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

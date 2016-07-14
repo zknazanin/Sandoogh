@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".pages.home.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -31,11 +31,11 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".pages.signUpAndLogin.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.SignUpActivity"
+            android:name=".pages.signUpAndLogin.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

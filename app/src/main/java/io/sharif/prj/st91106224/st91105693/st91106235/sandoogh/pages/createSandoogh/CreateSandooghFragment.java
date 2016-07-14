@@ -1,16 +1,16 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh.CustomViewPager;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.ViewPagerAdapter;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh.ViewPagerAdapter;
 
 public class CreateSandooghFragment extends Fragment {
     @Override
@@ -26,7 +26,7 @@ public class CreateSandooghFragment extends Fragment {
     private void createTabs(View view) {
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.viewpager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
