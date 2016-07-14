@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments.AnotherFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments.HomeFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.fragments.Invite;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -83,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
 
             case 1:
                 fragment = new AnotherFragment();
+                break;
+            case 2:
+                fragment = new Invite();
                 break;
 
             default:

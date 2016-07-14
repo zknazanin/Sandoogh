@@ -44,4 +44,5 @@
     <string name="members_tab_title">اعضا</string>
     <string name="confirm_tab_title">تایید</string>
     <string name="title_activity_create_sandoogh">CreateSandooghActivity</string>
+    <string name="san_invite">برای اضافه کردن افراد به صندوق خود، نام کاربری آنها را وارد کنید:</string>
 </resources>
