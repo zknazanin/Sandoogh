@@ -15,7 +15,7 @@
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:background="@color/colorPrimary"
         android:choiceMode="singleChoice"
         android:divider="@color/colorAccent"
