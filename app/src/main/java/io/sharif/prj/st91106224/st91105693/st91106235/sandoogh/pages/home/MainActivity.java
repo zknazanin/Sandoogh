@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
             setDrawer();
 
+
             firebaseAuth = FirebaseAuth.getInstance();
             user = firebaseAuth.getCurrentUser();
 

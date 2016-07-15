@@ -11,20 +11,19 @@ public class CustomViewPager extends ViewPager {
 
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.enabled = true;
+//        this.enabled = true;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return this.enabled && detectSwipeToRight(event) && super.onTouchEvent(event);
-
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent event) {
-        return this.enabled && detectSwipeToRight(event) && super.onInterceptTouchEvent(event);
-
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        return this.enabled && detectSwipeToRight(event) && super.onTouchEvent(event);
+//
+//    }
+//
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent event) {
+//        return this.enabled && detectSwipeToRight(event) && super.onInterceptTouchEvent(event);
+//    }
 
     public boolean detectSwipeToRight(MotionEvent event) {
 

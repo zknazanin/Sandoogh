@@ -17,6 +17,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return new SandooghTypeFragment();
+            case 1:
+                return new SandooghDescriptionFragment();
             default:
                 return new TabFragment();
         }
