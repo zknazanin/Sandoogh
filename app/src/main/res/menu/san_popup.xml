@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/san_edit"
+        android:title="@string/san_account_edit" />
+
+    <item
+        android:id="@+id/san_members"
+        android:title="@string/members_tab_title"/>
+    <item
+        android:id="@+id/san_amount"
+        android:title="@string/san_account_amount"/>
+
+</menu>

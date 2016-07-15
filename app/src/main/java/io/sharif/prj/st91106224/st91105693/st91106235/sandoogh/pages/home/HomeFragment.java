@@ -79,6 +79,13 @@ class SandooghArrayAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.button, parent, false);
         Button btn = (Button) rowView.findViewById(R.id.buttonDy);
         btn.setText(values[position]);
+        btn.setOnClickListener(new android.widget.AdapterView.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return rowView;
     }
 }
