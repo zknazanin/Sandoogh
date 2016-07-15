@@ -35,19 +35,24 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/san_name" />
 
         <EditText
+            android:id="@+id/account_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/san_AccNum" />
+            android:hint="@string/san_AccNum"
+            android:inputType="number" />
 
         <EditText
+            android:id="@+id/card_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/san_CardNum" />
+            android:hint="@string/san_CardNum"
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,6 +68,7 @@
             android:gravity="center">
 
             <Spinner
+                android:id="@+id/period_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/period_Array" />

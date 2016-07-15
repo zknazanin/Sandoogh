@@ -12,7 +12,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
 public class SandooghConfirmFragment extends Fragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.san_confirm, container, false);
@@ -20,9 +20,12 @@ public class SandooghConfirmFragment extends Fragment {
 
         Button sandooghType1Button = (Button) view.findViewById(R.id.sandoogh_confirm_button);
 
+        final ViewPager viewPager = (ViewPager) container.findViewById(R.id.viewpager);
+
         sandooghType1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((ViewPagerAdapter) viewPager.getAdapter()).createSandoogh();
             }
         });
 

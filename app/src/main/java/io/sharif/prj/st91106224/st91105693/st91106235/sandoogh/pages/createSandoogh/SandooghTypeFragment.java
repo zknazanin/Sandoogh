@@ -13,6 +13,13 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
 
 public class SandooghTypeFragment extends Fragment {
+
+    public String getSandooghType() {
+        return sandooghType;
+    }
+
+    String sandooghType;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,6 +36,7 @@ public class SandooghTypeFragment extends Fragment {
         sandooghType1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sandooghType = "A";
                 viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
             }
         });
@@ -36,6 +44,7 @@ public class SandooghTypeFragment extends Fragment {
         sandooghType2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sandooghType = "B";
                 viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
             }
         });

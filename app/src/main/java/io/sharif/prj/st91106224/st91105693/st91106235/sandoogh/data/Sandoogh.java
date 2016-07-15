@@ -6,22 +6,13 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 
 
 public class Sandoogh {
-    private int accountNum, cardNum, membersNum;
+    private String accountNum;
+    private String cardNum;
     private String period, name, type; //type A or B. Type B has not total --> set total = 0
     private int periodPay, total;
     private Date startDate;
     private User[] members;
-    private User admin;
-
-    public Sandoogh(int accountNum, int cardNum, String period, String name, String type, int periodPay, User admin) {
-        this.accountNum = accountNum;
-        this.cardNum = cardNum;
-        this.period = period;
-        this.name = name;
-        this.type = type;
-        this.periodPay = periodPay;
-        this.admin = admin;
-    }
+    private String adminUid;
 
     public Sandoogh(String type) {
         this.type = type;
@@ -29,29 +20,26 @@ public class Sandoogh {
             total = 0;
     }
 
-    public int getAccountNum() {
+    public Sandoogh() {
+
+    }
+
+    public String getAccountNum() {
         return accountNum;
     }
 
-    public void setAccountNum(int accountNum) {
+    public void setAccountNum(String accountNum) {
         this.accountNum = accountNum;
     }
 
-    public int getCardNum() {
+    public String getCardNum() {
         return cardNum;
     }
 
-    public void setCardNum(int cardNum) {
+    public void setCardNum(String cardNum) {
         this.cardNum = cardNum;
     }
 
-    public int getMembersNum() {
-        return membersNum;
-    }
-
-    public void setMembersNum(int membersNum) {
-        this.membersNum = membersNum;
-    }
 
     public String getPeriod() {
         return period;
@@ -109,11 +97,11 @@ public class Sandoogh {
         this.members = members;
     }
 
-    public User getAdmin() {
-        return admin;
+    public String getAdminUid() {
+        return adminUid;
     }
 
-    public void setAdmin(User admin) {
-        this.admin = admin;
+    public void setAdminUid(String adminUid) {
+        this.adminUid = adminUid;
     }
 }
