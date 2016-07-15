@@ -19,6 +19,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new SandooghTypeFragment();
             case 1:
                 return new SandooghDescriptionFragment();
+            case 2:
+                return new SandooghInviteFragment();
             default:
                 return new TabFragment();
         }

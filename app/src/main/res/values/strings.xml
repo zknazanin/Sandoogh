@@ -39,6 +39,7 @@
     <string name="san_CardNum">شماره کارت</string>
     <string name="san_Period">مدت دوره</string>
     <string name="san_des_confirm">تایید مشخصات</string>
+    <string name="san_invite_confirm">تایید اعضا</string>
 
     <string name="type_tab_title">نوع صندوق</string>
     <string name="info_tab_title">مشخصات</string>
