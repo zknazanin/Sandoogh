@@ -4,24 +4,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="@color/colorPrimary"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
-
-    <!--</android.support.design.widget.AppBarLayout>-->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         android:layout_weight="0.3"
         android:background="@color/colorPrimary">
 
@@ -44,7 +31,7 @@
                 android:id="@+id/popup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/ic_add_circle_black_24dp"/>
+                android:background="@mipmap/ic_more_vert_black_24dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -52,50 +39,123 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1">
-        <TextView
-            android:id="@+id/san_AccNum"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/san_AccNum"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/san_CardNum"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/san_AccNum_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
+
+            <TextView
+                android:id="@+id/san_AccNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_AccNum"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/san_CardNum"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/member_num"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/san_CardNum_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
+            <TextView
+                android:id="@+id/san_CardNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_CardNum" />
+        </LinearLayout>
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center">
+           <EditText
+               android:id="@+id/member_num_edit"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:editable="false"/>
+           <TextView
+               android:id="@+id/member_num"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/member_num" />
+       </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/member_num"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/san_Period"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/san_Period_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
+            <TextView
+                android:id="@+id/san_Period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_Period" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/san_Period"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/san_amount"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/san_amount_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
+            <TextView
+                android:id="@+id/san_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_amount" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/san_amount"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/san_total"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/san_total_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
+            <TextView
+                android:id="@+id/san_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_total" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/san_total"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/start_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/start_date"
-            android:gravity="center"/>
+            android:gravity="center">
+            <EditText
+                android:id="@+id/start_date_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false" />
+            <TextView
+                android:id="@+id/start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_date" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
