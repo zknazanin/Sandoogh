@@ -1,4 +1,4 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandoogh_account;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +25,7 @@ public class SandooghAccountFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = (ViewGroup) inflater.inflate(R.layout.san_account, container, false);
+        view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
 //        setHasOptionsMenu(true);
 //        getOverflowMenu();
 //        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -40,9 +40,9 @@ public class SandooghAccountFragment extends Fragment {
                         .inflate(R.menu.san_popup, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getTitle().equals(getString(R.string.san_account_edit))){
+                        if (item.getTitle().equals(getString(R.string.san_account_edit))) {
 
-                        }else if (item.getTitle().equals(getString(R.string.san_account_amount))){
+                        } else if (item.getTitle().equals(getString(R.string.san_account_amount))) {
 
                         } else {
                             // show member
@@ -56,12 +56,13 @@ public class SandooghAccountFragment extends Fragment {
         });
         return view;
     }
+
     private void getOverflowMenu() {
 
         try {
             ViewConfiguration config = ViewConfiguration.get(getContext());
             Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-            if(menuKeyField != null) {
+            if (menuKeyField != null) {
                 menuKeyField.setAccessible(true);
                 menuKeyField.setBoolean(config, false);
             }
@@ -69,6 +70,7 @@ public class SandooghAccountFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
