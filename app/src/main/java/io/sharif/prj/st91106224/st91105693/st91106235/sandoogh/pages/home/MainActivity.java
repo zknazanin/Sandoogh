@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandoogh_account.san_account;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.SandooghAccountFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
             case 2:
-                fragment = new san_account();
+                fragment = new SandooghAccountFragment();
                 break;
             default:
                 fragment = new HomeFragment();

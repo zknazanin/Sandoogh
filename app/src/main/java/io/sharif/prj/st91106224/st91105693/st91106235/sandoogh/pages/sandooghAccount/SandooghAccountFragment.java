@@ -17,17 +17,15 @@ import java.lang.reflect.Field;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
-/**
- * Created by foroughM on 7/15/2016.
- */
-public class san_account extends Fragment {
+
+public class SandooghAccountFragment extends Fragment {
     ImageView menu;
     ViewGroup view;
     Toolbar toolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
+        view = (ViewGroup) inflater.inflate(R.layout.san_account, container, false);
 //        setHasOptionsMenu(true);
 //        getOverflowMenu();
 //        toolbar = (Toolbar) view.findViewById(R.id.toolbar);

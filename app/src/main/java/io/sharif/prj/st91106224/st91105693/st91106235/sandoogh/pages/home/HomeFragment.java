@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +18,33 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh.CreateSandooghFragment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 
 public class HomeFragment extends Fragment {
 
-    FirebaseUser user;
+    private ViewGroup view;
+    private FirebaseUser user;
+    private Sandoogh[] sandooghObjects;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
-        String[] Values = {"sandoogh 1", "sandoogh 2", "sandoogh 3"};
-        SandooghArrayAdapter adapter = new SandooghArrayAdapter(getActivity(), Values);
-        ListView lv = (ListView) view.findViewById(R.id.list);
-        lv.setAdapter(adapter);
+        view = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
+
+        getUserSandooghs();
 
         // Setup Toolbar
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
@@ -57,8 +67,51 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         return view;
     }
+
+
+    private void getUserSandooghs() {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("sandooghs").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        Log.wtf("Home Fragment", "On Data Change");
+
+//                        Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
+//                        Log.wtf("test", sandoogh.getName() + " " + sandoogh.getAccountNum() + " " + sandoogh.getAdminUid());
+                        List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                        DataSnapshot[] sandooghsDataSnapshots = (DataSnapshot[]) list.toArray();
+                        sandooghObjects = new Sandoogh[list.size()];
+                        for (int i = 0; i < sandooghsDataSnapshots.length; i++) {
+                            sandooghObjects[i] = sandooghsDataSnapshots[i].getValue(Sandoogh.class);
+                        }
+
+                        final String[] values = new String[sandooghObjects.length];
+
+                        for (int i = 0; i < sandooghObjects.length; i++) {
+                            values[i] = sandooghObjects[i].getName();
+                        }
+
+
+                        SandooghArrayAdapter adapter = new SandooghArrayAdapter(getActivity(), values);
+                        ListView lv = (ListView) view.findViewById(R.id.list);
+                        lv.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.wtf("Home Fragment", "Get user sandooghs failed.");
+                    }
+                });
+    }
+
 }
 
 class SandooghArrayAdapter extends ArrayAdapter<String> {
