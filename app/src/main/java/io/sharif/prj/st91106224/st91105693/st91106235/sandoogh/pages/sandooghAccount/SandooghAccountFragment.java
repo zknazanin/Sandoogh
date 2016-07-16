@@ -25,12 +25,14 @@ public class SandooghAccountFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
-//        setHasOptionsMenu(true);
-//        getOverflowMenu();
-//        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        toolbar.showOverflowMenu();
-//        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        createMenu();
+        return view;
+    }
+
+    private void createMenu() {
         menu = (ImageView) view.findViewById(R.id.popup);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,27 +56,5 @@ public class SandooghAccountFragment extends Fragment {
                 popup.show();
             }
         });
-        return view;
-    }
-
-    private void getOverflowMenu() {
-
-        try {
-            ViewConfiguration config = ViewConfiguration.get(getContext());
-            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-            if (menuKeyField != null) {
-                menuKeyField.setAccessible(true);
-                menuKeyField.setBoolean(config, false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Add your menu entries here
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.add("add");
     }
 }

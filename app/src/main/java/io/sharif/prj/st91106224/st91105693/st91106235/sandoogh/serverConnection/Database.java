@@ -19,10 +19,8 @@ public class Database {
     }
 
     public void saveSandoogh(Sandoogh sandoogh) {
-
         DatabaseReference databaseReference = firebaseDatabase.getReference(SANDOOGH_ARRAY);
         DatabaseReference sandooghReference = databaseReference.child(sandoogh.getName());
         sandooghReference.setValue(sandoogh);
-
     }
 }

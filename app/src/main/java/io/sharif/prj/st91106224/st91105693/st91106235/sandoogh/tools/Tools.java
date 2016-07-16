@@ -8,7 +8,7 @@ import java.util.List;
 public class Tools {
 
     public static <T> List<T> iteratorToList(Iterator<T> iterator) {
-        List<T> copy = new ArrayList<T>();
+        List<T> copy = new ArrayList<>();
         while (iterator.hasNext())
             copy.add(iterator.next());
         return copy;
