@@ -27,7 +27,7 @@ public class san_account extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = (ViewGroup) inflater.inflate(R.layout.san_account, container, false);
+        view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
 //        setHasOptionsMenu(true);
 //        getOverflowMenu();
 //        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
