@@ -56,7 +56,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         sandoogh.setAdminUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
         sandoogh.setTotal(0);
-        sandoogh.setPeriodPay(200);
+        sandoogh.setPeriodPay(sandooghDescriptionFragment.getPeriodPay());
         sandoogh.setStartDate(new Date());
 
         // Sandoogh type fragment

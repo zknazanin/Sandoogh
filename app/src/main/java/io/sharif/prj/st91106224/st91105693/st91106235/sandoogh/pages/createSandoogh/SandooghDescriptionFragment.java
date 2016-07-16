@@ -51,6 +51,10 @@ public class SandooghDescriptionFragment extends Fragment {
         return spinner.getSelectedItem().toString();
     }
 
+    public int getPeriodPay() {
+        return Integer.parseInt(((EditText) view.findViewById(R.id.san_amount)).getText().toString());
+    }
+
     public String getName() {
         return ((EditText) view.findViewById(R.id.name)).getText().toString();
     }

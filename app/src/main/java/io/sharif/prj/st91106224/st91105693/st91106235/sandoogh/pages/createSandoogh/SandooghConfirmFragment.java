@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
@@ -26,9 +27,10 @@ public class SandooghConfirmFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((ViewPagerAdapter) viewPager.getAdapter()).createSandoogh();
+                Toast.makeText(getActivity(), "صندوق با موفقیت ایجاد شد",
+                        Toast.LENGTH_LONG).show();
             }
         });
-
         return view;
     }
 }
