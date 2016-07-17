@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
@@ -37,15 +38,13 @@ public class HomeFragment extends Fragment {
 
     private ViewGroup view;
     private FirebaseUser user;
-    private Sandoogh[] sandooghObjects;
+    private ArrayList<Sandoogh> sandooghObjects;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
-
-        getUserSandooghs(container);
 
         // Setup Toolbar
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
@@ -54,6 +53,8 @@ public class HomeFragment extends Fragment {
         // Get current user from Firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+
+        getUserSandooghs(container, getActivity().getSupportFragmentManager());
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void getUserSandooghs(final ViewGroup container) {
+    private void getUserSandooghs(final ViewGroup container, final FragmentManager fragmentManager) {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -85,20 +86,26 @@ public class HomeFragment extends Fragment {
 
                         List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
                         DataSnapshot[] sandooghsDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
-                        sandooghObjects = new Sandoogh[list.size()];
-                        for (int i = 0; i < sandooghsDataSnapshots.length; i++) {
-                            sandooghObjects[i] = sandooghsDataSnapshots[i].getValue(Sandoogh.class);
+
+                        sandooghObjects = new ArrayList<>();
+                        for (DataSnapshot sandooghsDataSnapshot : sandooghsDataSnapshots) {
+                            Sandoogh temp = sandooghsDataSnapshot.getValue(Sandoogh.class);
+                            if (temp.getMemberIds() != null) {
+                                if (temp.getMemberIds().contains(user.getUid())) {
+                                    sandooghObjects.add(temp);
+                                }
+                            }
                         }
 
-                        final String[] values = new String[sandooghObjects.length];
+                        final String[] values = new String[sandooghObjects.size()];
 
-                        for (int i = 0; i < sandooghObjects.length; i++) {
-                            values[i] = sandooghObjects[i].getName();
+                        for (int i = 0; i < sandooghObjects.size(); i++) {
+                            values[i] = sandooghObjects.get(i).getName();
                         }
 
 
                         SandooghArrayAdapter adapter = new SandooghArrayAdapter(getActivity(),
-                                values, container, getActivity().getSupportFragmentManager(), sandooghObjects);
+                                values, container, fragmentManager, sandooghObjects);
                         ListView lv = (ListView) view.findViewById(R.id.list);
                         lv.setAdapter(adapter);
                     }
@@ -117,9 +124,9 @@ class SandooghArrayAdapter extends ArrayAdapter<String> {
     private final String[] values;
     private final ViewGroup container;
     private final FragmentManager fragmentManager;
-    private final Sandoogh[] sandooghObjects;
+    private final ArrayList<Sandoogh> sandooghObjects;
 
-    public SandooghArrayAdapter(Context context, String[] values, ViewGroup container, FragmentManager fragmentManager1, Sandoogh[] sandooghObjects) {
+    public SandooghArrayAdapter(Context context, String[] values, ViewGroup container, FragmentManager fragmentManager1, ArrayList<Sandoogh> sandooghObjects) {
         super(context, R.layout.button, values);
         this.context = context;
         this.values = values;
@@ -144,7 +151,7 @@ class SandooghArrayAdapter extends ArrayAdapter<String> {
 
                 Bundle bundle = new Bundle();
 
-                Sandoogh selectedSandoogh = sandooghObjects[position];
+                Sandoogh selectedSandoogh = sandooghObjects.get(position);
                 bundle.putSerializable("SELECTED_SANDOOGH", selectedSandoogh);
 
                 sandooghAccountFragment.setArguments(bundle);
