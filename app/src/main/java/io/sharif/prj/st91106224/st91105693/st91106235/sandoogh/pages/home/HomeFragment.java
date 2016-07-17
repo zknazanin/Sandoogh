@@ -83,12 +83,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        Log.wtf("Home Fragment", "On Data Change");
-
-//                        Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
-//                        Log.wtf("test", sandoogh.getName() + " " + sandoogh.getAccountNum() + " " + sandoogh.getAdminUid());
                         List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
-                        DataSnapshot[] sandooghsDataSnapshots = (DataSnapshot[]) list.toArray();
+                        DataSnapshot[] sandooghsDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
                         sandooghObjects = new Sandoogh[list.size()];
                         for (int i = 0; i < sandooghsDataSnapshots.length; i++) {
                             sandooghObjects[i] = sandooghsDataSnapshots[i].getValue(Sandoogh.class);
