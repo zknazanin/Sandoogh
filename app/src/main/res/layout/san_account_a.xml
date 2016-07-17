@@ -1,161 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/toolbar" />
 
-    <!--<LinearLayout-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="0.5"-->
-        <!--android:background="@color/colorPrimary">-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="2"-->
-            <!--android:gravity="center">-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/app_name"-->
-            <!--android:textSize="20dp"-->
-            <!--android:textStyle="bold"/>-->
-        <!--</LinearLayout>-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="bottom|right">-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/popup"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@mipmap/ic_more_vert_black_24dp"/>-->
-        <!--</LinearLayout>-->
-    <!--</LinearLayout>-->
-
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/san_AccNum_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"/>
+                android:editable="false" />
 
             <TextView
                 android:id="@+id/san_AccNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/san_AccNum"/>
+                android:text="@string/san_AccNum" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/san_CardNum_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"/>
+                android:editable="false" />
+
             <TextView
                 android:id="@+id/san_CardNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/san_CardNum" />
         </LinearLayout>
-       <LinearLayout
-           android:orientation="horizontal"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:gravity="center">
-           <EditText
-               android:id="@+id/member_num_edit"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:editable="false"/>
-           <TextView
-               android:id="@+id/member_num"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="@string/member_num" />
-       </LinearLayout>
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/member_num_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false" />
+
+            <TextView
+                android:id="@+id/member_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/member_num" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/san_Period_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"/>
+                android:editable="false" />
+
             <TextView
                 android:id="@+id/san_Period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/san_Period" />
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/san_amount_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"/>
+                android:editable="false" />
+
             <TextView
                 android:id="@+id/san_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/san_amount" />
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/san_total_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"/>
+                android:editable="false" />
+
             <TextView
                 android:id="@+id/san_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/san_total" />
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/start_date_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:editable="false" />
+
             <TextView
                 android:id="@+id/start_date"
                 android:layout_width="wrap_content"
@@ -165,30 +152,33 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/moneyReq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/moneyReq"/>
+            android:text="@string/moneyReq" />
+
         <Button
             android:id="@+id/period_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/period_payment"/>
+            android:text="@string/period_payment" />
+
         <Button
             android:id="@+id/back_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/back_payment"/>
+            android:text="@string/back_payment" />
+
         <Button
             android:id="@+id/report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/report"/>
+            android:text="@string/report" />
     </LinearLayout>
 </LinearLayout>

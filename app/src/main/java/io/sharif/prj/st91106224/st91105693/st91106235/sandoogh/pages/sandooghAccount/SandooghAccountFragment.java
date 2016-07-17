@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.lang.reflect.Field;
@@ -32,16 +33,16 @@ public class SandooghAccountFragment extends Fragment {
         Bundle bundle = getArguments();
         Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SELECTED_SANDOOGH");
 
-        if (sandoogh.getType().equals("A")) {
-            view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
-        } else {
-            view = (ViewGroup) inflater.inflate(R.layout.san_account_b, container, false);
-        }
+        view = (ViewGroup) inflater.inflate(R.layout.sandoogh_account, container, false);
+
+//        if (sandoogh.getType().equals("A")) {
+//            view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
+//        } else {
+//            view = (ViewGroup) inflater.inflate(R.layout.san_account_b, container, false);
+//        }
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-        createMenu();
 
         temp = (EditText) view.findViewById(R.id.san_AccNum_edit);
         temp.setText(sandoogh.getAccountNum());
@@ -59,32 +60,31 @@ public class SandooghAccountFragment extends Fragment {
             temp = (EditText) view.findViewById(R.id.san_total_edit);
             temp.setText(String.valueOf(sandoogh.getTotal()));
         }
+
+        setExpandButtonsFunction(R.id.sandoogh_description_expand_button, R.id.sandoogh_description_layout);
+        setExpandButtonsFunction(R.id.sandoogh_payments_expand_button, R.id.sandoogh_payments_layout);
+
         return view;
     }
 
-    private void createMenu() {
-//        menu = (ImageView) view.findViewById(R.id.popup);
-//        menu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                PopupMenu popup = new PopupMenu(getContext(), menu);
-//                popup.getMenuInflater()
-//                        .inflate(R.menu.san_popup, popup.getMenu());
-//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        if (item.getTitle().equals(getString(R.string.san_account_edit))) {
-//
-//                        } else if (item.getTitle().equals(getString(R.string.san_account_amount))) {
-//
-//                        } else {
-//                            // show member
-//                        }
-//                        return true;
-//                    }
-//                });
-//
-//                popup.show();
-//            }
-//        });
+    private void setExpandButtonsFunction(int imageButtonId, final int layoutBelowId) {
+
+        view.findViewById(imageButtonId).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                View layoutBelow = view.findViewById(layoutBelowId);
+
+                if (layoutBelow.getVisibility() == View.VISIBLE) {
+                    layoutBelow.setVisibility(View.GONE);
+                    ((ImageButton) v).setImageResource(R.drawable.ic_expand_more_white_24dp);
+                } else {
+                    layoutBelow.setVisibility(View.VISIBLE);
+                    ((ImageButton) v).setImageResource(R.drawable.ic_expand_less_white_24dp);
+                }
+            }
+        });
+
     }
+
 }
