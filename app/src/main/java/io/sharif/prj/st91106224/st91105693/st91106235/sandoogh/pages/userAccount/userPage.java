@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,11 +54,7 @@ public class userPage extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("R", "requestCode" + requestCode);
-        Log.e("R", "data"+data);
-        Log.e("R", "getdata" + data.getData());
         if (requestCode == SELECT_FILE && data != null && data.getData() != null) {
-            Log.e("R", "hooooooooooooraaaaaaaaaa");
             Uri uri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
