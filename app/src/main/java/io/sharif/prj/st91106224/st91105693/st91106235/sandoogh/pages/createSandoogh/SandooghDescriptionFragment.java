@@ -4,6 +4,8 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSand
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,6 @@ public class SandooghDescriptionFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.san_description, container, false);
-
 
         Button sandooghDescriptionConfirmButton = (Button) view.findViewById(R.id.sandoogh_description_confirm_button);
         final ViewPager viewPager = (ViewPager) container.findViewById(R.id.viewpager);

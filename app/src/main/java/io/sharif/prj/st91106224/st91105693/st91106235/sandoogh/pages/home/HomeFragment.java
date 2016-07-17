@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
         // Setup Toolbar
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
 
         // Get current user from Firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -68,7 +70,6 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-
 
         return view;
     }
@@ -116,6 +117,13 @@ public class HomeFragment extends Fragment {
                     }
                 });
     }
+
+
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.toolbar_menu, menu);
+//        super.onCreateOptionsMenu(menu,inflater);
+//    }
 
 }
 

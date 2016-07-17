@@ -13,7 +13,6 @@ public class Sandoogh implements Serializable {
     private String period, name, type; //type A or B. Type B has not total --> set total = 0
     private int periodPay, total;
     private Date startDate;
-    private User[] members;
     private ArrayList<String> memberIds;
     private String adminUid;
 
@@ -100,14 +99,6 @@ public class Sandoogh implements Serializable {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
-    }
-
-    public User[] getMembers() {
-        return members;
-    }
-
-    public void setMembers(User[] members) {
-        this.members = members;
     }
 
     public String getAdminUid() {
