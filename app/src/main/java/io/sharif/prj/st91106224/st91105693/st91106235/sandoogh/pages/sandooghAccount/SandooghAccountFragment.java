@@ -16,17 +16,26 @@ import android.widget.ImageView;
 import java.lang.reflect.Field;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 
 
 public class SandooghAccountFragment extends Fragment {
     ImageView menu;
     ViewGroup view;
-    Toolbar toolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
+        Bundle bundle = getArguments();
+        Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SELECTED_SANDOOGH");
+
+        if (sandoogh.getType().equals("A")) {
+            view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
+        } else {
+            view = (ViewGroup) inflater.inflate(R.layout.san_account_b, container, false);
+
+        }
+
 
         createMenu();
         return view;

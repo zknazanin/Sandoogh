@@ -1,11 +1,12 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 
 
-public class Sandoogh {
+public class Sandoogh implements Serializable {
     private String accountNum;
     private String cardNum;
     private String period, name, type; //type A or B. Type B has not total --> set total = 0
