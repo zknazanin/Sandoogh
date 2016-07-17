@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home.MainActivity;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -114,7 +115,8 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            new User(mAuth.getCurrentUser().getUid(),"",0);
+                            User user = new User(mAuth.getCurrentUser().getUid(),"",0);
+                            Database.getInstance().saveUser(user);
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivity(intent);
                         }

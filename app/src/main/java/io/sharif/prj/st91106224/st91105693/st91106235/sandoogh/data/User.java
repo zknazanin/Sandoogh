@@ -15,6 +15,10 @@ public class User {
         this.image = i;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getUsername() {
         return username;
     }

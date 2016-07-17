@@ -7,43 +7,11 @@
         android:id="@+id/tool_bar"
         layout="@layout/toolbar" />
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="80dp"
         android:layout_weight="1">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <EditText
-                android:id="@+id/email_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:editable="false"/>
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/email_hint"/>
-
-        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -53,7 +21,8 @@
                 android:id="@+id/password_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"/>
+                android:hint="********"
+                android:editable="true"/>
             <TextView
                 android:id="@+id/password"
                 android:layout_width="wrap_content"
@@ -69,12 +38,40 @@
                 android:id="@+id/username_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:editable="false"/>
+                android:editable="true"/>
             <TextView
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/username" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/image_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/SelecIimage" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_confirm"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
