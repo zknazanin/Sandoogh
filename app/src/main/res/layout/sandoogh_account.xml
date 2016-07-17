@@ -19,7 +19,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_corner_shape"
+            android:background="@drawable/rounded_corner_shape_accent_color"
             android:padding="10dp">
 
             <TextView
@@ -40,13 +40,17 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:padding="10dp"
+            android:layout_margin="10dp"
             android:id="@+id/sandoogh_description_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:background="@drawable/rounded_corner_shape_background_color">
+            <!--android:visibility="gone"-->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,7 +193,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_corner_shape"
+            android:background="@drawable/rounded_corner_shape_accent_color"
             android:padding="10dp">
 
             <TextView
