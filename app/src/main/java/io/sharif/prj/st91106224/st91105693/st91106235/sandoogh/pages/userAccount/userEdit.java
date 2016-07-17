@@ -37,7 +37,7 @@ public class userEdit extends Fragment {
     ViewGroup view;
     Button selectImage;
     int SELECT_FILE = 100;
-    ImageView imageView, temp;
+    ImageView imageView;
     private FirebaseAuth mAuth;
     EditText username;
     private DatabaseReference mDatabase;

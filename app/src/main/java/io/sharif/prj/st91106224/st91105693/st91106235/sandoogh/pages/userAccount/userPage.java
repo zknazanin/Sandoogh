@@ -63,10 +63,12 @@ public class userPage extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 String base64Image = (String) snapshot.getValue();
-                byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
-                imageView.setImageBitmap(
-                        BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
-                );
+                if (!base64Image.equals("0")) {
+                    byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
+                    imageView.setImageBitmap(
+                            BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
+                    );
+                }
             }
 
             @Override
