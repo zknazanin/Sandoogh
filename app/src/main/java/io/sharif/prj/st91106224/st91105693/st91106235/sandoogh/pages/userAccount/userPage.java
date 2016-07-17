@@ -36,7 +36,7 @@ public class userPage extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = (ViewGroup) inflater.inflate(R.layout.user_editaccount, container, false);
+        view = (ViewGroup) inflater.inflate(R.layout.user_account, container, false);
         mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
