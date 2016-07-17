@@ -59,4 +59,7 @@
     <string name="period_payment">پرداخت پول دوره ای</string>
     <string name="back_payment">پرداخت قسط</string>
     <string name="report">گزارش</string>
+    <string name="send">ارسال</string>
+    <string name="loan_amount">مبلغ وام درخواستی</string>
+    <string name="payment">شماره رسید پرداخت را وارد کنید</string>
 </resources>
