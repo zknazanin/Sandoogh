@@ -1,6 +1,7 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
@@ -13,7 +14,18 @@ public class Sandoogh implements Serializable {
     private int periodPay, total;
     private Date startDate;
     private User[] members;
+    private ArrayList<String> memberIds;
     private String adminUid;
+
+
+    public ArrayList<String> getMemberIds() {
+        return memberIds;
+    }
+
+    public void setMemberIds(ArrayList<String> memberIds) {
+        this.memberIds = memberIds;
+    }
+
 
     public Sandoogh(String type) {
         this.type = type;

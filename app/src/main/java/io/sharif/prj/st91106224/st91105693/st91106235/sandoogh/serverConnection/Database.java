@@ -12,7 +12,7 @@ public class Database {
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    static final String SANDOOGH_ARRAY = "Sandooghs";
+    static final String SANDOOGH_ARRAY = "sandooghs";
 
     public static Database getInstance() {
         return database;

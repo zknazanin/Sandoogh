@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
@@ -71,6 +72,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         // Sandoogh invite fragment
         // private User[] members;
         // TODO: 7/15/2016
+        ArrayList<String> memberIds = new ArrayList<>();
+        memberIds.add(sandoogh.getAdminUid());
+        sandoogh.setMemberIds(memberIds);
 
         Database.getInstance().saveSandoogh(sandoogh);
 

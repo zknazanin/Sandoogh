@@ -36,7 +36,6 @@ public class SandooghAccountFragment extends Fragment {
 
         }
 
-
         createMenu();
         return view;
     }
