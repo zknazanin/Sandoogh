@@ -63,6 +63,7 @@ public class SandooghAccountFragment extends Fragment {
 
         setExpandButtonsFunction(R.id.sandoogh_description_expand_button, R.id.sandoogh_description_layout);
         setExpandButtonsFunction(R.id.sandoogh_payments_expand_button, R.id.sandoogh_payments_layout);
+        setExpandButtonsFunction(R.id.sandoogh_loan_expand_button, R.id.sandoogh_loan_layout);
 
         return view;
     }

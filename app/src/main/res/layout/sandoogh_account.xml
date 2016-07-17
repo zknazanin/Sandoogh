@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -40,151 +41,143 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:padding="10dp"
-            android:layout_margin="10dp"
             android:id="@+id/sandoogh_description_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
+            android:background="@drawable/rounded_corner_shape_background_color"
             android:orientation="vertical"
-            android:background="@drawable/rounded_corner_shape_background_color">
-            <!--android:visibility="gone"-->
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/san_AccNum_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:editable="false" />
-
-                <TextView
-                    android:id="@+id/san_AccNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/san_AccNum" />
-
-            </LinearLayout>
+            android:padding="10dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/san_CardNum_edit"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:editable="false" />
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/san_CardNum"
-                    android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/san_AccNum_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:background="@android:color/transparent"
+                        android:editable="false" />
+
+                    <EditText
+                        android:id="@+id/san_CardNum_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:background="@android:color/transparent"
+                        android:editable="false" />
+
+                    <EditText
+                        android:id="@+id/member_num_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:background="@android:color/transparent"
+                        android:editable="false" />
+
+                    <EditText
+                        android:id="@+id/san_Period_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:background="@android:color/transparent"
+                        android:editable="false" />
+
+                    <EditText
+                        android:id="@+id/san_amount_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:background="@android:color/transparent"
+                        android:editable="false" />
+
+                    <EditText
+                        android:id="@+id/san_total_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:background="@android:color/transparent"
+                        android:editable="false" />
+
+                    <EditText
+                        android:id="@+id/start_date_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:background="@android:color/transparent"
+                        android:editable="false" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/san_CardNum" />
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/san_AccNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:text="@string/san_AccNum" />
+
+                    <TextView
+                        android:id="@+id/san_CardNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:text="@string/san_CardNum" />
+
+                    <TextView
+                        android:id="@+id/member_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:text="@string/member_num" />
+
+                    <TextView
+                        android:id="@+id/san_Period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:text="@string/san_Period" />
+
+                    <TextView
+                        android:id="@+id/san_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:text="@string/san_amount" />
+
+                    <TextView
+                        android:id="@+id/san_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:text="@string/san_total" />
+
+                    <TextView
+                        android:id="@+id/start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:text="@string/start_date" />
+
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <android.support.v7.widget.AppCompatButton
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:backgroundTint="@android:color/white"
+                android:text="@string/sandoogh_account_view_members_list"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
 
-                <EditText
-                    android:id="@+id/member_num_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:editable="false" />
-
-                <TextView
-                    android:id="@+id/member_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/member_num" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/san_Period_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:editable="false" />
-
-                <TextView
-                    android:id="@+id/san_Period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/san_Period" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/san_amount_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:editable="false" />
-
-                <TextView
-                    android:id="@+id/san_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/san_amount" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/san_total_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:editable="false" />
-
-                <TextView
-                    android:id="@+id/san_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/san_total" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/start_date_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:editable="false" />
-
-                <TextView
-                    android:id="@+id/start_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/start_date" />
-            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -217,39 +210,94 @@
             android:id="@+id/sandoogh_payments_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:background="@drawable/rounded_corner_shape_background_color"
+            android:gravity="center"
             android:orientation="vertical"
+            android:padding="@dimen/standard_layout_padding"
             android:visibility="gone">
 
-            <Button
+
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/period_payment"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/period_payment" />
+                android:backgroundTint="@android:color/white"
+                android:text="@string/period_payment"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/payment_report"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/sandoogh_account_payment_report"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_corner_shape_accent_color"
+            android:padding="10dp">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/sandoogh_account_loan"
+                android:textColor="@android:color/white" />
+
+            <ImageButton
+                android:id="@+id/sandoogh_loan_expand_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_expand_more_white_24dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/sandoogh_loan_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:background="@drawable/rounded_corner_shape_background_color"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_layout_padding"
+            android:visibility="gone">
+
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/moneyReq"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/moneyReq" />
+                android:text="@string/moneyReq"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
 
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/back_payment"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/back_payment" />
-
-            <Button
-                android:id="@+id/report"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/report" />
+                android:backgroundTint="@android:color/white"
+                android:text="@string/back_payment"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
