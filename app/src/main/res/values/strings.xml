@@ -62,4 +62,5 @@
     <string name="send">ارسال</string>
     <string name="loan_amount">مبلغ وام درخواستی</string>
     <string name="payment">شماره رسید پرداخت را وارد کنید</string>
+    <string name="action_drawer_title">منو</string>
 </resources>

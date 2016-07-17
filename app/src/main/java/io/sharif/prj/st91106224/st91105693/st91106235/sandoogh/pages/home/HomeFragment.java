@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -49,6 +51,7 @@ public class HomeFragment extends Fragment {
         // Setup Toolbar
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
 
         // Get current user from Firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -116,6 +119,13 @@ public class HomeFragment extends Fragment {
                     }
                 });
     }
+
+
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.toolbar_menu, menu);
+//        super.onCreateOptionsMenu(menu,inflater);
+//    }
 
 }
 
