@@ -45,6 +45,7 @@ public class userPage extends Fragment {
         email = (EditText)view.findViewById(R.id.email_edit);
         pass = (EditText)view.findViewById(R.id.password_edit);
         username = (EditText)view.findViewById(R.id.username_edit);
+        imageView = (ImageView)view.findViewById(R.id.image);
         email.setText(firebaseUser.getEmail());
         pass.setText("********");
         mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {

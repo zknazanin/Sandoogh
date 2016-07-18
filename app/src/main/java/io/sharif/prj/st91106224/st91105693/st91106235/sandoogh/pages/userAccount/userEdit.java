@@ -39,9 +39,11 @@ public class userEdit extends Fragment {
     int SELECT_FILE = 100;
     ImageView imageView;
     private FirebaseAuth mAuth;
-    EditText username;
+    EditText username,pass;
     private DatabaseReference mDatabase;
     FirebaseUser firebaseUser;
+    String base64Image;
+    Button confirm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +53,18 @@ public class userEdit extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseUser = mAuth.getCurrentUser();
+        pass = (EditText) view.findViewById(R.id.password_edit);
         username = (EditText)view.findViewById(R.id.username_edit);
+        confirm = (Button) view.findViewById(R.id.confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatabase.child("Users").child(firebaseUser.getUid()).child("image").setValue(base64Image);
+                if (!pass.getText().toString().equals(""))
+                    firebaseUser.updatePassword(pass.getText().toString());
+                if(!username.getText().toString().equals(""))
+                    mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());            }
+        });
         mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -90,9 +103,7 @@ public class userEdit extends Fragment {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] bytes = baos.toByteArray();
-                    String base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                    mDatabase.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("image").setValue(base64Image);
+                    base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
