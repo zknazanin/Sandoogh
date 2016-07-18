@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -33,15 +34,17 @@ public class userPage extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
     DatabaseReference mDatabase;
+    Button Edit;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.user_account, container, false);
         mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseUser = mAuth.getCurrentUser();
+        Edit = (Button)view.findViewById(R.id.Edit);
         email = (EditText)view.findViewById(R.id.email_edit);
         pass = (EditText)view.findViewById(R.id.password_edit);
         username = (EditText)view.findViewById(R.id.username_edit);
@@ -75,6 +78,15 @@ public class userPage extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("R", "cancel");
+            }
+        });
+        Edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, new userEdit())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
         return view;

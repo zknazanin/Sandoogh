@@ -76,5 +76,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/username" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/Edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/san_account_edit"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

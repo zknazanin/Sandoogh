@@ -59,7 +59,8 @@ public class userEdit extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabase.child("Users").child(firebaseUser.getUid()).child("image").setValue(base64Image);
+                if(base64Image!=null && base64Image!="0")
+                    mDatabase.child("Users").child(firebaseUser.getUid()).child("image").setValue(base64Image);
                 if (!pass.getText().toString().equals(""))
                     firebaseUser.updatePassword(pass.getText().toString());
                 if(!username.getText().toString().equals(""))
