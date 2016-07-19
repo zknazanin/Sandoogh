@@ -1,8 +1,10 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -11,6 +13,7 @@ import java.util.Date;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.SolarCalendar;
 
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -58,7 +61,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         sandoogh.setAdminUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
         sandoogh.setTotal(0);
         sandoogh.setPeriodPay(sandooghDescriptionFragment.getPeriodPay());
-        sandoogh.setStartDate(new Date());
+        sandoogh.setStartDate(new SolarCalendar());
 
         // Sandoogh type fragment
         sandoogh.setType(sandooghTypeFragment.getSandooghType());
@@ -75,6 +78,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         ArrayList<String> memberIds = new ArrayList<>();
         memberIds.add(sandoogh.getAdminUid());
         sandoogh.setMemberIds(memberIds);
+
+        sandoogh.updatePaymentsList(sandoogh.getStartDate());
 
         Database.getInstance().saveSandoogh(sandoogh);
 
