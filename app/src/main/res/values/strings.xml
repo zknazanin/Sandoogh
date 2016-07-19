@@ -5,13 +5,15 @@
     <string-array name="drawer_items_array">
         <item>صندوق</item>
         <item>مشخصات من</item>
+        <item>صندوق</item>
         <item>راهنما</item>
     </string-array>
 
     <string-array name="period_Array">
-        <item>ماهیانه</item>
-        <item>هفتگی</item>
-        <item>روزانه</item>
+        <item>شش ماه</item>
+        <item>سه ماه</item>
+        <item>یک ماه</item>
+        <item>یک هفته</item>
     </string-array>
 
     <string name="title_activity_login">ورود</string>
@@ -71,5 +73,10 @@
     <string name="sandoogh_account_loan">وام</string>
     <string name="sandoogh_account_payment_report">مشاهده ی گزارش پرداخت ها</string>
     <string name="sandoogh_account_view_members_list">مشاهده اعضای صندوق</string>
+
+    <string name="period_payment_dialog_text_view">شناسه ی پرداخت سهم این دوره را وارد نمایید</string>
+    <string name="period_payment_dialog_edit_text_hint">شناسه ی پرداخت</string>
+    <string name="period_payment_dialog_ok">تایید</string>
+    <string name="period_payment_dialog_cancel">لغو</string>
 
 </resources>

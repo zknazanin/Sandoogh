@@ -15,13 +15,14 @@
             layout="@layout/toolbar" />
 
         <RelativeLayout
+            android:id="@+id/sandoogh_description_expand_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/standard_layout_margin"
+            android:layout_marginRight="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/standard_layout_margin"
             android:background="@drawable/rounded_corner_shape_accent_color"
-            android:padding="10dp">
+            android:padding="@dimen/standard_layout_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,12 +45,11 @@
             android:id="@+id/sandoogh_description_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="@dimen/standard_layout_margin"
             android:layout_weight="1"
             android:background="@drawable/rounded_corner_shape_background_color"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="@dimen/standard_layout_padding"
             android:visibility="gone">
 
             <LinearLayout
@@ -181,13 +181,14 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/sandoogh_payments_expand_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/standard_layout_margin"
+            android:layout_marginRight="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/standard_layout_margin"
             android:background="@drawable/rounded_corner_shape_accent_color"
-            android:padding="10dp">
+            android:padding="@dimen/standard_layout_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -219,7 +220,7 @@
 
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/period_payment"
+                android:id="@+id/period_payment_button"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -243,13 +244,12 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/sandoogh_loan_expand_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_margin="@dimen/standard_layout_margin"
             android:background="@drawable/rounded_corner_shape_accent_color"
-            android:padding="10dp">
+            android:padding="@dimen/standard_layout_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -272,7 +272,9 @@
             android:id="@+id/sandoogh_loan_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_layout_margin"
+            android:layout_marginBottom="@dimen/standard_layout_margin"
+            android:layout_marginLeft="@dimen/standard_layout_margin"
+            android:layout_marginRight="@dimen/standard_layout_margin"
             android:background="@drawable/rounded_corner_shape_background_color"
             android:gravity="center"
             android:orientation="vertical"
