@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
@@ -21,9 +20,9 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 public class SandooghAccountFragment extends Fragment {
     ViewGroup view;
     EditText temp;
-
+    Button memberButton;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
 //        Bundle bundle = getArguments();
 //        Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SELECTED_SANDOOGH");
@@ -54,7 +53,6 @@ public class SandooghAccountFragment extends Fragment {
                 showInputDialog();
             }
         });
-
 
         return view;
     }
