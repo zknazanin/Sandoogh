@@ -66,8 +66,8 @@ public class userPage extends Fragment {
         mDatabase.child("Users").child(firebaseUser.getUid()).child("image").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                String base64Image = (String) snapshot.getValue();
-                if (!base64Image.equals("0")) {
+                if (!snapshot.getValue().toString().equals("0")) {
+                    String base64Image = (String) snapshot.getValue();
                     byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
                     imageView.setImageBitmap(
                             BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
