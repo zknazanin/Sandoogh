@@ -84,7 +84,7 @@ public class userPage extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, new userEdit())
+                        .replace(container.getId(), new userEdit())
                         .addToBackStack(null)
                         .commit();
             }

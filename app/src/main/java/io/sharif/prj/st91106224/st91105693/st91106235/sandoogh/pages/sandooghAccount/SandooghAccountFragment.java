@@ -24,22 +24,22 @@ public class SandooghAccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
-//        Bundle bundle = getArguments();
-//        Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SELECTED_SANDOOGH");
+        Bundle bundle = getArguments();
+        final Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SELECTED_SANDOOGH");
 
         view = (ViewGroup) inflater.inflate(R.layout.sandoogh_account, container, false);
 
-//        if (sandoogh.getType().equals("A")) {
-//            view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
-//        } else {
-//            view = (ViewGroup) inflater.inflate(R.layout.san_account_b, container, false);
-//        }
+        if (sandoogh.getType().equals("A")) {
+            view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
+        } else {
+            view = (ViewGroup) inflater.inflate(R.layout.san_account_b, container, false);
+        }
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
 
-//        populateUi(sandoogh);
+        populateUi(sandoogh);
 
 
         setExpandButtonsFunction(R.id.sandoogh_description_expand_layout, R.id.sandoogh_description_expand_button, R.id.sandoogh_description_layout);
@@ -51,6 +51,19 @@ public class SandooghAccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showInputDialog();
+            }
+        });
+        memberButton = (Button) view.findViewById(R.id.member_Button);
+        memberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Members memberFragment = new Members();
+                Bundle memberBundle = new Bundle();
+                memberBundle.putSerializable("MEMBERS", sandoogh.getMemberIds());
+                memberFragment.setArguments(memberBundle);
+                getFragmentManager().beginTransaction()
+                        .replace(container.getId(), memberFragment)
+                        .commit();
             }
         });
 

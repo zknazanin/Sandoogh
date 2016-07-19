@@ -46,7 +46,7 @@ public class userEdit extends Fragment {
     Button confirm;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.user_editaccount, container, false);
         mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
@@ -66,7 +66,7 @@ public class userEdit extends Fragment {
                 if(!username.getText().toString().equals(""))
                     mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, new userPage())
+                        .replace(container.getId(), new userPage())
                         .commit();
             }
         });
