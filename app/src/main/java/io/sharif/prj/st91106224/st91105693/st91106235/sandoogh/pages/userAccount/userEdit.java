@@ -64,7 +64,11 @@ public class userEdit extends Fragment {
                 if (!pass.getText().toString().equals(""))
                     firebaseUser.updatePassword(pass.getText().toString());
                 if(!username.getText().toString().equals(""))
-                    mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());            }
+                    mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, new userPage())
+                        .commit();
+            }
         });
         mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
             @Override
