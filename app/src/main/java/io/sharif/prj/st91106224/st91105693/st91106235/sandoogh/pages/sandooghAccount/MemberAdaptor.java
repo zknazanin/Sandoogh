@@ -35,10 +35,12 @@ public class MemberAdaptor  extends RecyclerView.Adapter<UserViewHolders> {
   public void onBindViewHolder(UserViewHolders holder, int position) {
    holder.username.setText(itemList.get(position).getUsername());
       String image = itemList.get(position).getImage();
-      byte[] imageAsBytes = Base64.decode(image.getBytes(), Base64.DEFAULT);
-      holder.userPhoto.setImageBitmap(
-              BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
-      );
+      if (!image.equals("0")) {
+          byte[] imageAsBytes = Base64.decode(image.getBytes(), Base64.DEFAULT);
+          holder.userPhoto.setImageBitmap(
+                  BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
+          );
+      }
   }
 
   @Override
