@@ -1,11 +1,17 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
 
-public class UserPayment {
+
+import java.io.Serializable;
+
+public class UserPayment implements Serializable {
 
     private boolean approved;
     private String userID;
     private String paymentID;
-    public UserPayment (){}
+
+    public UserPayment() {
+    }
+
     public UserPayment(boolean approved, String userID) {
         this.approved = approved;
         this.userID = userID;

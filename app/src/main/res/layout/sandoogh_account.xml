@@ -220,16 +220,40 @@
             android:visibility="gone">
 
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/period_payment_button"
-                style="@style/Widget.AppCompat.Button.Colored"
+            <TextView
+                android:id="@+id/sandoogh_payments_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/white"
-                android:text="@string/period_payment"
-                android:textColor="@color/colorPrimaryDark"
-                android:theme="@style/CustomAccentOverlay"
-                app:backgroundTint="@android:color/white" />
+                android:gravity="center"
+                android:padding="@dimen/standard_layout_padding" />
+
+            <LinearLayout
+                android:id="@+id/pay_button_and_spinner_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/period_payment_button"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:text="@string/period_payment"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:theme="@style/CustomAccentOverlay"
+                    app:backgroundTint="@android:color/white" />
+
+                <Spinner
+                    android:id="@+id/unpaid_deadlines"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/payment_report"
