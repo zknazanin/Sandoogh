@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     android:padding="8dp">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

@@ -1,7 +1,9 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,11 @@ public class MemberAdaptor  extends RecyclerView.Adapter<UserViewHolders> {
   @Override
   public void onBindViewHolder(UserViewHolders holder, int position) {
    holder.username.setText(itemList.get(position).getUsername());
-   holder.userPhoto.setImageResource(itemList.get(position).getImage());
+      String image = itemList.get(position).getImage();
+      byte[] imageAsBytes = Base64.decode(image.getBytes(), Base64.DEFAULT);
+      holder.userPhoto.setImageBitmap(
+              BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
+      );
   }
 
   @Override

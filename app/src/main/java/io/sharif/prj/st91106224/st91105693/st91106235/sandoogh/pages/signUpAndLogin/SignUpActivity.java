@@ -115,7 +115,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            User user = new User(mAuth.getCurrentUser().getUid(),"",0);
+                            User user = new User(mAuth.getCurrentUser().getUid(),"","0");
                             Database.getInstance().saveUser(user);
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivity(intent);

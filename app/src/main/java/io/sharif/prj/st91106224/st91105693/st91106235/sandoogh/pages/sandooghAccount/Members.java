@@ -2,8 +2,10 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAc
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,9 @@ public class Members extends Fragment{
         memberIds = (ArrayList<String>) bundle.getSerializable("MEMBERS");
 
         view = (ViewGroup) inflater.inflate(R.layout.members, container, false);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle("اعضا");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -45,6 +50,9 @@ public class Members extends Fragment{
 
         List<User> gaggeredList = getListItemData();
 
+        while (gaggeredList.size()== 0){
+            Log.e("R", "added       "+gaggeredList.size());
+        }
         MemberAdaptor rcAdapter = new MemberAdaptor(getContext(), gaggeredList);
         recyclerView.setAdapter(rcAdapter);
         return view;
@@ -58,6 +66,7 @@ public class Members extends Fragment{
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         for (DataSnapshot child : snapshot.getChildren()) {
+                            Log.e("R", "bbbbbbbbbbbbbbbbbb    " + child.getKey() + "size   " + memberIds.size());
                             if (memberIds.contains(child.getKey())) {
                                 Log.e("R", child.getKey());
                                 users.add(child.getValue(User.class));

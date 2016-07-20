@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +14,28 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 public class SandooghInviteFragment extends Fragment {
 
     AutoCompleteTextView textIn;
     Button buttonAdd;
     LinearLayout container1;
-    TextView info;
-    private static final String[] NUMBER = new String[]{
-            "One", "Two", "Three", "Four", "Five",
-            "Six", "Seven", "Eight", "Nine", "Ten"
-    };
+    DatabaseReference mDatabase;
+  //  TextView info;
+    private List<String> NUMBER = getListItemData();
     ArrayAdapter<String> adapter;
 
     @Override
@@ -54,7 +63,7 @@ public class SandooghInviteFragment extends Fragment {
 
         buttonAdd = (Button) view.findViewById(R.id.add);
         container1 = (LinearLayout) view.findViewById(R.id.container);
-        info = (TextView) view.findViewById(R.id.info);
+       // info = (TextView) view.findViewById(R.id.info);
         //  info.setMovementMethod(new ScrollingMovementMethod());
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -86,4 +95,26 @@ public class SandooghInviteFragment extends Fragment {
 //            String childTextViewValue = childTextView.getText().toString();
 //            reList.append("= " + childTextViewValue + "\n");
 //        }
+    private List<String> getListItemData(){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final List<String> users = new ArrayList<>();
+        mDatabase.child("Users").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        List<DataSnapshot> list = Tools.iteratorToList(snapshot.getChildren().iterator());
+                        DataSnapshot[] sandooghsDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                        for (DataSnapshot sandooghsDataSnapshot : sandooghsDataSnapshots) {
+                            users.add(sandooghsDataSnapshot.getValue(User.class).getUsername());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.wtf("invite Fragment", "Get users failed.");
+                    }
+                });
+        return users;
+    }
 }
