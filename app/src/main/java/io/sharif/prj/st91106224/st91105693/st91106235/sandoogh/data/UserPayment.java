@@ -5,7 +5,7 @@ public class UserPayment {
     private boolean approved;
     private String userID;
     private String paymentID;
-
+    public UserPayment (){}
     public UserPayment(boolean approved, String userID) {
         this.approved = approved;
         this.userID = userID;

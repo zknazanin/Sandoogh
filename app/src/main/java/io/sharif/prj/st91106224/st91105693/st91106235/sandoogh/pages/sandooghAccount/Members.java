@@ -50,7 +50,7 @@ public class Members extends Fragment{
         return view;
     }
     private List<User> getListItemData(){
-        final List<User> users = new ArrayList<User>();
+        final List<User> users = new ArrayList<>();
         membersCount = memberIds.size();
         mDatabase.child("Users").addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -59,10 +59,11 @@ public class Members extends Fragment{
                     public void onDataChange(DataSnapshot snapshot) {
                         for (DataSnapshot child : snapshot.getChildren()) {
                             if (memberIds.contains(child.getKey())) {
+                                Log.e("R", child.getKey());
                                 users.add(child.getValue(User.class));
                                 membersCount--;
                             }
-                            if (membersCount==0)
+                            if (membersCount == 0)
                                 break;
                         }
                     }

@@ -29,11 +29,11 @@ public class SandooghAccountFragment extends Fragment {
 
         view = (ViewGroup) inflater.inflate(R.layout.sandoogh_account, container, false);
 
-        if (sandoogh.getType().equals("A")) {
-            view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
-        } else {
-            view = (ViewGroup) inflater.inflate(R.layout.san_account_b, container, false);
-        }
+//        if (sandoogh.getType().equals("A")) {
+//            view = (ViewGroup) inflater.inflate(R.layout.san_account_a, container, false);
+//        } else {
+//            view = (ViewGroup) inflater.inflate(R.layout.san_account_b, container, false);
+//        }
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
