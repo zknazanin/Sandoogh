@@ -1,9 +1,10 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Locale;
 
-public class SolarCalendar {
+public class SolarCalendar implements Serializable {
 
 //    public String strWeekDay = "";
 //    public String strMonth = "";

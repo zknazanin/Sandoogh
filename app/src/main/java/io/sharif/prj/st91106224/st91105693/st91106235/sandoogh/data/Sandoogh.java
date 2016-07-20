@@ -162,7 +162,7 @@ public class Sandoogh implements Serializable {
         this.adminUid = adminUid;
     }
 
-    public List<Payment> getPaymentList() {
+    public ArrayList<Payment> getPaymentList() {
         return paymentList;
     }
 

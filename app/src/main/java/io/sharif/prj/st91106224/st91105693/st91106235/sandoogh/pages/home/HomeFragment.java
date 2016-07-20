@@ -104,11 +104,12 @@ public class HomeFragment extends Fragment {
                             values[i] = sandooghObjects.get(i).getName();
                         }
 
-
-                        SandooghArrayAdapter adapter = new SandooghArrayAdapter(getActivity(),
-                                values, container, fragmentManager, sandooghObjects);
-                        ListView lv = (ListView) view.findViewById(R.id.list);
-                        lv.setAdapter(adapter);
+                        if (getActivity() != null) {
+                            SandooghArrayAdapter adapter = new SandooghArrayAdapter(getActivity(),
+                                    values, container, fragmentManager, sandooghObjects);
+                            ListView lv = (ListView) view.findViewById(R.id.list);
+                            lv.setAdapter(adapter);
+                        }
                     }
 
                     @Override

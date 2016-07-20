@@ -1,14 +1,13 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.SolarCalendar;
 
 
-public class Payment {
+public class Payment implements Serializable {
     private ArrayList<UserPayment> userPaymentList;
-
-
     private SolarCalendar deadline;
     private int amount;
 

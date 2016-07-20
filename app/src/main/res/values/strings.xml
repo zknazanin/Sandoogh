@@ -79,4 +79,6 @@
     <string name="period_payment_dialog_ok">تایید</string>
     <string name="period_payment_dialog_cancel">لغو</string>
 
+    <string name="all_paid">شما سهم خود را در همه ی دوره ها پرداخت کرده اید</string>
+
 </resources>
