@@ -50,9 +50,9 @@ public class Members extends Fragment{
 
         List<User> gaggeredList = getListItemData();
 
-        while (gaggeredList.size()== 0){
-            Log.e("R", "added       "+gaggeredList.size());
-        }
+//        while (gaggeredList.size()== 0){
+//            Log.e("R", "added       "+gaggeredList.size());
+//        }
         MemberAdaptor rcAdapter = new MemberAdaptor(getContext(), gaggeredList);
         recyclerView.setAdapter(rcAdapter);
         return view;
