@@ -30,13 +30,13 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 public class SandooghInviteFragment extends Fragment {
 
-    AutoCompleteTextView textIn;
-    Button buttonAdd;
-    LinearLayout container1;
-    DatabaseReference mDatabase;
-  //  TextView info;
-    private List<String> NUMBER = getListItemData();
-    ArrayAdapter<String> adapter;
+    private AutoCompleteTextView textIn;
+    private Button buttonAdd;
+    private LinearLayout container1;
+    private DatabaseReference mDatabase;
+    private List<String> users = new ArrayList<>();
+    private ArrayList<String> memberIds = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,35 +54,18 @@ public class SandooghInviteFragment extends Fragment {
                 viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
             }
         });
-
-        adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, NUMBER);
-
         textIn = (AutoCompleteTextView) view.findViewById(R.id.textin);
-        textIn.setAdapter(adapter);
-
         buttonAdd = (Button) view.findViewById(R.id.add);
         container1 = (LinearLayout) view.findViewById(R.id.container);
+        getListItemData();
        // info = (TextView) view.findViewById(R.id.info);
         //  info.setMovementMethod(new ScrollingMovementMethod());
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater layoutInflater =
-                        (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View addView = layoutInflater.inflate(R.layout.invite_row, null);
-                TextView textOut = (TextView) addView.findViewById(R.id.inviteRow);
-                if (Arrays.asList(NUMBER).contains(textIn.getText().toString())) {
-                    textOut.setText(textIn.getText().toString());
-                    container1.addView(addView);
-                    textIn.setText("");
-                }
-            }
-        });
-
-
         return view;
+    }
+
+    public ArrayList<String> getMemberIds() {
+        return memberIds;
     }
 
     //    private void listAllAddView(){
@@ -95,19 +78,38 @@ public class SandooghInviteFragment extends Fragment {
 //            String childTextViewValue = childTextView.getText().toString();
 //            reList.append("= " + childTextViewValue + "\n");
 //        }
-    private List<String> getListItemData(){
+    private void getListItemData(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        final List<String> users = new ArrayList<>();
         mDatabase.child("Users").addListenerForSingleValueEvent(
                 new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         List<DataSnapshot> list = Tools.iteratorToList(snapshot.getChildren().iterator());
-                        DataSnapshot[] sandooghsDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
-                        for (DataSnapshot sandooghsDataSnapshot : sandooghsDataSnapshots) {
-                            users.add(sandooghsDataSnapshot.getValue(User.class).getUsername());
+                        DataSnapshot[] usersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                        for (DataSnapshot usersDataSnapshot : usersDataSnapshots) {
+                            users.add(usersDataSnapshot.getValue(User.class).getUsername());
                         }
+                        buttonAdd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String text = textIn.getText().toString();
+                                LayoutInflater layoutInflater =
+                                        (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                final View addView = layoutInflater.inflate(R.layout.invite_row, null);
+                                TextView textOut = (TextView) addView.findViewById(R.id.inviteRow);
+                                if (Arrays.asList(users).contains(text)) {
+                                    Log.e("R","hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+                                    textOut.setText(text);
+                                    memberIds.add(text);
+                                    container1.addView(addView);
+                                    textIn.setText("");
+                                }
+                            }
+                        });
+                        adapter = new ArrayAdapter<String>(getContext(),
+                                android.R.layout.simple_dropdown_item_1line, users);
+                        textIn.setAdapter(adapter);
                     }
 
                     @Override
@@ -115,6 +117,5 @@ public class SandooghInviteFragment extends Fragment {
                         Log.wtf("invite Fragment", "Get users failed.");
                     }
                 });
-        return users;
     }
 }

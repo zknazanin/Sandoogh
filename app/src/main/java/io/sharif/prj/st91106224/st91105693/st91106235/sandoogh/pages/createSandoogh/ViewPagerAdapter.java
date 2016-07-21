@@ -1,15 +1,12 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
@@ -76,6 +73,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         // private User[] members;
         // TODO: 7/15/2016
         ArrayList<String> memberIds = new ArrayList<>();
+        memberIds = sandooghInviteFragment.getMemberIds();
         memberIds.add(sandoogh.getAdminUid());
         sandoogh.setMemberIds(memberIds);
 
