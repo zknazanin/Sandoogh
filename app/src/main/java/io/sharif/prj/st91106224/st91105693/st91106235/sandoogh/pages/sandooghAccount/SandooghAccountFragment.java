@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -40,10 +41,8 @@ public class SandooghAccountFragment extends Fragment {
 
         view = (ViewGroup) inflater.inflate(R.layout.sandoogh_account, container, false);
 
-
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
 
         populateUi(sandoogh);
 
@@ -59,6 +58,15 @@ public class SandooghAccountFragment extends Fragment {
                 showInputDialog(sandoogh);
             }
         });
+
+        Button paymentReportButton = (Button) view.findViewById(R.id.payment_report);
+        paymentReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPaymentReportDialog(sandoogh);
+            }
+        });
+
         memberButton = (Button) view.findViewById(R.id.member_Button);
         memberButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +101,25 @@ public class SandooghAccountFragment extends Fragment {
                 }
             }
         });
+
+    }
+
+
+    protected void showPaymentReportDialog(Sandoogh sandoogh) {
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View promptView = layoutInflater.inflate(R.layout.payment_report_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+
+        ListView listView = (ListView) promptView.findViewById(R.id.payment_list_view);
+        PaymentAdapter paymentAdapter = new PaymentAdapter(getActivity(), sandoogh.getPaymentList());
+        listView.setAdapter(paymentAdapter);
+
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+
+        alert.show();
 
     }
 

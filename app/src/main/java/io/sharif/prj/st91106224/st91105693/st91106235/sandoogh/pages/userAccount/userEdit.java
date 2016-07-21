@@ -30,9 +30,6 @@ import java.io.IOException;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
-/**
- * Created by foroughM on 7/17/2016.
- */
 public class userEdit extends Fragment {
     ViewGroup view;
     Button selectImage;

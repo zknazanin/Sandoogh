@@ -79,6 +79,11 @@
     <string name="period_payment_dialog_ok">تایید</string>
     <string name="period_payment_dialog_cancel">لغو</string>
 
+    <string name="payment_report_close_dialog">بستن</string>
+
     <string name="all_paid">شما سهم خود را در همه ی دوره ها پرداخت کرده اید</string>
+
+    <string name="payment_report_dialog_approved">تایید شده</string>
+    <string name="payment_report_dialog_not_approved">تایید نشده</string>
 
 </resources>
