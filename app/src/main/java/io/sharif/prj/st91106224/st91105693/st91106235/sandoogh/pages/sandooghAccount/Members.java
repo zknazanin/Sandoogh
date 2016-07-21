@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,8 +34,13 @@ public class Members extends Fragment{
     ArrayList<String> memberIds;
     int membersCount;
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
+    ImageView image;
+    private FirebaseAuth mAuth;
+    RecyclerView recyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         Bundle bundle = getArguments();
         memberIds = (ArrayList<String>) bundle.getSerializable("MEMBERS");
 
@@ -42,22 +49,20 @@ public class Members extends Fragment{
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("اعضا");
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
 
-        List<User> gaggeredList = getListItemData();
+       getListItemData();
 
 //        while (gaggeredList.size()== 0){
 //            Log.e("R", "added       "+gaggeredList.size());
 //        }
-        MemberAdaptor rcAdapter = new MemberAdaptor(getContext(), gaggeredList);
-        recyclerView.setAdapter(rcAdapter);
         return view;
     }
-    private List<User> getListItemData(){
+    private void getListItemData(){
         final List<User> users = new ArrayList<>();
         membersCount = memberIds.size();
         mDatabase.child("Users").addListenerForSingleValueEvent(
@@ -66,15 +71,15 @@ public class Members extends Fragment{
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         for (DataSnapshot child : snapshot.getChildren()) {
-                            Log.e("R", "bbbbbbbbbbbbbbbbbb    " + child.getKey() + "size   " + memberIds.size());
                             if (memberIds.contains(child.getKey())) {
-                                Log.e("R", child.getKey());
                                 users.add(child.getValue(User.class));
                                 membersCount--;
                             }
                             if (membersCount == 0)
                                 break;
                         }
+                        MemberAdaptor rcAdapter = new MemberAdaptor(getContext(), users);
+                        recyclerView.setAdapter(rcAdapter);
                     }
 
                     @Override
@@ -82,6 +87,5 @@ public class Members extends Fragment{
                         Log.wtf("member Fragment", "Get sandoogh's users failed.");
                     }
                 });
-        return users;
     }
 }
