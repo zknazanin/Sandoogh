@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
@@ -98,7 +97,7 @@ public class SandooghInviteFragment extends Fragment {
                                         (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                 final View addView = layoutInflater.inflate(R.layout.invite_row, null);
                                 TextView textOut = (TextView) addView.findViewById(R.id.inviteRow);
-                                if (Arrays.asList(users).contains(text)) {
+                                if (users.contains(text)) {
                                     Log.e("R","hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                                     textOut.setText(text);
                                     memberIds.add(text);
