@@ -18,8 +18,8 @@ public class Tools {
     public static String getCurrentShamsidate() {
         Locale loc = new Locale("en_US");
         SolarCalendar sc = new SolarCalendar();
-        return String.valueOf(sc.year) + "/" + String.format(loc, "%02d",
-                sc.month) + "/" + String.format(loc, "%02d", sc.date);
+        return String.valueOf(sc.getYear()) + "/" + String.format(loc, "%02d",
+                sc.getMonth()) + "/" + String.format(loc, "%02d", sc.getDate());
     }
 
 

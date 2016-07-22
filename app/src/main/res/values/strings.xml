@@ -85,5 +85,6 @@
 
     <string name="payment_report_dialog_approved">تایید شده</string>
     <string name="payment_report_dialog_not_approved">تایید نشده</string>
+    <string name="Error">خطا در اتصال</string>
 
 </resources>

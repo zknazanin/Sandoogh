@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +28,9 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.
 
 
 public class SandooghAccountFragment extends Fragment {
-    ViewGroup view;
-    EditText temp;
-    Button memberButton;
+    private ViewGroup view;
+    private EditText temp;
+    private Button memberButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +75,7 @@ public class SandooghAccountFragment extends Fragment {
                 memberBundle.putSerializable("MEMBERS", sandoogh.getMemberIds());
                 memberFragment.setArguments(memberBundle);
                 getFragmentManager().beginTransaction()
-                        .replace(container.getId(), memberFragment)
+                        .replace(container.getId(), memberFragment).addToBackStack(null)
                         .commit();
             }
         });

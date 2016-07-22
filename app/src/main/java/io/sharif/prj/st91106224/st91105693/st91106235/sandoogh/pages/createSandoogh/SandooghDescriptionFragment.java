@@ -4,8 +4,6 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSand
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
 public class SandooghDescriptionFragment extends Fragment {
 
-    View view;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

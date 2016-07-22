@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,8 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -43,64 +42,69 @@ public class userEdit extends Fragment {
     private FirebaseUser firebaseUser;
     private String base64Image;
     private Button confirm;
-    private FirebaseStorage storage;
-    private StorageReference ref;
-    private Uri downloadUrl;
+//    private FirebaseStorage storage;
+//    private StorageReference ref;
+//    private Uri downloadUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.user_editaccount, container, false);
-        mAuth = FirebaseAuth.getInstance();
-        storage = FirebaseStorage.getInstance();
-        ref = storage.getReference().child("Images/"+mAuth.getCurrentUser().getUid());
+//        storage = FirebaseStorage.getInstance();
+//        ref = storage.getReference().child("Images/"+mAuth.getCurrentUser().getUid());
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        firebaseUser = mAuth.getCurrentUser();
-        pass = (EditText) view.findViewById(R.id.password_edit);
-        username = (EditText)view.findViewById(R.id.username_edit);
-        confirm = (Button) view.findViewById(R.id.confirm);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(base64Image!=null && base64Image!="0")
-                    mDatabase.child("Users").child(firebaseUser.getUid()).child("image").setValue(base64Image);
-                if (!pass.getText().toString().equals(""))
-                    firebaseUser.updatePassword(pass.getText().toString());
-                if(!username.getText().toString().equals(""))
-                    mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());
-       //         Bundle bundle = new Bundle();
-     //           bundle.putSerializable("URI_DOWN", (Serializable) downloadUrl);
-                userPage frag = new userPage();
-   //             frag.setArguments(bundle);
-                getFragmentManager().beginTransaction()
-                        .replace(container.getId(), frag)
-                        .commit();
-            }
-        });
-        mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                String name = (String) snapshot.getValue();
-                username.setText(name);
-            }
+        try {
+            mAuth = FirebaseAuth.getInstance();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            firebaseUser = mAuth.getCurrentUser();
+            pass = (EditText) view.findViewById(R.id.password_edit);
+            username = (EditText) view.findViewById(R.id.username_edit);
+            confirm = (Button) view.findViewById(R.id.confirm);
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (base64Image != null && base64Image != "0")
+                        mDatabase.child("Users").child(firebaseUser.getUid()).child("image").setValue(base64Image);
+                    if (!pass.getText().toString().equals(""))
+                        firebaseUser.updatePassword(pass.getText().toString());
+                    if (!username.getText().toString().equals(""))
+                        mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());
+                    //         Bundle bundle = new Bundle();
+                    //           bundle.putSerializable("URI_DOWN", (Serializable) downloadUrl);
+                    userPage frag = new userPage();
+                    //             frag.setArguments(bundle);
+                    getFragmentManager().beginTransaction()
+                            .replace(container.getId(), frag)
+                            .commit();
+                }
+            });
+            mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    String name = (String) snapshot.getValue();
+                    username.setText(name);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("R", "cancel name");
-            }
-        });
-        imageView = (ImageView) view.findViewById(R.id.image);
-        selectImage = (Button)view.findViewById(R.id.image_edit);
-        selectImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("R", "cancel name");
+                }
+            });
+            imageView = (ImageView) view.findViewById(R.id.image);
+            selectImage = (Button) view.findViewById(R.id.image_edit);
+            selectImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+                }
+            });
+        }catch (RuntimeException e){
+            Log.e("R","Error in userEdit database function " + e);
+            Toast.makeText(view.getContext(),R.string.Error,Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
 

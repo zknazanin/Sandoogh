@@ -2,10 +2,12 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAc
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,21 +45,25 @@ public class PaymentView extends RelativeLayout {
     public void setItem(Payment payment) {
         deadlineTextView.setText(payment.getDeadline().toString());
         amountTextView.setText(payment.getAmount());
+        try {
+            String currentUserID = Database.getInstance().getCurrentUserID();
 
-        String currentUserID = Database.getInstance().getCurrentUserID();
+            ArrayList<UserPayment> userPaymentList = payment.getUserPaymentList();
 
-        ArrayList<UserPayment> userPaymentList = payment.getUserPaymentList();
-
-        for (int i = 0; i < userPaymentList.size(); i++) {
-            if (userPaymentList.get(i).getUserID().equals(currentUserID)) {
-                idTextView.setText(userPaymentList.get(i).getPaymentID());
-                if (userPaymentList.get(i).isApproved()) {
-                    approvedTextView.setText(R.string.payment_report_dialog_approved);
-                } else {
-                    approvedTextView.setText(R.string.payment_report_dialog_not_approved);
+            for (int i = 0; i < userPaymentList.size(); i++) {
+                if (userPaymentList.get(i).getUserID().equals(currentUserID)) {
+                    idTextView.setText(userPaymentList.get(i).getPaymentID());
+                    if (userPaymentList.get(i).isApproved()) {
+                        approvedTextView.setText(R.string.payment_report_dialog_approved);
+                    } else {
+                        approvedTextView.setText(R.string.payment_report_dialog_not_approved);
+                    }
+                    break;
                 }
-                break;
             }
+        } catch (RuntimeException e){
+            Log.e("R", "error in payment view. (get current user)" + e);
+            Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
     }
 

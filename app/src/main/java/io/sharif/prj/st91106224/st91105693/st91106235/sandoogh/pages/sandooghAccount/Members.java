@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -43,23 +44,25 @@ public class Members extends Fragment{
 
         Bundle bundle = getArguments();
         memberIds = (ArrayList<String>) bundle.getSerializable("MEMBERS");
-
         view = (ViewGroup) inflater.inflate(R.layout.members, container, false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("اعضا");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
-
-       getListItemData();
+        try {
+            getListItemData();
+        } catch (RuntimeException e){
+            Log.e("R", "error in member page. (get Users)" + e);
+            Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
     private void getListItemData(){
         final List<User> users = new ArrayList<>();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         membersCount = memberIds.size();
         mDatabase.child("Users").addListenerForSingleValueEvent(
                 new ValueEventListener() {

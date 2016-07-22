@@ -9,9 +9,9 @@ public class SolarCalendar implements Serializable {
 //    public String strWeekDay = "";
 //    public String strMonth = "";
 
-    int date;
-    int month;
-    int year;
+    private int date;
+    private int month;
+    private int year;
 
     public SolarCalendar(int date, int month, int year) {
         this.date = date;

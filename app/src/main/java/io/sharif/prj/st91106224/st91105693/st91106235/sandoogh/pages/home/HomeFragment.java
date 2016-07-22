@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,11 +53,14 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(true);
 
         // Get current user from Firebase
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-
-        getUserSandooghs(container, getActivity().getSupportFragmentManager());
-
+        try {
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            user = firebaseAuth.getCurrentUser();
+            getUserSandooghs(container, getActivity().getSupportFragmentManager());
+        } catch (RuntimeException e){
+            Log.e("R","Error in home fragment database function " + e.toString());
+            Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

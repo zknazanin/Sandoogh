@@ -8,14 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
 public class UserViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView username;
-    public ImageView userPhoto;
+    private TextView username;
+    private ImageView userPhoto;
 
     public UserViewHolders(View itemView) {
         super(itemView);
@@ -26,6 +25,14 @@ public class UserViewHolders extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(view.getContext(), "Clicked Position = " + getPosition(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(view.getContext(), "Clicked Position = " + getPosition(), Toast.LENGTH_SHORT).show();
+    }
+
+    public ImageView getUserPhoto() {
+        return userPhoto;
+    }
+
+    public TextView getUsername() {
+        return username;
     }
 }

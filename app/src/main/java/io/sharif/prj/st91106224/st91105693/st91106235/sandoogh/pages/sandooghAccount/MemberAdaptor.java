@@ -33,11 +33,11 @@ public class MemberAdaptor  extends RecyclerView.Adapter<UserViewHolders> {
 
   @Override
   public void onBindViewHolder(UserViewHolders holder, int position) {
-   holder.username.setText(itemList.get(position).getUsername());
+   holder.getUsername().setText(itemList.get(position).getUsername());
       String image = itemList.get(position).getImage();
       if (!image.equals("0")) {
           byte[] imageAsBytes = Base64.decode(image.getBytes(), Base64.DEFAULT);
-          holder.userPhoto.setImageBitmap(
+          holder.getUserPhoto().setImageBitmap(
                   BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
           );
       }

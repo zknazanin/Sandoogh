@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,7 +58,12 @@ public class SandooghInviteFragment extends Fragment {
         textIn = (AutoCompleteTextView) view.findViewById(R.id.textin);
         buttonAdd = (Button) view.findViewById(R.id.add);
         container1 = (LinearLayout) view.findViewById(R.id.container);
-        getListItemData();
+        try {
+            getListItemData();
+        } catch (RuntimeException e){
+            Log.e("R","Error in invite page database function " + e.toString());
+            Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
        // info = (TextView) view.findViewById(R.id.info);
         //  info.setMovementMethod(new ScrollingMovementMethod());
 
@@ -100,7 +106,6 @@ public class SandooghInviteFragment extends Fragment {
                                 final View addView = layoutInflater.inflate(R.layout.invite_row, null);
                                 TextView textOut = (TextView) addView.findViewById(R.id.inviteRow);
                                 if (userNames.contains(text)) {
-                                    Log.e("R", "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                                     textOut.setText(text);
                                     container1.addView(addView);
                                     textIn.setText("");

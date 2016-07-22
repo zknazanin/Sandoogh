@@ -40,64 +40,67 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.wtf("tag", "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.wtf("tag", "onAuthStateChanged:signed_out");
+        try {
+            mAuth = FirebaseAuth.getInstance();
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if (user != null) {
+                        // User is signed in
+                        Log.wtf("tag", "onAuthStateChanged:signed_in:" + user.getUid());
+                    } else {
+                        // User is signed out
+                        Log.wtf("tag", "onAuthStateChanged:signed_out");
+                    }
+                    // ...
                 }
-                // ...
-            }
-        };
+            };
 
-        // Setup Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
+            // Setup Toolbar
+            Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+            setSupportActionBar(toolbar);
 
 
-        passwordEditText = (EditText) findViewById(R.id.passwordField);
-        emailEditText = (EditText) findViewById(R.id.emailField);
-        signUpButton = (Button) findViewById(R.id.signupButton);
-        signInTextView = (TextView) findViewById(R.id.signInText);
+            passwordEditText = (EditText) findViewById(R.id.passwordField);
+            emailEditText = (EditText) findViewById(R.id.emailField);
+            signUpButton = (Button) findViewById(R.id.signupButton);
+            signInTextView = (TextView) findViewById(R.id.signInText);
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String password = passwordEditText.getText().toString();
-                String email = emailEditText.getText().toString();
+            signUpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String password = passwordEditText.getText().toString();
+                    String email = emailEditText.getText().toString();
 
-                password = password.trim();
-                email = email.trim();
+                    password = password.trim();
+                    email = email.trim();
 
-                if (password.isEmpty() || email.isEmpty()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
-                    builder.setMessage(R.string.signup_error_message)
-                            .setTitle(R.string.signup_error_title)
-                            .setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                } else {
+                    if (password.isEmpty() || email.isEmpty()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
+                        builder.setMessage(R.string.signup_error_message)
+                                .setTitle(R.string.signup_error_title)
+                                .setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else {
 
-                    createUser(email, password);
+                        createUser(email, password);
+                    }
                 }
-            }
-        });
+            });
 
-        signInTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+            signInTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        } catch (RuntimeException e){
+            Log.e("R","Error in user sign up database function " + e);
+            Toast.makeText(this ,R.string.Error,Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void createUser(String email, String password) {
@@ -127,14 +130,24 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        try {
+            mAuth.addAuthStateListener(mAuthListener);
+        }catch (RuntimeException e){
+            Log.e("R", "Error in sign up onstart() " + e);
+            Toast.makeText(this,R.string.Error,Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+        try {
+            if (mAuthListener != null) {
+                mAuth.removeAuthStateListener(mAuthListener);
+            }
+        }catch (RuntimeException e){
+            Log.e("R","Error in sign up onstop() " + e);
+            Toast.makeText(this,R.string.Error,Toast.LENGTH_SHORT).show();
         }
     }
 }

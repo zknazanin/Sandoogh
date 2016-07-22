@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,30 +49,31 @@ public class userPage extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        try {
+            mDatabase = FirebaseDatabase.getInstance().getReference();
 //        storage = FirebaseStorage.getInstance();
 //        ref = storage.getReference("Images/" + mAuth.getCurrentUser().getUid());
 //        Bundle bundle = getArguments();
-        firebaseUser = mAuth.getCurrentUser();
-        Edit = (Button)view.findViewById(R.id.Edit);
-        email = (EditText)view.findViewById(R.id.email_edit);
-        pass = (EditText)view.findViewById(R.id.password_edit);
-        username = (EditText)view.findViewById(R.id.username_edit);
-        imageView = (ImageView)view.findViewById(R.id.image);
-        email.setText(firebaseUser.getEmail());
-        pass.setText("********");
-        mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                String name = (String) snapshot.getValue();
-                username.setText(name);
-            }
+            firebaseUser = mAuth.getCurrentUser();
+            Edit = (Button) view.findViewById(R.id.Edit);
+            email = (EditText) view.findViewById(R.id.email_edit);
+            pass = (EditText) view.findViewById(R.id.password_edit);
+            username = (EditText) view.findViewById(R.id.username_edit);
+            imageView = (ImageView) view.findViewById(R.id.image);
+            email.setText(firebaseUser.getEmail());
+            pass.setText("********");
+            mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    String name = (String) snapshot.getValue();
+                    username.setText(name);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("R", "cancel name");
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("R", "cancel name");
+                }
+            });
 //        if (bundle != null) {
 //            downloadUri = (Uri) bundle.getSerializable("URI_DOWN");
 //            imageView.setImageURI(downloadUri);
@@ -91,32 +93,36 @@ public class userPage extends Fragment {
 //            });
 //        }
 
-        mDatabase.child("Users").child(firebaseUser.getUid()).child("image").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (!snapshot.getValue().toString().equals("0")) {
-                    String base64Image = (String) snapshot.getValue();
-                    byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
-                    imageView.setImageBitmap(
-                            BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
-                    );
+            mDatabase.child("Users").child(firebaseUser.getUid()).child("image").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (!snapshot.getValue().toString().equals("0")) {
+                        String base64Image = (String) snapshot.getValue();
+                        byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
+                        imageView.setImageBitmap(
+                                BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
+                        );
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("R", "cancel");
-            }
-        });
-        Edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction()
-                        .replace(container.getId(), new userEdit())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("R", "cancel");
+                }
+            });
+            Edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getFragmentManager().beginTransaction()
+                            .replace(container.getId(), new userEdit())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+        } catch (RuntimeException e){
+            Log.e("R","Error in userPage database function " + e);
+            Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
 }
