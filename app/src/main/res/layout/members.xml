@@ -12,8 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:layout_toRightOf="@+id/tool_bar"
-            android:layout_toEndOf="@+id/tool_bar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </RelativeLayout>

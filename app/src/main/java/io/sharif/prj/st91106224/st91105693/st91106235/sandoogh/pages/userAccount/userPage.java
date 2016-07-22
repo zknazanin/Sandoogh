@@ -1,6 +1,7 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount;
 
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
@@ -35,6 +38,9 @@ public class userPage extends Fragment {
     FirebaseUser firebaseUser;
     DatabaseReference mDatabase;
     Button Edit;
+    private FirebaseStorage storage;
+    private StorageReference ref;
+    private Uri downloadUri;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +49,9 @@ public class userPage extends Fragment {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+//        storage = FirebaseStorage.getInstance();
+//        ref = storage.getReference("Images/" + mAuth.getCurrentUser().getUid());
+//        Bundle bundle = getArguments();
         firebaseUser = mAuth.getCurrentUser();
         Edit = (Button)view.findViewById(R.id.Edit);
         email = (EditText)view.findViewById(R.id.email_edit);
@@ -63,6 +72,25 @@ public class userPage extends Fragment {
                 Log.e("R", "cancel name");
             }
         });
+//        if (bundle != null) {
+//            downloadUri = (Uri) bundle.getSerializable("URI_DOWN");
+//            imageView.setImageURI(downloadUri);
+//        }else {
+//            final long ONE_MEGABYTE = 1024 * 1024;
+//            ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                @Override
+//                public void onSuccess(byte[] bytes) {
+//                 //   imageView.setImageURI(downloadUri);
+//                   imageView.setImageBitmap( BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                }
+//            });
+//        }
+
         mDatabase.child("Users").child(firebaseUser.getUid()).child("image").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {

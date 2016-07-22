@@ -56,10 +56,6 @@ public class Members extends Fragment{
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
 
        getListItemData();
-
-//        while (gaggeredList.size()== 0){
-//            Log.e("R", "added       "+gaggeredList.size());
-//        }
         return view;
     }
     private void getListItemData(){
@@ -78,6 +74,7 @@ public class Members extends Fragment{
                             if (membersCount == 0)
                                 break;
                         }
+                        Log.e("R", ""+users.size());
                         MemberAdaptor rcAdapter = new MemberAdaptor(getContext(), users);
                         recyclerView.setAdapter(rcAdapter);
                     }

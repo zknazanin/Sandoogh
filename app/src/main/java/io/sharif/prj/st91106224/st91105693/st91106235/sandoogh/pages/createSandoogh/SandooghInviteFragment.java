@@ -33,6 +33,7 @@ public class SandooghInviteFragment extends Fragment {
     private Button buttonAdd;
     private LinearLayout container1;
     private DatabaseReference mDatabase;
+    private List<String> userNames = new ArrayList<>();
     private List<String> users = new ArrayList<>();
     private ArrayList<String> memberIds = new ArrayList<>();
     private ArrayAdapter<String> adapter;
@@ -87,7 +88,8 @@ public class SandooghInviteFragment extends Fragment {
                         List<DataSnapshot> list = Tools.iteratorToList(snapshot.getChildren().iterator());
                         DataSnapshot[] usersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
                         for (DataSnapshot usersDataSnapshot : usersDataSnapshots) {
-                            users.add(usersDataSnapshot.getValue(User.class).getUsername());
+                            userNames.add(usersDataSnapshot.getValue(User.class).getUsername());
+                            users.add(usersDataSnapshot.getValue(User.class).getId());
                         }
                         buttonAdd.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -97,17 +99,17 @@ public class SandooghInviteFragment extends Fragment {
                                         (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                 final View addView = layoutInflater.inflate(R.layout.invite_row, null);
                                 TextView textOut = (TextView) addView.findViewById(R.id.inviteRow);
-                                if (users.contains(text)) {
-                                    Log.e("R","hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+                                if (userNames.contains(text)) {
+                                    Log.e("R", "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                                     textOut.setText(text);
-                                    memberIds.add(text);
                                     container1.addView(addView);
                                     textIn.setText("");
+                                    memberIds.add(users.get(userNames.indexOf(text)));
                                 }
                             }
                         });
                         adapter = new ArrayAdapter<String>(getContext(),
-                                android.R.layout.simple_dropdown_item_1line, users);
+                                android.R.layout.simple_dropdown_item_1line, userNames);
                         textIn.setAdapter(adapter);
                     }
 

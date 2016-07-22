@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -31,21 +33,26 @@ import java.io.IOException;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
 public class userEdit extends Fragment {
-    ViewGroup view;
-    Button selectImage;
-    int SELECT_FILE = 100;
-    ImageView imageView;
+    private ViewGroup view;
+    private Button selectImage;
+    private int SELECT_FILE = 100;
+    private ImageView imageView;
     private FirebaseAuth mAuth;
-    EditText username,pass;
+    private EditText username,pass;
     private DatabaseReference mDatabase;
-    FirebaseUser firebaseUser;
-    String base64Image;
-    Button confirm;
+    private FirebaseUser firebaseUser;
+    private String base64Image;
+    private Button confirm;
+    private FirebaseStorage storage;
+    private StorageReference ref;
+    private Uri downloadUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.user_editaccount, container, false);
         mAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
+        ref = storage.getReference().child("Images/"+mAuth.getCurrentUser().getUid());
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -62,8 +69,12 @@ public class userEdit extends Fragment {
                     firebaseUser.updatePassword(pass.getText().toString());
                 if(!username.getText().toString().equals(""))
                     mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());
+       //         Bundle bundle = new Bundle();
+     //           bundle.putSerializable("URI_DOWN", (Serializable) downloadUrl);
+                userPage frag = new userPage();
+   //             frag.setArguments(bundle);
                 getFragmentManager().beginTransaction()
-                        .replace(container.getId(), new userPage())
+                        .replace(container.getId(), frag)
                         .commit();
             }
         });
@@ -105,7 +116,27 @@ public class userEdit extends Fragment {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] bytes = baos.toByteArray();
-                    base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
+                   base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
+//                    imageView.setDrawingCacheEnabled(true);
+//                    imageView.buildDrawingCache();
+//                    Bitmap bitmap = imageView.getDrawingCache();
+//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//                    byte[] data = baos.toByteArray();
+
+//                    UploadTask uploadTask = ref.putBytes(bytes);
+//                    uploadTask.addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception exception) {
+//                            Log.e("R","faaaaaaaaaaaaail image Upload");
+//                        }
+//                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+//                            downloadUrl = taskSnapshot.getDownloadUrl();
+//                        }
+//                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
