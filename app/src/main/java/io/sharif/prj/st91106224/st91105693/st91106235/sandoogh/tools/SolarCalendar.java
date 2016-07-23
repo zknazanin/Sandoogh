@@ -6,9 +6,6 @@ import java.util.Locale;
 
 public class SolarCalendar implements Serializable {
 
-//    public String strWeekDay = "";
-//    public String strMonth = "";
-
     private int date;
     private int month;
     private int year;
@@ -36,7 +33,6 @@ public class SolarCalendar implements Serializable {
         int miladiYear = MiladiDate.getYear() + 1900;
         int miladiMonth = MiladiDate.getMonth() + 1;
         int miladiDate = MiladiDate.getDate();
-        int WeekDay = MiladiDate.getDay();
 
         int[] buf1 = new int[12];
         int[] buf2 = new int[12];
@@ -174,71 +170,6 @@ public class SolarCalendar implements Serializable {
             }
 
         }
-
-//        switch (month) {
-//            case 1:
-//                strMonth = "فروردين";
-//                break;
-//            case 2:
-//                strMonth = "ارديبهشت";
-//                break;
-//            case 3:
-//                strMonth = "خرداد";
-//                break;
-//            case 4:
-//                strMonth = "تير";
-//                break;
-//            case 5:
-//                strMonth = "مرداد";
-//                break;
-//            case 6:
-//                strMonth = "شهريور";
-//                break;
-//            case 7:
-//                strMonth = "مهر";
-//                break;
-//            case 8:
-//                strMonth = "آبان";
-//                break;
-//            case 9:
-//                strMonth = "آذر";
-//                break;
-//            case 10:
-//                strMonth = "دي";
-//                break;
-//            case 11:
-//                strMonth = "بهمن";
-//                break;
-//            case 12:
-//                strMonth = "اسفند";
-//                break;
-//        }
-//
-//        switch (WeekDay) {
-//
-//            case 0:
-//                strWeekDay = "يکشنبه";
-//                break;
-//            case 1:
-//                strWeekDay = "دوشنبه";
-//                break;
-//            case 2:
-//                strWeekDay = "سه شنبه";
-//                break;
-//            case 3:
-//                strWeekDay = "چهارشنبه";
-//                break;
-//            case 4:
-//                strWeekDay = "پنج شنبه";
-//                break;
-//            case 5:
-//                strWeekDay = "جمعه";
-//                break;
-//            case 6:
-//                strWeekDay = "شنبه";
-//                break;
-//        }
-
     }
 
 

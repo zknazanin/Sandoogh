@@ -1,13 +1,16 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +22,13 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userEdit;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,12 +43,17 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
 
+    private Activity thisActivity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
+        thisActivity = this;
+
+//        isUserLoggedIn();
 
         if (isFirstTime()) {
 
@@ -53,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             setDrawer();
-
 
             firebaseAuth = FirebaseAuth.getInstance();
             user = firebaseAuth.getCurrentUser();
@@ -123,6 +132,29 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return firstTime;
+    }
+
+    private void isUserLoggedIn() {
+        new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // User is signed out
+                    Intent intent = new Intent(thisActivity, SignUpActivity.class);
+                    startActivity(intent);
+                } else {
+                    setDrawer();
+
+                    HomeFragment homeFragment = new HomeFragment();
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_frame, homeFragment)
+                            .commit();
+                }
+            }
+        };
     }
 
     private void setDrawer() {

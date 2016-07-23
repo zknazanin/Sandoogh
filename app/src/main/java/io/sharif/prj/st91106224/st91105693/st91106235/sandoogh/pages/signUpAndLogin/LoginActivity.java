@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             // Setup Toolbar
             Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
             setSupportActionBar(toolbar);
+
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

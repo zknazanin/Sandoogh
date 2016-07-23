@@ -2,6 +2,7 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,6 +22,11 @@ public class Database {
         return database;
     }
 
+
+    public FirebaseUser getCurrentFirebaseUser() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        return firebaseAuth.getCurrentUser();
+    }
 
     public String getCurrentUserID() {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
