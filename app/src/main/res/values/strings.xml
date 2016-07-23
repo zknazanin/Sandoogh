@@ -83,6 +83,10 @@
 
     <string name="all_paid">شما سهم خود را در همه ی دوره ها پرداخت کرده اید</string>
 
+    <string name="amount">مبلغ</string>
+    <string name="amount_unit">تومان</string>
+    <string name="date">تاریخ</string>
+    <string name="payment_id">شناسه پرداخت</string>
     <string name="payment_report_dialog_approved">تایید شده</string>
     <string name="payment_report_dialog_not_approved">تایید نشده</string>
     <string name="Error">خطا در اتصال</string>

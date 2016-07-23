@@ -18,9 +18,9 @@ public class PaymentAdapter extends ArrayAdapter<Payment> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        PaymentView paymentView = (PaymentView) convertView;
+        ItemView paymentView = (ItemView) convertView;
         if (null == paymentView) {
-            paymentView = PaymentView.inflate(parent);
+            paymentView = ItemView.inflate(parent);
         }
         paymentView.setItem(getItem(position));
         return paymentView;

@@ -23,14 +23,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
-/**
- * Created by foroughM on 7/17/2016.
- */
+
 public class userPage extends Fragment {
     ViewGroup view;
     ImageView imageView;
@@ -39,8 +35,6 @@ public class userPage extends Fragment {
     FirebaseUser firebaseUser;
     DatabaseReference mDatabase;
     Button Edit;
-    private FirebaseStorage storage;
-    private StorageReference ref;
     private Uri downloadUri;
 
     @Override

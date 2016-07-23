@@ -16,23 +16,31 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
-public class PaymentView extends RelativeLayout {
+public class ItemView extends RelativeLayout {
 
     private TextView deadlineTextView;
     private TextView amountTextView;
     private TextView idTextView;
     private TextView approvedTextView;
 
+    public ItemView(Context c) {
+        this(c, null);
+    }
 
-    public PaymentView(Context context, AttributeSet attrs, int defStyle) {
+    public ItemView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public ItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         LayoutInflater.from(context).inflate(R.layout.payment_view_children, this, true);
         setupChildren();
     }
 
-    public static PaymentView inflate(ViewGroup parent) {
-        return (PaymentView) LayoutInflater.from(parent.getContext())
+    public static ItemView inflate(ViewGroup parent) {
+        ItemView itemView = (ItemView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.payment_view, parent, false);
+        return itemView;
     }
 
     private void setupChildren() {
@@ -43,16 +51,19 @@ public class PaymentView extends RelativeLayout {
     }
 
     public void setItem(Payment payment) {
-        deadlineTextView.setText(payment.getDeadline().toString());
-        amountTextView.setText(payment.getAmount());
+        deadlineTextView.setText(R.string.date + " " + payment.getDeadline().toString());
+        amountTextView.setText(R.string.amount + " " + String.valueOf(payment.getAmount()) + " " +
+                R.string.amount_unit);
+        
         try {
+
             String currentUserID = Database.getInstance().getCurrentUserID();
 
             ArrayList<UserPayment> userPaymentList = payment.getUserPaymentList();
 
             for (int i = 0; i < userPaymentList.size(); i++) {
                 if (userPaymentList.get(i).getUserID().equals(currentUserID)) {
-                    idTextView.setText(userPaymentList.get(i).getPaymentID());
+                    idTextView.setText(R.string.payment_id + " " + userPaymentList.get(i).getPaymentID());
                     if (userPaymentList.get(i).isApproved()) {
                         approvedTextView.setText(R.string.payment_report_dialog_approved);
                     } else {
@@ -61,9 +72,11 @@ public class PaymentView extends RelativeLayout {
                     break;
                 }
             }
-        } catch (RuntimeException e){
+        }
+        catch(RuntimeException e){
             Log.e("R", "error in payment view. (get current user)" + e);
             Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+
         }
     }
 
