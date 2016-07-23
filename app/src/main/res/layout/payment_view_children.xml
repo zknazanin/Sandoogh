@@ -12,17 +12,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/payment_amount_text_view"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="right">
 
-        <TextView
-            android:id="@+id/payment_deadline_text_view"
+            <TextView
+                android:id="@+id/payment_amount_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_layout_margin"
+                android:layout_marginRight="@dimen/standard_layout_margin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/payment_deadline_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_layout_margin"
+                android:layout_marginRight="@dimen/standard_layout_margin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -30,6 +56,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
         android:background="@color/colorDivider" />
 
     <LinearLayout
@@ -39,15 +67,22 @@
 
         <TextView
             android:id="@+id/payment_approved_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/payment_id_text_view"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4" />
+            android:layout_marginLeft="@dimen/standard_layout_margin"
+            android:layout_marginRight="@dimen/standard_layout_margin"
+            android:layout_weight="4"
+            android:gravity="right" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_id" />
 
     </LinearLayout>
 

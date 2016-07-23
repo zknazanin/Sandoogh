@@ -51,33 +51,25 @@ public class ItemView extends RelativeLayout {
     }
 
     public void setItem(Payment payment) {
-        deadlineTextView.setText(R.string.date + " " + payment.getDeadline().toString());
-        amountTextView.setText(R.string.amount + " " + String.valueOf(payment.getAmount()) + " " +
-                R.string.amount_unit);
-        
-        try {
+        deadlineTextView.setText(payment.getDeadline().toString());
+        amountTextView.setText(String.valueOf(payment.getAmount()));
 
-            String currentUserID = Database.getInstance().getCurrentUserID();
+        String currentUserID = Database.getInstance().getCurrentUserID();
 
-            ArrayList<UserPayment> userPaymentList = payment.getUserPaymentList();
+        ArrayList<UserPayment> userPaymentList = payment.getUserPaymentList();
 
-            for (int i = 0; i < userPaymentList.size(); i++) {
-                if (userPaymentList.get(i).getUserID().equals(currentUserID)) {
-                    idTextView.setText(R.string.payment_id + " " + userPaymentList.get(i).getPaymentID());
-                    if (userPaymentList.get(i).isApproved()) {
-                        approvedTextView.setText(R.string.payment_report_dialog_approved);
-                    } else {
-                        approvedTextView.setText(R.string.payment_report_dialog_not_approved);
-                    }
-                    break;
+        for (int i = 0; i < userPaymentList.size(); i++) {
+            if (userPaymentList.get(i).getUserID().equals(currentUserID)) {
+                idTextView.setText(userPaymentList.get(i).getPaymentID());
+                if (userPaymentList.get(i).isApproved()) {
+                    approvedTextView.setText(R.string.payment_report_dialog_approved);
+                } else {
+                    approvedTextView.setText(R.string.payment_report_dialog_not_approved);
                 }
+                break;
             }
         }
-        catch(RuntimeException e){
-            Log.e("R", "error in payment view. (get current user)" + e);
-            Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
 
-        }
     }
 
 }
