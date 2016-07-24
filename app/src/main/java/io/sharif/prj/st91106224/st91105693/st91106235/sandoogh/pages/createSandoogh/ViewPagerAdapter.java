@@ -75,7 +75,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         memberIds.add(sandoogh.getAdminUid());
         sandoogh.setMemberIds(memberIds);
 
-        sandoogh.updatePaymentsList(sandoogh.getStartDate());
+        sandoogh.calculateAndAddNextPayment(sandoogh.getStartDate());
         Database.getInstance().saveSandoogh(sandoogh);
 
     }

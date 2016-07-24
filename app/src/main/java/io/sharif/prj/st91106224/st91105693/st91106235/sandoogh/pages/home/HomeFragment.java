@@ -57,8 +57,8 @@ public class HomeFragment extends Fragment {
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             user = firebaseAuth.getCurrentUser();
             getUserSandooghs(container, getActivity().getSupportFragmentManager());
-        } catch (RuntimeException e){
-            Log.e("R","Error in home fragment database function " + e.toString());
+        } catch (RuntimeException e) {
+            Log.e("R", "Error in home fragment database function " + e.toString());
             Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -105,7 +105,9 @@ public class HomeFragment extends Fragment {
                         final String[] values = new String[sandooghObjects.size()];
 
                         for (int i = 0; i < sandooghObjects.size(); i++) {
-                            values[i] = sandooghObjects.get(i).getName();
+                            Sandoogh sandoogh = sandooghObjects.get(i);
+                            values[i] = sandoogh.getName();
+                            sandoogh.updatePaymentsList();
                         }
 
                         if (getActivity() != null) {

@@ -2,7 +2,6 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.SolarCalendar;
 
@@ -23,76 +22,83 @@ public class Sandoogh implements Serializable {
         paymentList = new ArrayList<>();
     }
 
-    public void updatePaymentsList(SolarCalendar startDate) {
+
+    public void updatePaymentsList() {
 
         SolarCalendar currentDate = new SolarCalendar();
 
-        Payment payment;
-        do {
-            payment = new Payment();
-            payment.setAmount(periodPay);
+        while (getLastPayment().getDeadline().isBefore(currentDate)) {
+            calculateAndAddNextPayment(getLastPayment().getDeadline());
+        }
+    }
 
-            ArrayList<UserPayment> userPaymentList = new ArrayList<>();
-            for (String memberId : memberIds) {
-                userPaymentList.add(new UserPayment(false, memberId));
-            }
-            payment.setUserPaymentList(userPaymentList);
+    public Payment getLastPayment() {
+        return paymentList.get(paymentList.size() - 1);
+    }
 
-            int date = 0, month = 0, year = 0;
+    public void calculateAndAddNextPayment(SolarCalendar startDate) {
 
-            switch (period) {
-                case "یک هفته":
-                    if (startDate.getDate() < 8) {
-                        date = 8;
-                    } else if (startDate.getDate() < 15) {
-                        date = 15;
-                    } else if (startDate.getDate() < 23) {
-                        date = 23;
-                    } else {
-                        date = 1;
-                        month = 1;
-                    }
-                    month += startDate.getMonth();
-                    if (month > 12) {
-                        month -= 12;
-                        year = 1;
-                    }
-                    year += startDate.getYear();
-                    break;
-                case "یک ماه":
-                    date = startDate.getDate();
-                    month = startDate.getMonth() + 1;
-                    if (month > 12) {
-                        month -= 12;
-                        year = 1;
-                    }
-                    year += startDate.getYear();
-                    break;
-                case "سه ماه":
-                    date = startDate.getDate();
-                    month = startDate.getMonth() + 3;
-                    if (month > 12) {
-                        month -= 12;
-                        year = 1;
-                    }
-                    year += startDate.getYear();
-                    break;
-                case "شش ماه":
-                    date = startDate.getDate();
-                    month = startDate.getMonth() + 6;
-                    if (month > 12) {
-                        month -= 12;
-                        year = 1;
-                    }
-                    year += startDate.getYear();
-                    break;
-            }
+        Payment payment = new Payment();
+        payment.setAmount(periodPay);
 
-            payment.setDeadline(new SolarCalendar(date, month, year));
-            paymentList.add(payment);
+        ArrayList<UserPayment> userPaymentList = new ArrayList<>();
+        for (String memberId : memberIds) {
+            userPaymentList.add(new UserPayment(false, memberId));
+        }
+        payment.setUserPaymentList(userPaymentList);
 
-        } while (payment.getDeadline().isBefore(currentDate));
+        int date = 0, month = 0, year = 0;
 
+        switch (period) {
+            case "یک هفته":
+                if (startDate.getDate() < 8) {
+                    date = 8;
+                } else if (startDate.getDate() < 15) {
+                    date = 15;
+                } else if (startDate.getDate() < 23) {
+                    date = 23;
+                } else {
+                    date = 1;
+                    month = 1;
+                }
+                month += startDate.getMonth();
+                if (month > 12) {
+                    month -= 12;
+                    year = 1;
+                }
+                year += startDate.getYear();
+                break;
+            case "یک ماه":
+                date = startDate.getDate();
+                month = startDate.getMonth() + 1;
+                if (month > 12) {
+                    month -= 12;
+                    year = 1;
+                }
+                year += startDate.getYear();
+                break;
+            case "سه ماه":
+                date = startDate.getDate();
+                month = startDate.getMonth() + 3;
+                if (month > 12) {
+                    month -= 12;
+                    year = 1;
+                }
+                year += startDate.getYear();
+                break;
+            case "شش ماه":
+                date = startDate.getDate();
+                month = startDate.getMonth() + 6;
+                if (month > 12) {
+                    month -= 12;
+                    year = 1;
+                }
+                year += startDate.getYear();
+                break;
+        }
+
+        payment.setDeadline(new SolarCalendar(date, month, year));
+        paymentList.add(payment);
     }
 
 
