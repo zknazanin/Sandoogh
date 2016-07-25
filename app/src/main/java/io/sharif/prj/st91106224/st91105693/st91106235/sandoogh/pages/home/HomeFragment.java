@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;

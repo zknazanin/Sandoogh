@@ -11,6 +11,6 @@
     <dimen name="standard_layout_margin">10dp</dimen>
     <dimen name="standard_layout_padding">10dp</dimen>
 
-    <dimen name="sandoogh_account_text_view_height">30dp</dimen>
-    <dimen name="sandoogh_account_edit_text_height">30dp</dimen>
+    <dimen name="sandoogh_account_text_view_height">40dp</dimen>
+    <dimen name="sandoogh_account_edit_text_height">40dp</dimen>
 </resources>

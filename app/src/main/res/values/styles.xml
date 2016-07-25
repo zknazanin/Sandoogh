@@ -21,5 +21,9 @@
         <item name="colorAccent">@android:color/white</item>
     </style>
 
+    <style name="CustomAccentOverlay2" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/colorDivider</item>
+    </style>
+
 
 </resources>

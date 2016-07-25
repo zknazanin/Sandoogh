@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:id="@+id/sandoogh_description_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_corner_shape_background_color"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_layout_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_layout_margin"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/san_AccNum_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:gravity="center_vertical|right"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/san_CardNum_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:gravity="center_vertical|right"
+                        android:inputType="number" />
+
+
+                    <EditText
+                        android:id="@+id/san_Period_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:gravity="center_vertical|right"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/san_amount_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
+                        android:gravity="center_vertical|right"
+                        android:inputType="number" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/san_AccNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/san_AccNum" />
+
+                    <TextView
+                        android:id="@+id/san_CardNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/san_CardNum" />
+
+
+                    <TextView
+                        android:id="@+id/san_Period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/san_Period" />
+
+                    <TextView
+                        android:id="@+id/san_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/san_amount" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/edit_members_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/edit_members"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/confirm_payments_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/confirm_payments"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/view_payments_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/view_payments"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/save_changes_button"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:text="@string/save_changes"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:theme="@style/CustomAccentOverlay2"
+                    app:backgroundTint="@color/colorDivider" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/cancel_changes_button"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDivider"
+                    android:text="@string/cancel_changes"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:theme="@style/CustomAccentOverlay2"
+                    app:backgroundTint="@color/colorDivider" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

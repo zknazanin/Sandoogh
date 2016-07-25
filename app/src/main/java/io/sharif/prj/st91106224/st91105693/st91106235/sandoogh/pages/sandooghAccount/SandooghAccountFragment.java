@@ -3,8 +3,10 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAc
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +31,14 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.
 
 public class SandooghAccountFragment extends Fragment {
     private ViewGroup view;
-    private EditText temp;
+    private TextView temp;
     private Button memberButton;
+    private ViewGroup container;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+
+        this.container = container;
 
         Bundle bundle = getArguments();
         final Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SELECTED_SANDOOGH");
@@ -178,25 +183,45 @@ public class SandooghAccountFragment extends Fragment {
     }
 
 
-    private void populateUi(Sandoogh sandoogh) {
+    private void populateUi(final Sandoogh sandoogh) {
 
         updatePayments(sandoogh);
 
-        temp = (EditText) view.findViewById(R.id.san_AccNum_edit);
+        temp = (TextView) view.findViewById(R.id.san_AccNum_edit);
         temp.setText(sandoogh.getAccountNum());
-        temp = (EditText) view.findViewById(R.id.san_CardNum_edit);
+        temp = (TextView) view.findViewById(R.id.san_CardNum_edit);
         temp.setText(sandoogh.getCardNum());
-        temp = (EditText) view.findViewById(R.id.member_num_edit);
+        temp = (TextView) view.findViewById(R.id.member_num_edit);
         temp.setText(String.valueOf(sandoogh.getMemberIds().size()));
-        temp = (EditText) view.findViewById(R.id.san_Period_edit);
+        temp = (TextView) view.findViewById(R.id.san_Period_edit);
         temp.setText(sandoogh.getPeriod());
-        temp = (EditText) view.findViewById(R.id.san_amount_edit);
+        temp = (TextView) view.findViewById(R.id.san_amount_edit);
         temp.setText(String.valueOf(sandoogh.getPeriodPay()));
-        temp = (EditText) view.findViewById(R.id.start_date_edit);
+        temp = (TextView) view.findViewById(R.id.start_date_edit);
         temp.setText(sandoogh.getStartDate().toString());
         if (sandoogh.getType().equals("A")) {
-            temp = (EditText) view.findViewById(R.id.san_total_edit);
+            temp = (TextView) view.findViewById(R.id.san_total_edit);
             temp.setText(String.valueOf(sandoogh.getTotal()));
+        }
+
+        if (sandoogh.getAdminUid().equals(Database.getInstance().getCurrentUserID())) {
+            AppCompatButton adminPanelButton = (AppCompatButton) view.findViewById(R.id.admin_panel_button);
+            adminPanelButton.setVisibility(View.VISIBLE);
+            adminPanelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AdminPanelFragment adminPanelFragment = new AdminPanelFragment();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("SANDOOGH", sandoogh);
+
+                    adminPanelFragment.setArguments(bundle);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(container.getId(), adminPanelFragment)
+                            .commit();
+                }
+            });
         }
     }
 

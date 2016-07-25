@@ -64,54 +64,47 @@
                     android:gravity="right"
                     android:orientation="vertical">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/san_AccNum_edit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:background="@android:color/transparent"
-                        android:editable="false" />
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/san_CardNum_edit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:background="@android:color/transparent"
-                        android:editable="false" />
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/member_num_edit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:background="@android:color/transparent"
-                        android:editable="false" />
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/san_Period_edit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:background="@android:color/transparent"
-                        android:editable="false" />
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/san_amount_edit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:background="@android:color/transparent"
-                        android:editable="false" />
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/san_total_edit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:background="@android:color/transparent"
-                        android:editable="false" />
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/start_date_edit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:background="@android:color/transparent"
-                        android:editable="false" />
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
 
                 </LinearLayout>
 
@@ -127,42 +120,49 @@
                         android:id="@+id/san_AccNum"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
                         android:text="@string/san_AccNum" />
 
                     <TextView
                         android:id="@+id/san_CardNum"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
                         android:text="@string/san_CardNum" />
 
                     <TextView
                         android:id="@+id/member_num"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
                         android:text="@string/member_num" />
 
                     <TextView
                         android:id="@+id/san_Period"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
                         android:text="@string/san_Period" />
 
                     <TextView
                         android:id="@+id/san_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
                         android:text="@string/san_amount" />
 
                     <TextView
                         android:id="@+id/san_total"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
                         android:text="@string/san_total" />
 
                     <TextView
                         android:id="@+id/start_date"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
                         android:text="@string/start_date" />
 
                 </LinearLayout>
@@ -326,5 +326,18 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:theme="@style/CustomAccentOverlay" />
         </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/admin_panel_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_padding"
+            android:backgroundTint="@android:color/white"
+            android:text="@string/sandoogh_admin_panel"
+            android:textColor="@color/colorPrimaryDark"
+            android:theme="@style/CustomAccentOverlay"
+            android:visibility="gone" />
+
     </LinearLayout>
 </ScrollView>

@@ -73,6 +73,7 @@
     <string name="sandoogh_account_loan">وام</string>
     <string name="sandoogh_account_payment_report">مشاهده ی گزارش پرداخت ها</string>
     <string name="sandoogh_account_view_members_list">مشاهده اعضای صندوق</string>
+    <string name="sandoogh_admin_panel">مدیریت صندوق</string>
 
     <string name="period_payment_dialog_text_view">شناسه ی پرداخت سهم این دوره را وارد نمایید</string>
     <string name="period_payment_dialog_edit_text_hint">شناسه ی پرداخت</string>
@@ -90,5 +91,11 @@
     <string name="payment_report_dialog_approved">تایید شده</string>
     <string name="payment_report_dialog_not_approved">تایید نشده</string>
     <string name="Error">خطا در اتصال</string>
+
+    <string name="save_changes">ذخیره ی تغییرات</string>
+    <string name="cancel_changes">لغو تغییرات</string>
+    <string name="edit_members">ویرایش اعضا</string>
+    <string name="confirm_payments">تایید پرداخت ها</string>
+    <string name="view_payments">مشاهده ی پرداخت ها</string>
 
 </resources>
