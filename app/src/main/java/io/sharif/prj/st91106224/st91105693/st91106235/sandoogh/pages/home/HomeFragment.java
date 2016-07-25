@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,11 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh.CreateSandooghFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.SandooghAccountFragment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 
@@ -156,9 +160,16 @@ class SandooghArrayAdapter extends ArrayAdapter<String> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(R.layout.button, parent, false);
-        Button btn = (Button) rowView.findViewById(R.id.buttonDy);
-        btn.setText(values[position]);
-        btn.setOnClickListener(new android.widget.AdapterView.OnClickListener() {
+
+        TextView sandooghNameTextView = (TextView) rowView.findViewById(R.id.sandoogh_name_text_view);
+        sandooghNameTextView.setText(values[position]);
+
+        ImageView sandooghAdminSign = (ImageView) rowView.findViewById(R.id.sandoogh_admin_sign);
+        if (sandooghObjects.get(position).getAdminUid().equals(Database.getInstance().getCurrentUserID())) {
+            sandooghAdminSign.setVisibility(View.VISIBLE);
+        }
+
+        rowView.setOnClickListener(new android.widget.AdapterView.OnClickListener() {
 
             @Override
             public void onClick(View v) {
