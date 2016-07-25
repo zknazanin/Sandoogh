@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(container.getId(), createSandooghFragment)
+                        .replace(container.getId(), createSandooghFragment).addToBackStack(null)
                         .commit();
             }
         });
@@ -182,6 +182,7 @@ class SandooghArrayAdapter extends ArrayAdapter<String> {
 
                 fragmentManager.beginTransaction()
                         .replace(container.getId(), sandooghAccountFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });

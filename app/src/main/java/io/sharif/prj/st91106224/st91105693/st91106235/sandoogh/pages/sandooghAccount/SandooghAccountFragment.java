@@ -219,6 +219,7 @@ public class SandooghAccountFragment extends Fragment {
 
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(container.getId(), adminPanelFragment)
+                            .addToBackStack(null)
                             .commit();
                 }
             });

@@ -113,8 +113,8 @@ public class userPage extends Fragment {
                             .commit();
                 }
             });
-        } catch (RuntimeException e){
-            Log.e("R","Error in userPage database function " + e);
+        } catch (RuntimeException e) {
+            Log.e("R", "Error in userPage database function " + e);
             Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
         return view;
