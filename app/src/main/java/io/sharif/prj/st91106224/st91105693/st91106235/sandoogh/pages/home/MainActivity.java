@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -18,17 +20,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userEdit;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private CharSequence mTitle;
-
+    private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
 
@@ -95,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
             case 0:
                 fragment = new HomeFragment();
                 break;
-            case 2:
-                fragment = new userEdit();
+            case 1:
+                fragment = new userPage();
                 break;
             default:
-                fragment = new userPage();
+                fragment = new HomeFragment();
         }
 
         // Insert the fragment by replacing any existing fragment
@@ -161,7 +168,48 @@ public class MainActivity extends AppCompatActivity {
         drawerItemsTitles = getResources().getStringArray(R.array.drawer_items_array);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
+        View header = getLayoutInflater().inflate(R.layout.header, null);
+        final ImageView imageView = (ImageView) header.findViewById(R.id.img_first);
+        final TextView textView = (TextView) header.findViewById(R.id.textView);
+        try {
+            firebaseAuth = FirebaseAuth.getInstance();
+            user = firebaseAuth.getCurrentUser();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("Users").child(user.getUid()).child("image").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (!snapshot.getValue().toString().equals("0")) {
+                        String base64Image = (String) snapshot.getValue();
+                        byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
+                        imageView.setImageBitmap(
+                                BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
+                        );
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            mDatabase.child("Users").child(user.getUid()).child("username").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    String name = (String) snapshot.getValue();
+                    textView.setText(name);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("R", "cancel name");
+                }
+            });
+        }catch (RuntimeException e){
+            Log.e("R","Error in drawer database function " + e);
+            Toast.makeText(this, R.string.Error , Toast.LENGTH_SHORT).show();
+        }
+
+        drawerList.addHeaderView(header);
         // Set the adapter for the list view
         drawerList.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.activity_list_item, android.R.id.text1, drawerItemsTitles));

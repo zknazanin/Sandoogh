@@ -1,7 +1,6 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount;
 
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +34,6 @@ public class userPage extends Fragment {
     FirebaseUser firebaseUser;
     DatabaseReference mDatabase;
     Button Edit;
-    private Uri downloadUri;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
