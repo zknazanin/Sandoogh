@@ -96,6 +96,8 @@
     <string name="cancel_changes">لغو تغییرات</string>
     <string name="edit_members">ویرایش اعضا</string>
     <string name="confirm_payments">تایید پرداخت ها</string>
-    <string name="view_payments">مشاهده ی پرداخت ها</string>
+    <string name="view_payments">گزارش پرداخت ها</string>
+    <string name="view_loan_requests">بررسی درخواست های وام</string>
+    <string name="view_loans">گزارش وام ها</string>
 
 </resources>

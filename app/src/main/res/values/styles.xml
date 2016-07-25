@@ -22,7 +22,7 @@
     </style>
 
     <style name="CustomAccentOverlay2" parent="ThemeOverlay.AppCompat">
-        <item name="colorAccent">@color/colorDivider</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 

@@ -48,5 +48,7 @@ public class AdminPanelFragment extends Fragment {
         temp = (EditText) view.findViewById(R.id.san_amount_edit);
         temp.setText(String.valueOf(sandoogh.getPeriodPay()));
 
+
+
     }
 }

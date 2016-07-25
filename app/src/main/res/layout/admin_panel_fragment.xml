@@ -119,16 +119,13 @@
                 android:theme="@style/CustomAccentOverlay"
                 app:backgroundTint="@android:color/white" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/confirm_payments_button"
-                style="@style/Widget.AppCompat.Button.Colored"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/white"
-                android:text="@string/confirm_payments"
-                android:textColor="@color/colorPrimaryDark"
-                android:theme="@style/CustomAccentOverlay"
-                app:backgroundTint="@android:color/white" />
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/standard_layout_margin"
+                android:layout_marginTop="@dimen/standard_layout_margin"
+                android:background="@color/colorDivider" />
+
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/view_payments_button"
@@ -141,6 +138,54 @@
                 android:theme="@style/CustomAccentOverlay"
                 app:backgroundTint="@android:color/white" />
 
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/confirm_payments_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/confirm_payments"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/standard_layout_margin"
+                android:layout_marginTop="@dimen/standard_layout_margin"
+                android:background="@color/colorDivider" />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/view_loans_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/view_loans"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/view_loan_requests_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/view_loan_requests"
+                android:textColor="@color/colorPrimaryDark"
+                android:theme="@style/CustomAccentOverlay"
+                app:backgroundTint="@android:color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/standard_layout_margin"
+                android:layout_marginTop="@dimen/standard_layout_margin"
+                android:background="@color/colorDivider" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,11 +197,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@android:color/white"
+                    android:backgroundTint="@color/colorPrimary"
                     android:text="@string/save_changes"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimaryLight"
                     android:theme="@style/CustomAccentOverlay2"
-                    app:backgroundTint="@color/colorDivider" />
+                    app:backgroundTint="@color/colorPrimary" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/cancel_changes_button"
@@ -164,11 +209,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorDivider"
+                    android:backgroundTint="@color/colorPrimary"
                     android:text="@string/cancel_changes"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimaryLight"
                     android:theme="@style/CustomAccentOverlay2"
-                    app:backgroundTint="@color/colorDivider" />
+                    app:backgroundTint="@color/colorPrimary" />
 
             </LinearLayout>
 
