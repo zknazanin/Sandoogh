@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -88,7 +89,7 @@ public class SandooghAccountFragment extends Fragment {
         return view;
     }
 
-    private void setExpandButtonsFunction(int layoutId, final int imageButtonId, final int layoutBelowId) {
+    private void setExpandButtonsFunction(int layoutId, final int imageViewId, final int layoutBelowId) {
 
         view.findViewById(layoutId).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,10 +99,10 @@ public class SandooghAccountFragment extends Fragment {
 
                 if (layoutBelow.getVisibility() == View.VISIBLE) {
                     layoutBelow.setVisibility(View.GONE);
-                    ((ImageButton) view.findViewById(imageButtonId)).setImageResource(R.drawable.ic_expand_more_white_24dp);
+                    ((ImageView) view.findViewById(imageViewId)).setImageResource(R.drawable.ic_expand_more_white_24dp);
                 } else {
                     layoutBelow.setVisibility(View.VISIBLE);
-                    ((ImageButton) view.findViewById(imageButtonId)).setImageResource(R.drawable.ic_expand_less_white_24dp);
+                    ((ImageView) view.findViewById(imageViewId)).setImageResource(R.drawable.ic_expand_less_white_24dp);
                 }
             }
         });

@@ -29,8 +29,8 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 /**
  * Created by foroughM on 7/17/2016.
  */
-public class Members extends Fragment{
-    private  ViewGroup view;
+public class Members extends Fragment {
+    private ViewGroup view;
     DatabaseReference mDatabase;
     ArrayList<String> memberIds;
     int membersCount;
@@ -48,19 +48,20 @@ public class Members extends Fragment{
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("اعضا");
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
         try {
             getListItemData();
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             Log.e("R", "error in member page. (get Users)" + e);
             Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
         return view;
     }
-    private void getListItemData(){
+
+    private void getListItemData() {
         final List<User> users = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         membersCount = memberIds.size();
@@ -77,7 +78,7 @@ public class Members extends Fragment{
                             if (membersCount == 0)
                                 break;
                         }
-                        Log.e("R", ""+users.size());
+                        Log.e("R", "" + users.size());
                         MemberAdaptor rcAdapter = new MemberAdaptor(getContext(), users);
                         recyclerView.setAdapter(rcAdapter);
                     }

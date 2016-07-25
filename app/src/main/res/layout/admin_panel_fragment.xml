@@ -51,12 +51,11 @@
                         android:inputType="number" />
 
 
-                    <EditText
-                        android:id="@+id/san_Period_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/sandoogh_account_edit_text_height"
-                        android:gravity="center_vertical|right"
-                        android:inputType="number" />
+                    <Spinner
+                        android:id="@+id/period_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:entries="@array/period_Array" />
 
                     <EditText
                         android:id="@+id/san_amount_edit"
