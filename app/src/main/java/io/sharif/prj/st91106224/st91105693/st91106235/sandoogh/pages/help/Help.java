@@ -49,6 +49,9 @@ public class Help extends Fragment {
 
 
             setExpandButtonsFunction(R.id.help_app_description_expand_layout, R.id.help_app_description_expand_button, R.id.help_app_description_layout);
+            setExpandButtonsFunction(R.id.help_start_the_app_expand_layout, R.id.help_start_the_app_expand_button, R.id.help_start_the_app_layout);
+            setExpandButtonsFunction(R.id.help_differenet_types_expand_layout, R.id.help_differenet_types_expand_button, R.id.help_differenet_types_layout);
+            setExpandButtonsFunction(R.id.help_user_and_admin_expand_layout, R.id.help_user_and_admin_expand_button, R.id.help_user_and_admin_layout);
 
 
             return view;
