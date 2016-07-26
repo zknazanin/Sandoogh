@@ -99,4 +99,8 @@
     <string name="view_loan_requests">بررسی درخواست های وام</string>
     <string name="view_loans">گزارش وام ها</string>
 
+    <string name="typeError">نوع صندوق را انتخاب کنید</string>
+    <string name="nameError">نام صندوق را وارد کنید</string>
+    <string name="success">صندوق با موفقیت ایجاد شد</string>
+
 </resources>

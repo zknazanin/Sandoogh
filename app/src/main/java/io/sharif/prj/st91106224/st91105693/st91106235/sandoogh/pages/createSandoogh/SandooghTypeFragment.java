@@ -3,7 +3,6 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSand
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,11 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 
 
 public class SandooghTypeFragment extends Fragment {
+    private  String sandooghType;
 
     public String getSandooghType() {
         return sandooghType;
     }
-
-    String sandooghType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,8 +29,8 @@ public class SandooghTypeFragment extends Fragment {
         Button sandooghType2Button = (Button) view.findViewById(R.id.sandoogh_type_2_button);
 
         final ViewPager viewPager = (ViewPager) container.findViewById(R.id.viewpager);
-
-
+        if(sandooghType == null)
+                sandooghType = "none";
         sandooghType1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

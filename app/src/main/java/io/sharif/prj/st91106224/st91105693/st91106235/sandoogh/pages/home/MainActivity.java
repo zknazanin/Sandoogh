@@ -100,9 +100,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
+                fragment = new userPage();
+            case 1:
                 fragment = new HomeFragment();
                 break;
-            case 1:
+            case 2:
                 fragment = new userPage();
                 break;
             default:
