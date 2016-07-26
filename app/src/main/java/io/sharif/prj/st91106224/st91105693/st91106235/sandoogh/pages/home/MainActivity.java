@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     else{
-                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.anonymos));
+                        imageView.setImageDrawable(thisActivity.getResources().getDrawable(R.drawable.anonymos));
                     }
 
                     Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();

@@ -1,5 +1,6 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ public class MemberAdaptor  extends RecyclerView.Adapter<UserViewHolders> {
 
   private List<User> itemList;
   private Context context;
+    private Activity thisActivity;
 
   public MemberAdaptor(Context context, List<User> itemList) {
    this.itemList = itemList;
@@ -40,6 +42,9 @@ public class MemberAdaptor  extends RecyclerView.Adapter<UserViewHolders> {
           holder.getUserPhoto().setImageBitmap(
                   BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
           );
+      }
+      else{
+         // holder.getUserPhoto().setImageDrawable(getResources().getDrawable(R.drawable.anonymos));
       }
   }
 
