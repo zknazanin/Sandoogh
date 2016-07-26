@@ -139,9 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new Help();
                 mTitle = getString(R.string.help);
                 break;
-            case 4:
-                fragment = new Help();
-                break;
+//            case 4:
+//                fragment = new Help();
+//                break;
             default:
                 fragment = new HomeFragment();
                 mTitle = getString(R.string.sandoogh);
