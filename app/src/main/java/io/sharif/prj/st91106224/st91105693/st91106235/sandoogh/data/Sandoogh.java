@@ -23,6 +23,21 @@ public class Sandoogh implements Serializable {
     }
 
 
+    // Copy Constructor
+    public Sandoogh(Sandoogh sandoogh){
+        this.accountNum = sandoogh.accountNum;
+        this.cardNum = sandoogh.cardNum;
+        this.period = sandoogh.period;
+        this.name = sandoogh.name;
+        this.type = sandoogh.type;
+        this.periodPay = sandoogh.periodPay;
+        this.total = sandoogh.total;
+        this.startDate = sandoogh.startDate;
+        this.memberIds = sandoogh.memberIds;
+        this.adminUid = sandoogh.adminUid;
+        this.paymentList = sandoogh.paymentList;
+    }
+
     public void updatePaymentsList() {
 
         SolarCalendar currentDate = new SolarCalendar();

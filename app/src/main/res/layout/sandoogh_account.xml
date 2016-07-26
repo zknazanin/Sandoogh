@@ -32,7 +32,7 @@
                 android:text="@string/sandoogh_account_description"
                 android:textColor="@android:color/white" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/sandoogh_description_expand_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -199,7 +199,7 @@
                 android:text="@string/sandoogh_account_payments"
                 android:textColor="@android:color/white" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/sandoogh_payments_expand_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -284,7 +284,7 @@
                 android:text="@string/sandoogh_account_loan"
                 android:textColor="@android:color/white" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/sandoogh_loan_expand_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

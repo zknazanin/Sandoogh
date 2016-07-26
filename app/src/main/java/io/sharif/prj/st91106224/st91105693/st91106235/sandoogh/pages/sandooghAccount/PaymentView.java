@@ -2,12 +2,10 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAc
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,31 +14,30 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
-public class ItemView extends RelativeLayout {
+public class PaymentView extends RelativeLayout {
 
     private TextView deadlineTextView;
     private TextView amountTextView;
     private TextView idTextView;
     private TextView approvedTextView;
 
-    public ItemView(Context c) {
+    public PaymentView(Context c) {
         this(c, null);
     }
 
-    public ItemView(Context context, AttributeSet attrs) {
+    public PaymentView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ItemView(Context context, AttributeSet attrs, int defStyle) {
+    public PaymentView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         LayoutInflater.from(context).inflate(R.layout.payment_view_children, this, true);
         setupChildren();
     }
 
-    public static ItemView inflate(ViewGroup parent) {
-        ItemView itemView = (ItemView) LayoutInflater.from(parent.getContext())
+    public static PaymentView inflate(ViewGroup parent) {
+        return (PaymentView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.payment_view, parent, false);
-        return itemView;
     }
 
     private void setupChildren() {
