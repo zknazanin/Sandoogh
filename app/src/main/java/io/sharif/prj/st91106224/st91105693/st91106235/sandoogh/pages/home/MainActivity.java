@@ -184,9 +184,6 @@ public class MainActivity extends AppCompatActivity {
         View header = getLayoutInflater().inflate(R.layout.header, null);
         final ImageView imageView = (ImageView) header.findViewById(R.id.img_first);
 
-        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        imageView.setImageBitmap(getCircleBitmap(bitmap));
-
         final TextView textView = (TextView) header.findViewById(R.id.textView);
         try {
             firebaseAuth = FirebaseAuth.getInstance();
@@ -201,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
                         imageView.setImageBitmap(
                                 BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
                         );
+
+                        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                        imageView.setImageBitmap(getCircleBitmap(bitmap));
 
                     }
                 }
