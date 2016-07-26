@@ -16,6 +16,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     private Activity thisActivity;
     private  Button notifCount;
     private int mNotifCount = 0;
+
+    static Activity thisActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -223,6 +226,14 @@ public class MainActivity extends AppCompatActivity {
                         imageView.setImageBitmap(getCircleBitmap(bitmap));
 
                     }
+
+                    else{
+                        imageView.setImageDrawable(getAnonymousDrawable());
+                    }
+
+                    Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    imageView.setImageBitmap(getCircleBitmap(bitmap));
+
                 }
 
                 @Override
@@ -253,6 +264,10 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.activity_list_item, android.R.id.text1, drawerItemsTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    public static Drawable getAnonymousDrawable() {
+        return thisActivity.getResources().getDrawable(R.drawable.anonymos);
     }
     
     @Override

@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="drawer_items_array">
-        <item>صندوق</item>
+        <item>خانه</item>
         <item>مشخصات من</item>
         <item>راهنما</item>
     </string-array>
@@ -98,6 +98,8 @@
     <string name="view_payments">گزارش پرداخت ها</string>
     <string name="view_loan_requests">بررسی درخواست های وام</string>
     <string name="view_loans">گزارش وام ها</string>
+
+    <string name="confirm">تایید</string>
 
     <string name="typeError">نوع صندوق را انتخاب کنید</string>
     <string name="nameError">نام صندوق را وارد کنید</string>
