@@ -119,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 fragment = new Help();
                 break;
+            case 4:
+                fragment = new Help();
+                break;
             default:
                 fragment = new HomeFragment();
         }
