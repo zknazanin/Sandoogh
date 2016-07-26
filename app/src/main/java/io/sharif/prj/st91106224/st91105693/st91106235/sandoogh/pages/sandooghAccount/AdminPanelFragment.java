@@ -29,11 +29,14 @@ import java.util.List;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 public class AdminPanelFragment extends Fragment {
 
     ViewGroup view;
+    ArrayList<String> changedMemberIds;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -124,7 +127,7 @@ public class AdminPanelFragment extends Fragment {
     private void showEditMembersDialog(final Sandoogh sandoogh) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        View promptView = layoutInflater.inflate(R.layout.edit_members_dialog, null);
+        final View promptView = layoutInflater.inflate(R.layout.edit_members_dialog, null);
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptView);
         final ListView listView = (ListView) promptView.findViewById(R.id.user_list_view);
@@ -144,7 +147,16 @@ public class AdminPanelFragment extends Fragment {
                         listView.setAdapter(userAdapter);
 
                         // create an alert dialog
-                        AlertDialog alert = alertDialogBuilder.create();
+                        final AlertDialog alert = alertDialogBuilder.create();
+
+                        promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                getChangedMemberIdsList(listView);
+                                alert.cancel();
+                            }
+                        });
+
                         alert.show();
                     }
 
@@ -153,6 +165,20 @@ public class AdminPanelFragment extends Fragment {
 
                     }
                 });
+    }
+
+    private void getChangedMemberIdsList(ListView listView) {
+
+        changedMemberIds = new ArrayList<>();
+
+        for (int i = 0; i < listView.getChildCount(); i++) {
+
+            UserView userView = (UserView) getViewByPosition(i, listView);
+            if (!userView.isToDelete()) {
+                changedMemberIds.add(userView.user.getId());
+            }
+        }
+
     }
 
     private void showPaymentsDialog() {
@@ -178,6 +204,21 @@ public class AdminPanelFragment extends Fragment {
         sandoogh.setCardNum(((EditText) view.findViewById(R.id.san_CardNum_edit)).getText().toString());
         sandoogh.setPeriod(((Spinner) view.findViewById(R.id.period_spinner)).getSelectedItem().toString());
         sandoogh.setPeriodPay(Integer.valueOf(((EditText) view.findViewById(R.id.san_amount_edit)).getText().toString()));
+        sandoogh.setMemberIds(changedMemberIds);
 
+        Database.getInstance().saveSandoogh(sandoogh);
+
+    }
+
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
+        }
     }
 }
