@@ -199,10 +199,16 @@ public class MainActivity extends AppCompatActivity {
                                 BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
                         );
 
-                        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                        imageView.setImageBitmap(getCircleBitmap(bitmap));
 
                     }
+
+                    else{
+                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.anonymos));
+                    }
+
+                    Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    imageView.setImageBitmap(getCircleBitmap(bitmap));
+
                 }
 
                 @Override
