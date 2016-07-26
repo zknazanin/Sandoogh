@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-    private Activity thisActivity;
     private  Button notifCount;
     private int mNotifCount = 0;
 
