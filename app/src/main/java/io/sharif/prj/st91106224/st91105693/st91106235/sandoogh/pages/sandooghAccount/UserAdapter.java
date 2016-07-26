@@ -20,10 +20,12 @@ public class UserAdapter extends ArrayAdapter<User> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         UserView userView = (UserView) convertView;
+
         if (null == userView) {
             userView = UserView.inflate(parent);
         }
-        userView.setItem(getItem(position));
+
+        userView.setItem(getItem(position), position);
         return userView;
     }
 }
