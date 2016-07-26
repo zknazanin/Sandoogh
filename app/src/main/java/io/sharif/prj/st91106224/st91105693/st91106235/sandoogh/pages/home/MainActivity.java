@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.help.Help;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
 
@@ -104,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 1:
                 fragment = new userPage();
+                break;
+            case 2:
+                fragment = new Help();
                 break;
             default:
                 fragment = new HomeFragment();
