@@ -1,7 +1,9 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -29,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,7 +54,6 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount
 public class MainActivity extends AppCompatActivity {
 
     private Boolean firstTime = null;
-
     private String[] drawerItemsTitles;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -59,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-
     private Activity thisActivity;
+    private  Button notifCount;
+    private int mNotifCount = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         thisActivity = this;
 
-//        isUserLoggedIn();
+//     Button   isUserLoggedIn();
 
         if (isFirstTime()) {
 
@@ -78,14 +81,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
         } else {
-
             setDrawer();
-
-            firebaseAuth = FirebaseAuth.getInstance();
-            user = firebaseAuth.getCurrentUser();
-
+            //setNotification();
             HomeFragment homeFragment = new HomeFragment();
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, homeFragment)
@@ -93,6 +91,24 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    private void setNotification() {
+
+
+//        mDatabase.child("Users").child(user.getUid()).child("notifications").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                for (DataSnapshot child : snapshot.getChildren()) {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        })
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -107,21 +123,25 @@ public class MainActivity extends AppCompatActivity {
     private void selectItem(int position) {
         // Create a new fragment
         Fragment fragment;
-
+        String mTitle;
         switch (position) {
             case 1:
                 fragment = new HomeFragment();
+                mTitle = getString(R.string.sandoogh);
                 break;
             case 2:
                 fragment = new userPage();
+                mTitle = getString(R.string.account);
                 break;
             case 3:
                 fragment = new Help();
+                mTitle = getString(R.string.help);
                 break;
             default:
                 fragment = new HomeFragment();
+                mTitle = getString(R.string.sandoogh);
         }
-
+        getSupportActionBar().setTitle(mTitle);
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -234,12 +254,84 @@ public class MainActivity extends AppCompatActivity {
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
-        return true;
+        View count = menu.findItem(R.id.notif).getActionView();
+        notifCount = (Button) count.findViewById(R.id.notif_count);
+        notifCount.setText(String.valueOf(mNotifCount));
+        notifCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //List of items to be show in  alert Dialog are stored in array of strings/char sequences
+
+                final String[] items = {"AAAAAA", "BBBBBBB", "CCCCCCC", "DDDDDDDD"};
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+
+                //set the title for alert dialog
+
+                builder.setTitle("Choose names: ");
+
+
+                //set items to alert dialog. i.e. our array , which will be shown as list view in alert dialog
+
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+
+
+                    @Override
+
+                    public void onClick(DialogInterface dialog, int item) {
+
+                        // setting the button text to the selected itenm from the list
+
+                        //   button.setText(items[item]);
+
+                    }
+
+                });
+
+
+                //Creating CANCEL button in alert dialog, to dismiss the dialog box when nothing is selected
+
+                builder
+
+                        .setCancelable(false)
+
+                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+
+                            @Override
+
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                //When clicked on CANCEL button the dalog will be dismissed
+
+                                dialog.dismiss();
+
+                            }
+
+                        });
+
+
+                // Creating alert dialog
+
+                AlertDialog alert = builder.create();
+
+
+                //Showing alert dialog
+
+                alert.show();
+
+
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

@@ -102,6 +102,9 @@
     <string name="typeError">نوع صندوق را انتخاب کنید</string>
     <string name="nameError">نام صندوق را وارد کنید</string>
     <string name="success">صندوق با موفقیت ایجاد شد</string>
+    <string name="sandoogh">صندوق</string>
+    <string name="account">مشخصات من</string>
+    <string name="help">راهنما</string>
 
     <string name="help_app_description">درباره برنامه</string>
     <string name="help_app_description_text">هدف اصلی این اپلیکیشن، مدیریت صندوق های مالی خانوادگی است. این صندوق ها به منظور پس انداز مالی و کمک به افراد در خانواده ها ایجاد می شوند. مکانیزم اصلی این صندوق ها به شرح زیر است:  \n
