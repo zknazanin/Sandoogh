@@ -13,12 +13,12 @@ import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home.MainActivity;
 
 public class MemberAdaptor  extends RecyclerView.Adapter<UserViewHolders> {
 
   private List<User> itemList;
   private Context context;
-    private Activity thisActivity;
 
   public MemberAdaptor(Context context, List<User> itemList) {
    this.itemList = itemList;
@@ -44,7 +44,7 @@ public class MemberAdaptor  extends RecyclerView.Adapter<UserViewHolders> {
           );
       }
       else{
-         // holder.getUserPhoto().setImageDrawable(getResources().getDrawable(R.drawable.anonymos));
+         holder.getUserPhoto().setImageDrawable(MainActivity.getAnonymousDrawable());
       }
   }
 

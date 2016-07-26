@@ -14,6 +14,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
 
-    private Activity thisActivity;
+    static Activity thisActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     else{
-                        imageView.setImageDrawable(thisActivity.getResources().getDrawable(R.drawable.anonymos));
+                        imageView.setImageDrawable(getAnonymousDrawable());
                     }
 
                     Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
@@ -239,6 +240,10 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.activity_list_item, android.R.id.text1, drawerItemsTitles));
         // Set the list's click listener
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    public static Drawable getAnonymousDrawable() {
+        return thisActivity.getResources().getDrawable(R.drawable.anonymos);
     }
 
     @Override
