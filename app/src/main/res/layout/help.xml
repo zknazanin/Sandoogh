@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar" />
+
+
+  <!--help_app_description-->
+    <RelativeLayout
+        android:id="@+id/help_app_description_expand_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/standard_layout_margin"
+        android:layout_marginRight="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@drawable/rounded_corner_shape_accent_color"
+        android:padding="@dimen/standard_layout_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/help_app_description"
+            android:textColor="@android:color/white" />
+        <ImageView
+            android:id="@+id/help_app_description_expand_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_expand_more_white_24dp" />
+
+
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/help_app_description_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_corner_shape_background_color"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_layout_padding"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/help_app_description_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/help_app_description_text"/>
+
+    </LinearLayout>
+
+
+
+
+    <!--help_start_the_app-->
+    <RelativeLayout
+        android:id="@+id/help_start_the_app_expand_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/standard_layout_margin"
+        android:layout_marginRight="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@drawable/rounded_corner_shape_accent_color"
+        android:padding="@dimen/standard_layout_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/help_start_the_app"
+            android:textColor="@android:color/white" />
+        <ImageView
+            android:id="@+id/help_start_the_app_expand_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_expand_more_white_24dp" />
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/help_start_the_app_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_corner_shape_background_color"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_layout_padding"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/help_start_the_app_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/help_start_the_app_text"/>
+
+    </LinearLayout>
+
+
+    <!--help-differenet_types-->
+    <RelativeLayout
+        android:id="@+id/help_differenet_types_expand_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/standard_layout_margin"
+        android:layout_marginRight="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@drawable/rounded_corner_shape_accent_color"
+        android:padding="@dimen/standard_layout_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/help_differenet_types"
+            android:textColor="@android:color/white" />
+        <ImageView
+            android:id="@+id/help_differenet_types_expand_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_expand_more_white_24dp" />
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/help_differenet_types_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_corner_shape_background_color"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_layout_padding"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/help_differenet_types_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/help_differenet_types_text"/>
+
+    </LinearLayout>
+
+
+    <!--help_user_and_admin-->
+    <RelativeLayout
+        android:id="@+id/help_user_and_admin_expand_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/standard_layout_margin"
+        android:layout_marginRight="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@drawable/rounded_corner_shape_accent_color"
+        android:padding="@dimen/standard_layout_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/help_user_and_admin"
+            android:textColor="@android:color/white" />
+        <ImageView
+            android:id="@+id/help_user_and_admin_expand_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_expand_more_white_24dp" />
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/help_user_and_admin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_corner_shape_background_color"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_layout_padding"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/help_user_and_admin_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/help_user_and_admin_text"/>
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
+</ScrollView>
