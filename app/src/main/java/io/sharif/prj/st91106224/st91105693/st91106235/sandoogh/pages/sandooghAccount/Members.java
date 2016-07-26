@@ -44,10 +44,13 @@ public class Members extends Fragment {
 
         Bundle bundle = getArguments();
         memberIds = (ArrayList<String>) bundle.getSerializable("MEMBERS");
+
         view = (ViewGroup) inflater.inflate(R.layout.members, container, false);
+
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("اعضا");
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
