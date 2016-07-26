@@ -67,6 +67,7 @@
     <string name="username">نام کاربری</string>
     <string name="SelecIimage">انتخاب تصویر</string>
     <string name="action_drawer_title">منو</string>
+    <string name="user_name">نام</string>
 
     <string name="sandoogh_account_description">مشخصات صندوق</string>
     <string name="sandoogh_account_payments">پرداخت ها</string>

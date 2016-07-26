@@ -1,4 +1,4 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.User;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.Admin.AdminPanelFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
 

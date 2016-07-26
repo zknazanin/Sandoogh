@@ -32,7 +32,7 @@ import java.util.List;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.createSandoogh.CreateSandooghFragment;
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.SandooghAccountFragment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.User.SandooghAccountFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
