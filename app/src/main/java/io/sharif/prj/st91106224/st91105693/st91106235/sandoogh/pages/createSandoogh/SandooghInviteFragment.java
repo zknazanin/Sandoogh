@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,10 +94,11 @@ public class SandooghInviteFragment extends Fragment {
                     public void onDataChange(DataSnapshot snapshot) {
                         List<DataSnapshot> list = Tools.iteratorToList(snapshot.getChildren().iterator());
                         DataSnapshot[] usersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
-                        for (DataSnapshot usersDataSnapshot : usersDataSnapshots) {
-                            userNames.add(usersDataSnapshot.getValue(User.class).getUsername());
-                            users.add(usersDataSnapshot.getValue(User.class).getId());
-                        }
+                        for (DataSnapshot usersDataSnapshot : usersDataSnapshots)
+                            if(usersDataSnapshot.getValue(User.class).getId()!= FirebaseAuth.getInstance().getCurrentUser().getUid()){
+                                userNames.add(usersDataSnapshot.getValue(User.class).getUsername());
+                                users.add(usersDataSnapshot.getValue(User.class).getId());
+                            }
                         buttonAdd.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
