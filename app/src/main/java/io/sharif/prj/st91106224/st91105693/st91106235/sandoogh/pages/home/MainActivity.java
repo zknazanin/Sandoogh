@@ -1,9 +1,7 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -21,6 +19,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -30,11 +29,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.help.Help;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
@@ -55,7 +59,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount
 public class MainActivity extends AppCompatActivity {
 
     private Boolean firstTime = null;
-    private String[] drawerItemsTitles;
+    private String[] drawerItemsTitles, notificationsText;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private CharSequence mTitle;
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user;
     private  Button notifCount;
     private int mNotifCount = 0;
+    private ArrayList<Notification> notifications;
 
     static Activity thisActivity;
 
@@ -279,73 +284,37 @@ public class MainActivity extends AppCompatActivity {
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //List of items to be show in  alert Dialog are stored in array of strings/char sequences
-
-                final String[] items = {"AAAAAA", "BBBBBBB", "CCCCCCC", "DDDDDDDD"};
-
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-
-                //set the title for alert dialog
-
-                builder.setTitle("Choose names: ");
-
-
-                //set items to alert dialog. i.e. our array , which will be shown as list view in alert dialog
-
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-
-
-                    @Override
-
-                    public void onClick(DialogInterface dialog, int item) {
-
-                        // setting the button text to the selected itenm from the list
-
-                        //   button.setText(items[item]);
-
-                    }
-
-                });
-
-
-                //Creating CANCEL button in alert dialog, to dismiss the dialog box when nothing is selected
-
-                builder
-
-                        .setCancelable(false)
-
-                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-
-
-                            @Override
-
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                //When clicked on CANCEL button the dalog will be dismissed
-
-                                dialog.dismiss();
-
-                            }
-
-                        });
-
-
-                // Creating alert dialog
-
-                AlertDialog alert = builder.create();
-
-
-                //Showing alert dialog
-
-                alert.show();
-
+                PopupWindow pop = popupWindowDogs();
+                //pop.update(0, 0, 250, WindowManager.LayoutParams.WRAP_CONTENT);
+             //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
+                pop.showAsDropDown(v, -5, 0);
 
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public PopupWindow popupWindowDogs() {
+        notifications = new ArrayList<>();
+        notifications.add(new Notification());
+        notifications.add(new Notification());
+        notifications.add(new Notification());
+        notificationsText = new String[notifications.size()];
+        notificationsText[1] = getString(R.string.invite);
+        notificationsText[2] = getString(R.string.invite);
+        notificationsText[0] = getString(R.string.invite);
+        PopupWindow popupWindow = new PopupWindow(this);
+        ListView listViewNotif = new ListView(this);
+        NotificationAdapter adapter = new NotificationAdapter(this, notificationsText,notifications);
+        listViewNotif.setAdapter(adapter);
+        listViewNotif.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        // set the item click listener
+       // listViewNotif.setOnItemClickListener(new DogsDropdownOnItemClickListener());
+        popupWindow.setFocusable(true);
+        popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setContentView(listViewNotif);
+
+        return popupWindow;
     }
 
     @Override

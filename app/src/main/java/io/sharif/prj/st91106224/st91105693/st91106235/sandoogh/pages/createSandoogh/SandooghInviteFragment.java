@@ -95,7 +95,7 @@ public class SandooghInviteFragment extends Fragment {
                         List<DataSnapshot> list = Tools.iteratorToList(snapshot.getChildren().iterator());
                         DataSnapshot[] usersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
                         for (DataSnapshot usersDataSnapshot : usersDataSnapshots)
-                            if(usersDataSnapshot.getValue(User.class).getId()!= FirebaseAuth.getInstance().getCurrentUser().getUid()){
+                            if(!usersDataSnapshot.getValue(User.class).getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
                                 userNames.add(usersDataSnapshot.getValue(User.class).getUsername());
                                 users.add(usersDataSnapshot.getValue(User.class).getId());
                             }

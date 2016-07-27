@@ -7,10 +7,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home.HomeFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
@@ -25,6 +27,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private SandooghConfirmFragment sandooghConfirmFragment;
     private String sandooghType, sandooghName;
     private Boolean type = false, name = false;
+    private FirebaseDatabase mdatabase = FirebaseDatabase.getInstance();
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -58,9 +61,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void createSandoogh(Activity activity, FragmentManager fragmentManager) {
-
         Sandoogh sandoogh = new Sandoogh();
-
         sandoogh.setAdminUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
         sandoogh.setTotal(0);
         sandoogh.setPeriodPay(sandooghDescriptionFragment.getPeriodPay());
@@ -85,19 +86,22 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             Toast.makeText(activity, R.string.nameError,
                     Toast.LENGTH_LONG).show();
         }
+        ArrayList<String> memberIds = new ArrayList<>();
+        memberIds.add(sandoogh.getAdminUid());
+        sandoogh.setMemberIds(memberIds);
         sandoogh.setAccountNum(sandooghDescriptionFragment.getAccountNum());
         sandoogh.setCardNum(sandooghDescriptionFragment.getCardNum());
         sandoogh.setPeriod(sandooghDescriptionFragment.getPeriod());
-
-        ArrayList<String> memberIds = new ArrayList<>();
-        for (int i=0 ; i<sandooghInviteFragment.getMemberIds().size(); i++)
-            memberIds.add(sandooghInviteFragment.getMemberIds().get(i));
-        memberIds.add(sandoogh.getAdminUid());
-        sandoogh.setMemberIds(memberIds);
-
         sandoogh.calculateAndAddNextPayment(sandoogh.getStartDate());
         if(type && name) {
             Database.getInstance().saveSandoogh(sandoogh);
+            memberIds = sandooghInviteFragment.getMemberIds();
+            for (int i=0 ; i<memberIds.size(); i++) {
+                Notification notification = new Notification();
+                notification.setState("pending");
+                notification.setSandooghName(sandooghName);
+                mdatabase.getReference().child("Users").child(memberIds.get(i)).child("notifications").push().setValue(notification);
+            }
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new HomeFragment())
                     .commit();

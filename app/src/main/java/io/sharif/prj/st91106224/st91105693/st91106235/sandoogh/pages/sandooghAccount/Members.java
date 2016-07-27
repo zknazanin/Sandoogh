@@ -10,10 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,13 +29,11 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
  */
 public class Members extends Fragment {
     private ViewGroup view;
-    DatabaseReference mDatabase;
-    ArrayList<String> memberIds;
-    int membersCount;
+    private DatabaseReference mDatabase;
+    private ArrayList<String> memberIds;
+    private int membersCount;
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
-    ImageView image;
-    private FirebaseAuth mAuth;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

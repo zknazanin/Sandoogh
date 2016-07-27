@@ -8,6 +8,9 @@ public class Notification {
     private String sandooghName;
     private String state;
 
+
+    public Notification() {}
+
     public void Notification(){
         state = "pending";
     }
@@ -35,4 +38,5 @@ public class Notification {
     public void setType(String type) {
         this.type = type;
     }
+
 }

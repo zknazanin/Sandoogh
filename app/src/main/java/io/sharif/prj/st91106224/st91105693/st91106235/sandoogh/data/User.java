@@ -3,11 +3,12 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable{
     private String image;
     private String username,id;
-    private ArrayList<Notification> notifications;
+    private List<Notification> notifications;
 
     public User(){
         notifications = new ArrayList<>();
@@ -44,7 +45,7 @@ public class User implements Serializable{
         this.username = username;
     }
 
-    public ArrayList<Notification> getNotifications() {
+    public List<Notification> getNotifications() {
         return notifications;
     }
 
