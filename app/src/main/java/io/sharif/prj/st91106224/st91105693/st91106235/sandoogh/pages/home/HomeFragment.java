@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("sandooghs").addValueEventListener(
+        mDatabase.child("sandooghs").addListenerForSingleValueEvent(
                 new ValueEventListener() {
 
                     @Override

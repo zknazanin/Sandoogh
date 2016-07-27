@@ -2,6 +2,7 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAc
 
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -260,7 +263,7 @@ public class AdminPanelFragment extends Fragment {
                     if (!userPayment.isApproved()) {
                         notConfirmedPayments.add(new ConfirmPayment(userPayment.getUserID(),
                                 userPayment.getPaymentID(), allPayments.get(i).getDeadline(),
-                                allPayments.get(i).getAmount()));
+                                allPayments.get(i).getAmount(), i, j));
                     }
                 }
             }
@@ -294,6 +297,23 @@ public class AdminPanelFragment extends Fragment {
 
     }
 
+    private void confirmPayments(Sandoogh sandoogh) {
+        if (confirmPaymentsDialog != null) {
+            ListView listView = (ListView) confirmPaymentsDialog.findViewById(R.id.payment_list_view);
+
+            for (int i = 0; i < listView.getChildCount(); i++) {
+                AdminPaymentConfirmView adminPaymentConfirmView = (AdminPaymentConfirmView) getViewByPosition(i, listView);
+
+                if (((CheckBox) adminPaymentConfirmView.findViewById(R.id.checkBox)).isChecked()) {
+
+                    Database.getInstance().saveConfirmedPayment(sandoogh,
+                            adminPaymentConfirmView.confirmPayment);
+
+                }
+            }
+        }
+    }
+
 
     private void saveChanges(Sandoogh sandoogh) {
 
@@ -301,7 +321,12 @@ public class AdminPanelFragment extends Fragment {
         sandoogh.setCardNum(((EditText) view.findViewById(R.id.san_CardNum_edit)).getText().toString());
         sandoogh.setPeriod(((Spinner) view.findViewById(R.id.period_spinner)).getSelectedItem().toString());
         sandoogh.setPeriodPay(Integer.valueOf(((EditText) view.findViewById(R.id.san_amount_edit)).getText().toString()));
-        sandoogh.setMemberIds(changedMemberIds);
+
+        if (editMembersDialog != null) {
+            sandoogh.setMemberIds(changedMemberIds);
+        }
+
+        confirmPayments(sandoogh);
 
         Database.getInstance().saveSandoogh(sandoogh);
 
