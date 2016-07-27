@@ -38,6 +38,8 @@ public class AdminPanelFragment extends Fragment {
     ViewGroup view;
     ArrayList<String> changedMemberIds;
 
+    private AlertDialog confirmPaymentsDialog, paymentsReportDialog, editMembersDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -99,7 +101,7 @@ public class AdminPanelFragment extends Fragment {
         view.findViewById(R.id.confirm_payments_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showConfirmPaymentsDialog();
+                showConfirmPaymentsDialog(sandoogh);
             }
         });
 
@@ -138,45 +140,52 @@ public class AdminPanelFragment extends Fragment {
 
     private void showEditMembersDialog(final Sandoogh sandoogh) {
 
-        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        final View promptView = layoutInflater.inflate(R.layout.edit_members_dialog, null);
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setView(promptView);
-        final ListView listView = (ListView) promptView.findViewById(R.id.user_list_view);
+        if (editMembersDialog == null) {
 
-        final List<User> users = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference().child("Users").addListenerForSingleValueEvent(
-                new ValueEventListener() {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            final View promptView = layoutInflater.inflate(R.layout.edit_members_dialog, null);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setView(promptView);
+            final ListView listView = (ListView) promptView.findViewById(R.id.user_list_view);
 
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        for (DataSnapshot child : snapshot.getChildren()) {
-                            if (sandoogh.getMemberIds().contains(child.getKey())) {
-                                users.add(child.getValue(User.class));
+            final List<User> users = new ArrayList<>();
+            FirebaseDatabase.getInstance().getReference().child("Users").addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                if (sandoogh.getMemberIds().contains(child.getKey())) {
+                                    users.add(child.getValue(User.class));
+                                }
                             }
+                            UserAdapter userAdapter = new UserAdapter(getActivity(), users);
+                            listView.setAdapter(userAdapter);
+
+                            // create an alert dialog
+                            editMembersDialog = alertDialogBuilder.create();
+
+                            promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    getChangedMemberIdsList(listView);
+                                    editMembersDialog.cancel();
+                                }
+                            });
+
+                            editMembersDialog.setTitle(R.string.edit_members);
+
+                            editMembersDialog.show();
                         }
-                        UserAdapter userAdapter = new UserAdapter(getActivity(), users);
-                        listView.setAdapter(userAdapter);
 
-                        // create an alert dialog
-                        final AlertDialog alert = alertDialogBuilder.create();
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                        promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                getChangedMemberIdsList(listView);
-                                alert.cancel();
-                            }
-                        });
-
-                        alert.show();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+        } else {
+            editMembersDialog.show();
+        }
     }
 
     private void getChangedMemberIdsList(ListView listView) {
@@ -190,7 +199,6 @@ public class AdminPanelFragment extends Fragment {
                 changedMemberIds.add(userView.user.getId());
             }
         }
-
     }
 
     private void showPaymentsDialog(Sandoogh sandoogh) {
@@ -214,12 +222,67 @@ public class AdminPanelFragment extends Fragment {
                 sandoogh.getPaymentList().get(selected).getUserPaymentList());
         listView.setAdapter(adminPaymentAdapter);
 
-        final AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
+        paymentsReportDialog = alertDialogBuilder.create();
+
+        paymentsReportDialog.setTitle(R.string.view_payments);
+
+        promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paymentsReportDialog.cancel();
+            }
+        });
+
+        paymentsReportDialog.show();
 
     }
 
-    private void showConfirmPaymentsDialog() {
+    private void showConfirmPaymentsDialog(Sandoogh sandoogh) {
+
+        if (confirmPaymentsDialog == null) {
+
+            final LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            final View promptView = layoutInflater.inflate(R.layout.admin_confirm_payment_dialog, null);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setView(promptView);
+
+            ListView listView = (ListView) promptView.findViewById(R.id.payment_list_view);
+
+            ArrayList<Payment> allPayments = sandoogh.getPaymentList();
+            ArrayList<ConfirmPayment> notConfirmedPayments = new ArrayList<>();
+
+            for (int i = 0; i < allPayments.size(); i++) {
+
+                for (int j = 0; j < allPayments.get(i).getUserPaymentList().size(); j++) {
+
+                    UserPayment userPayment = allPayments.get(i).getUserPaymentList().get(j);
+
+                    if (!userPayment.isApproved()) {
+                        notConfirmedPayments.add(new ConfirmPayment(userPayment.getUserID(),
+                                userPayment.getPaymentID(), allPayments.get(i).getDeadline(),
+                                allPayments.get(i).getAmount()));
+                    }
+                }
+            }
+
+
+            AdminPaymentConfirmAdapter adminPaymentConfirmAdapter =
+                    new AdminPaymentConfirmAdapter(getActivity(), notConfirmedPayments);
+            listView.setAdapter(adminPaymentConfirmAdapter);
+
+            confirmPaymentsDialog = alertDialogBuilder.create();
+
+            confirmPaymentsDialog.setTitle(R.string.confirm_payments);
+
+            promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    confirmPaymentsDialog.cancel();
+                }
+            });
+        }
+
+        confirmPaymentsDialog.show();
 
     }
 
@@ -243,7 +306,6 @@ public class AdminPanelFragment extends Fragment {
         Database.getInstance().saveSandoogh(sandoogh);
 
         getActivity().onBackPressed();
-
     }
 
     public View getViewByPosition(int pos, ListView listView) {
