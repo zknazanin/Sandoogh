@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,8 +27,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
 public class AdminPanelFragment extends Fragment {
@@ -65,6 +69,17 @@ public class AdminPanelFragment extends Fragment {
 
         temp = (EditText) view.findViewById(R.id.san_amount_edit);
         temp.setText(String.valueOf(sandoogh.getPeriodPay()));
+
+
+        List<String> spinnerArray = new ArrayList<>();
+        for (int i = 0; i < sandoogh.getPaymentList().size(); i++) {
+            spinnerArray.add(sandoogh.getPaymentList().get(i).getDeadline().toString());
+        }
+        Spinner spinner = (Spinner) view.findViewById(R.id.payment_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
 
         view.findViewById(R.id.edit_members_button).setOnClickListener(new View.OnClickListener() {
@@ -180,24 +195,26 @@ public class AdminPanelFragment extends Fragment {
 
     private void showPaymentsDialog(Sandoogh sandoogh) {
 
+        Spinner spinner = (Spinner) view.findViewById(R.id.payment_spinner);
+        int selected = spinner.getSelectedItemPosition();
+
         final LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        final View promptView = layoutInflater.inflate(R.layout.payment_report_dialog, null);
+        final View promptView = layoutInflater.inflate(R.layout.admin_payment_report_dialog, null);
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptView);
 
+        ((TextView) promptView.findViewById(R.id.date_text_view)).setText(
+                sandoogh.getPaymentList().get(selected).getDeadline().toString());
+
+        ((TextView) promptView.findViewById(R.id.amount_text_view)).setText(
+                String.valueOf(sandoogh.getPaymentList().get(selected).getAmount()));
+
         ListView listView = (ListView) promptView.findViewById(R.id.payment_list_view);
-        AdminPaymentAdapter adminPaymentAdapter = new AdminPaymentAdapter(getActivity(), sandoogh.getPaymentList());
+        AdminPaymentAdapter adminPaymentAdapter = new AdminPaymentAdapter(getActivity(),
+                sandoogh.getPaymentList().get(selected).getUserPaymentList());
         listView.setAdapter(adminPaymentAdapter);
 
         final AlertDialog alert = alertDialogBuilder.create();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-        });
-
         alert.show();
 
     }
