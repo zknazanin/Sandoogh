@@ -18,12 +18,19 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.Admin.AdminPanelFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
@@ -168,6 +175,24 @@ public class SandooghAccountFragment extends Fragment {
                 for (UserPayment userPayment : selectedPayment.getUserPaymentList()) {
                     if (userPayment.getUserID().equals(currentUserID)) {
                         userPayment.setPaymentID(paymentID);
+                        final Notification notification = new Notification();
+                        notification.setState("pending");
+                        notification.setSandooghName(sandoogh.getName());
+                        notification.setType("payment");
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(sandoogh.getAdminUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User user;
+                                user = dataSnapshot.getValue(User.class);
+                                user.addNotifications(notification);
+                                Database.getInstance().saveUser(user);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }
                 break;

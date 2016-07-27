@@ -54,7 +54,9 @@ import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.help.Help;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.Admin.AdminPanelFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
@@ -69,10 +71,11 @@ public class MainActivity extends AppCompatActivity {
     private String mTitle;
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser user;
+    private FirebaseUser user,tempUser;
     private Button notifCount;
     private int mNotifCount = 0;
     private ArrayList<Notification> notifications;
+    private Notification notif;
 
     static Activity thisActivity;
     /**
@@ -182,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+             //   FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     // User is signed out
                     Intent intent = new Intent(thisActivity, SignUpActivity.class);
@@ -275,12 +278,12 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.toolbar_menu, menu);
         View count = menu.findItem(R.id.notif).getActionView();
         notifCount = (Button) count.findViewById(R.id.notif_count);
-        final PopupWindow pop = popupWindowDogs();
+        final PopupWindow pop = popupWindowNotif();
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //pop.update(0, 0, 250, WindowManager.LayoutParams.WRAP_CONTENT);
-             //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
+                //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
                 pop.showAsDropDown(v, -5, 0);
 
             }
@@ -288,10 +291,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public PopupWindow popupWindowDogs() {
+    public PopupWindow popupWindowNotif() {
         PopupWindow popupWindow = new PopupWindow(this);
         final ListView listViewNotif = new ListView(this);
-        final FirebaseUser tempUser = FirebaseAuth.getInstance().getCurrentUser();
+        tempUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase.child("Users").child(tempUser.getUid())
                 .child("notifications").addValueEventListener(new ValueEventListener() {
             @Override
@@ -302,76 +305,111 @@ public class MainActivity extends AppCompatActivity {
                 notifications = new ArrayList<>();
                 notificationsText = new String[notificationDataSnapshots.length];
                 for (DataSnapshot notificationDataSnapshot : notificationDataSnapshots) {
-                    final Notification notif = notificationDataSnapshot.getValue(Notification.class);
+                    notif = notificationDataSnapshot.getValue(Notification.class);
                     notif.setId(notificationDataSnapshot.getKey());
-                    if (notif.getState().equals("pending")) {
-                        notifications.add(notif);
-                        notificationsText[mNotifCount] = notif.getSandooghName();
-                        mNotifCount++;
-                    }else if (notif.getState().equals("accepted")){
-                        Log.e("R","accepted          gfdgfgjkdhnfnhb");
-                        mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
-                                DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
-                                ArrayList<String> memberIds = new ArrayList<>();
-                                for (DataSnapshot member : membersDataSnapshots) {
-                                    memberIds.add(member.getValue(String.class));
-                                }
-                                memberIds.add(tempUser.getUid());
-                                mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").setValue(memberIds);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                        mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
-                                DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
-                                ArrayList<String> memberIds = new ArrayList<>();
-                                for (DataSnapshot member : membersDataSnapshots) {
-                                    memberIds.add(member.getValue(String.class));
-                                }
-                                memberIds.remove(tempUser.getUid());
-                                mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").setValue(memberIds);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                        mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
-                    }else if (notif.getState().equals("rejected")){
-                        mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
-                                DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
-                                ArrayList<String> memberIds = new ArrayList<>();
-                                for (DataSnapshot member : membersDataSnapshots) {
-                                    memberIds.add(member.getValue(String.class));
-                                }
-                                memberIds.remove(tempUser.getUid());
-                                mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").setValue(memberIds);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                        mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
+                    if (notif.getType().equals("invite")){
+                        calNotifInvite();
+                    } else if (notif.getType().equals("payment")){
+                        calNotifPayment();
                     }
                 }
                 notifCount.setText(String.valueOf(mNotifCount));
                 NotificationAdapter adapter = new NotificationAdapter(thisActivity, notificationsText, notifications);
                 listViewNotif.setAdapter(adapter);
+            }
+
+            private void calNotifInvite() {
+                if (notif.getState().equals("pending")) {
+                    notifications.add(notif);
+                    notificationsText[mNotifCount] = notif.getSandooghName();
+                    mNotifCount++;
+                }else if (notif.getState().equals("accepted")){
+                    mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                            DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                            ArrayList<String> memberIds = new ArrayList<>();
+                            for (DataSnapshot member : membersDataSnapshots) {
+                                memberIds.add(member.getValue(String.class));
+                            }
+                            memberIds.add(tempUser.getUid());
+                            mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").setValue(memberIds);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                            DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                            ArrayList<String> memberIds = new ArrayList<>();
+                            for (DataSnapshot member : membersDataSnapshots) {
+                                memberIds.add(member.getValue(String.class));
+                            }
+                            memberIds.remove(tempUser.getUid());
+                            mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").setValue(memberIds);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
+                }else if (notif.getState().equals("rejected")){
+                    mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                            DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                            ArrayList<String> memberIds = new ArrayList<>();
+                            for (DataSnapshot member : membersDataSnapshots) {
+                                memberIds.add(member.getValue(String.class));
+                            }
+                            memberIds.remove(tempUser.getUid());
+                            mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").setValue(memberIds);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
+                }
+            }
+            private void calNotifPayment() {
+                if (notif.getState().equals("pending")) {
+                    notifications.add(notif);
+                    notificationsText[mNotifCount] = notif.getSandooghName();
+                    mNotifCount++;
+                }else if (notif.getState().equals("delete")){
+                    mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
+                    final FragmentManager fragmentManager = getSupportFragmentManager();
+                    mDatabase.child("sandooghs").child(notif.getSandooghName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("SANDOOGH", sandoogh);
+                            AdminPanelFragment adminFragment = new AdminPanelFragment();
+                            adminFragment.setArguments(bundle);
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.content_frame, adminFragment).addToBackStack(null).addToBackStack(null)
+                                    .commit();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
 
             @Override
@@ -383,7 +421,6 @@ public class MainActivity extends AppCompatActivity {
         popupWindow.setFocusable(true);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(listViewNotif);
-
         return popupWindow;
     }
 
@@ -421,7 +458,11 @@ public class MainActivity extends AppCompatActivity {
 
         return circuleBitmap;
     }
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
+    }
 }
 
 

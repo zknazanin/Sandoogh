@@ -31,8 +31,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private SandooghConfirmFragment sandooghConfirmFragment;
     private String sandooghType, sandooghName;
     private Boolean type = false, name = false;
-    private FirebaseDatabase mdatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase mdatabase;
     private User user;
+    private ArrayList<String> memberIds;
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -40,6 +41,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         sandooghDescriptionFragment = new SandooghDescriptionFragment();
         sandooghInviteFragment = new SandooghInviteFragment();
         sandooghConfirmFragment = new SandooghConfirmFragment();
+        memberIds = new ArrayList<>();
+        mdatabase = FirebaseDatabase.getInstance();
     }
 
     @Override
@@ -91,7 +94,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             Toast.makeText(activity, R.string.nameError,
                     Toast.LENGTH_LONG).show();
         }
-        ArrayList<String> memberIds = new ArrayList<>();
         memberIds.add(sandoogh.getAdminUid());
         sandoogh.setMemberIds(memberIds);
         sandoogh.setAccountNum(sandooghDescriptionFragment.getAccountNum());
@@ -106,6 +108,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 final Notification notification = new Notification();
                 notification.setState("pending");
                 notification.setSandooghName(sandooghName);
+                notification.setType("invite");
                 mdatabase.getReference().child("Users").child(memberIds.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
