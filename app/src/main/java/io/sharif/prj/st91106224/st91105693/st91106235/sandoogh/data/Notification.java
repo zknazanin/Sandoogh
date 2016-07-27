@@ -4,16 +4,12 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
  * Created by foroughM on 7/26/2016.
  */
 public class Notification {
-    private String type;
+    private String type , id;
     private String sandooghName;
     private String state;
 
 
     public Notification() {}
-
-    public void Notification(){
-        state = "pending";
-    }
 
     public String getSandooghName() {
         return sandooghName;
@@ -39,4 +35,11 @@ public class Notification {
         this.type = type;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

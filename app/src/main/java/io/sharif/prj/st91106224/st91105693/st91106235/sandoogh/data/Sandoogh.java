@@ -13,7 +13,7 @@ public class Sandoogh implements Serializable {
     private String period, name, type; //type A or B. Type B has not total --> set total = 0
     private int periodPay, total;
     private SolarCalendar startDate;
-    private ArrayList<String> memberIds;
+    private ArrayList<String> memberIds,memberPendingIds;
     private String adminUid;
     private ArrayList<Payment> paymentList;
 

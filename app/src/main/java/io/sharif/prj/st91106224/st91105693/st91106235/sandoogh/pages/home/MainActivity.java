@@ -15,7 +15,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -40,7 +39,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,12 +50,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.help.Help;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] drawerItemsTitles, notificationsText;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
-    private CharSequence mTitle;
+    private String mTitle;
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         thisActivity = this;
-
 //     Button   isUserLoggedIn();
 
         if (isFirstTime()) {
@@ -98,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             setDrawer();
-            //setNotification();
             HomeFragment homeFragment = new HomeFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -110,24 +108,6 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
-
-    private void setNotification() {
-
-
-//        mDatabase.child("Users").child(user.getUid()).child("notifications").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                for (DataSnapshot child : snapshot.getChildren()) {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        })
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -142,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     private void selectItem(int position) {
         // Create a new fragment
         Fragment fragment = null;
-        String mTitle = null;
         switch (position) {
             case 1:
                 fragment = new HomeFragment();
@@ -234,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth = FirebaseAuth.getInstance();
             user = firebaseAuth.getCurrentUser();
             mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("Users").child(user.getUid()).child("image").addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child("Users").child(user.getUid()).child("image").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     if (!snapshot.getValue().toString().equals("0")) {
@@ -296,11 +275,10 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.toolbar_menu, menu);
         View count = menu.findItem(R.id.notif).getActionView();
         notifCount = (Button) count.findViewById(R.id.notif_count);
-        notifCount.setText(String.valueOf(mNotifCount));
+        final PopupWindow pop = popupWindowDogs();
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupWindow pop = popupWindowDogs();
                 //pop.update(0, 0, 250, WindowManager.LayoutParams.WRAP_CONTENT);
              //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
                 pop.showAsDropDown(v, -5, 0);
@@ -311,21 +289,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public PopupWindow popupWindowDogs() {
-        notifications = new ArrayList<>();
-        notifications.add(new Notification());
-        notifications.add(new Notification());
-        notifications.add(new Notification());
-        notificationsText = new String[notifications.size()];
-        notificationsText[1] = getString(R.string.invite);
-        notificationsText[2] = getString(R.string.invite);
-        notificationsText[0] = getString(R.string.invite);
         PopupWindow popupWindow = new PopupWindow(this);
-        ListView listViewNotif = new ListView(this);
-        NotificationAdapter adapter = new NotificationAdapter(this, notificationsText,notifications);
-        listViewNotif.setAdapter(adapter);
+        final ListView listViewNotif = new ListView(this);
+        mDatabase.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("notifications").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mNotifCount = 0;
+                List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                DataSnapshot[] notificationDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                notifications = new ArrayList<>();
+                notificationsText = new String[notificationDataSnapshots.length];
+                for (DataSnapshot notificationDataSnapshot : notificationDataSnapshots) {
+                    Notification notif = notificationDataSnapshot.getValue(Notification.class);
+                    notif.setId(notificationDataSnapshot.getKey());
+                    if (notif.getState().equals("pending")) {
+                        notifications.add(notif);
+                        notificationsText[mNotifCount] = notif.getSandooghName();
+                        mNotifCount++;
+                    }
+                }
+                notifCount.setText(String.valueOf(mNotifCount));
+                NotificationAdapter adapter = new NotificationAdapter(thisActivity, notificationsText, notifications);
+                listViewNotif.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         listViewNotif.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        // set the item click listener
-       // listViewNotif.setOnItemClickListener(new DogsDropdownOnItemClickListener());
         popupWindow.setFocusable(true);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(listViewNotif);
