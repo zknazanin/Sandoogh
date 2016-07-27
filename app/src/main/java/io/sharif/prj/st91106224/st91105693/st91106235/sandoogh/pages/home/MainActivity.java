@@ -57,6 +57,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.help.Help;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.Admin.AdminPanelFragment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.LoginActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
@@ -138,34 +139,30 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new Help();
                 mTitle = getString(R.string.help);
                 break;
-//            case 4:
-//                new MainActivity();
-//                FirebaseAuth.getInstance().signOut();
-//                break;
+            case 4:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+                break;
             default:
                 fragment = new HomeFragment();
                 mTitle = getString(R.string.sandoogh);
         }
-//        if (mTitle != null && fragment != null) {
+        if (mTitle != null || fragment != null) {
             getSupportActionBar().setTitle(mTitle);
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, fragment).addToBackStack(null)
                     .commit();
-      //  }
+            drawerList.setItemChecked(position, true);
+            setTitle(drawerItemsTitles[position]);
+        }
 
         // Highlight the selected item, update the title, and close the drawer
-        drawerList.setItemChecked(position, true);
-        setTitle(drawerItemsTitles[position]);
         drawerLayout.closeDrawer(drawerList);
     }
-
-//    @Override
-//    public void setTitle(CharSequence title) {
-//        mTitle = title;
-//        getActionBar().setTitle(mTitle);
-//    }
 
 
     private boolean isFirstTime() {
@@ -185,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-             //   FirebaseUser user = firebaseAuth.getCurrentUser();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     // User is signed out
                     Intent intent = new Intent(thisActivity, SignUpActivity.class);

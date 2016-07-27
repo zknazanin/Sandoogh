@@ -13,7 +13,7 @@ public class Sandoogh implements Serializable {
     private String period, name, type; //type A or B. Type B has not total --> set total = 0
     private int periodPay, total;
     private SolarCalendar startDate;
-    private ArrayList<String> memberIds,pendingMembersIds;
+    private ArrayList<String> memberIds, pendingMembersIds;
     private String adminUid;
     private ArrayList<Payment> paymentList;
 
@@ -26,7 +26,7 @@ public class Sandoogh implements Serializable {
 
 
     // Copy Constructor
-    public Sandoogh(Sandoogh sandoogh){
+    public Sandoogh(Sandoogh sandoogh) {
         this.accountNum = sandoogh.accountNum;
         this.cardNum = sandoogh.cardNum;
         this.period = sandoogh.period;
@@ -38,6 +38,17 @@ public class Sandoogh implements Serializable {
         this.memberIds = sandoogh.memberIds;
         this.adminUid = sandoogh.adminUid;
         this.paymentList = sandoogh.paymentList;
+    }
+
+    public void addNewMemberPayments(String userID) {
+
+        SolarCalendar currentDate = new SolarCalendar();
+
+        for (int i = 0; i < paymentList.size(); i++) {
+            if (currentDate.isBefore(paymentList.get(i).getDeadline())) {
+                paymentList.get(i).getUserPaymentList().add(new UserPayment(false, userID));
+            }
+        }
     }
 
     public void updatePaymentsList() {

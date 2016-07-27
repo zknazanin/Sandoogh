@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,10 @@ public class userPage extends Fragment {
                     Log.e("R", "cancel name");
                 }
             });
+
+
+
+
 //        if (bundle != null) {
 //            downloadUri = (Uri) bundle.getSerializable("URI_DOWN");
 //            imageView.setImageURI(downloadUri);

@@ -55,16 +55,16 @@ public class UserView extends RelativeLayout {
         mainLayout = (RelativeLayout) findViewById(R.id.main_layout);
     }
 
-    public void setItem(User user, final int position) {
+    public void setItem(User user, String adminId) {
 
         this.user = user;
 
         usernameTextView.setText(user.getUsername());
 
-        if (position == 0) {
+        if (user.getId().equals(adminId)) {
             deleteImageView.setVisibility(INVISIBLE);
         } else {
-
+            deleteImageView.setVisibility(VISIBLE);
             deleteImageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -9,6 +9,12 @@ public class UserPayment implements Serializable {
     private String userID;
     private String paymentID;
 
+    public UserPayment(boolean approved, String userID, String paymentID) {
+        this.approved = approved;
+        this.userID = userID;
+        this.paymentID = paymentID;
+    }
+
     public UserPayment() {
     }
 
