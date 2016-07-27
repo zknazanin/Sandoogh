@@ -291,7 +291,8 @@ public class MainActivity extends AppCompatActivity {
     public PopupWindow popupWindowDogs() {
         PopupWindow popupWindow = new PopupWindow(this);
         final ListView listViewNotif = new ListView(this);
-        mDatabase.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+        final FirebaseUser tempUser = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase.child("Users").child(tempUser.getUid())
                 .child("notifications").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -301,12 +302,71 @@ public class MainActivity extends AppCompatActivity {
                 notifications = new ArrayList<>();
                 notificationsText = new String[notificationDataSnapshots.length];
                 for (DataSnapshot notificationDataSnapshot : notificationDataSnapshots) {
-                    Notification notif = notificationDataSnapshot.getValue(Notification.class);
+                    final Notification notif = notificationDataSnapshot.getValue(Notification.class);
                     notif.setId(notificationDataSnapshot.getKey());
                     if (notif.getState().equals("pending")) {
                         notifications.add(notif);
                         notificationsText[mNotifCount] = notif.getSandooghName();
                         mNotifCount++;
+                    }else if (notif.getState().equals("accepted")){
+                        Log.e("R","accepted          gfdgfgjkdhnfnhb");
+                        mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                                DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                                ArrayList<String> memberIds = new ArrayList<>();
+                                for (DataSnapshot member : membersDataSnapshots) {
+                                    memberIds.add(member.getValue(String.class));
+                                }
+                                memberIds.add(tempUser.getUid());
+                                mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").setValue(memberIds);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                                DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                                ArrayList<String> memberIds = new ArrayList<>();
+                                for (DataSnapshot member : membersDataSnapshots) {
+                                    memberIds.add(member.getValue(String.class));
+                                }
+                                memberIds.remove(tempUser.getUid());
+                                mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").setValue(memberIds);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
+                    }else if (notif.getState().equals("rejected")){
+                        mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                                DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                                ArrayList<String> memberIds = new ArrayList<>();
+                                for (DataSnapshot member : membersDataSnapshots) {
+                                    memberIds.add(member.getValue(String.class));
+                                }
+                                memberIds.remove(tempUser.getUid());
+                                mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").setValue(memberIds);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
                     }
                 }
                 notifCount.setText(String.valueOf(mNotifCount));

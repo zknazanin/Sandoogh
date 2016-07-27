@@ -99,8 +99,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         sandoogh.setPeriod(sandooghDescriptionFragment.getPeriod());
         sandoogh.calculateAndAddNextPayment(sandoogh.getStartDate());
         if(type && name) {
-            Database.getInstance().saveSandoogh(sandoogh);
             memberIds = sandooghInviteFragment.getMemberIds();
+            sandoogh.setPendingMembersIds(memberIds);
+            Database.getInstance().saveSandoogh(sandoogh);
             for (int i=0 ; i<memberIds.size(); i++) {
                 final Notification notification = new Notification();
                 notification.setState("pending");
