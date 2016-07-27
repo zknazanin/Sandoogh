@@ -19,6 +19,8 @@ public class AdminPaymentConfirmView extends RelativeLayout {
 
     Context context;
 
+    ConfirmPayment confirmPayment;
+
     private TextView usernameTextView;
     private TextView deadlineTextVIew;
     private TextView amountTextView;
@@ -52,6 +54,8 @@ public class AdminPaymentConfirmView extends RelativeLayout {
     }
 
     public void setItem(ConfirmPayment confirmPayment) {
+
+        this.confirmPayment = confirmPayment;
 
         deadlineTextVIew.setText(confirmPayment.getDeadline().toString());
         amountTextView.setText(String.valueOf(confirmPayment.getAmount()));

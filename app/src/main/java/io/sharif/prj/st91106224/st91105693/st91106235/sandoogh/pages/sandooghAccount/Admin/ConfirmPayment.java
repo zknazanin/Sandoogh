@@ -5,16 +5,23 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.SolarCalend
 
 public class ConfirmPayment {
 
+
     private String userID;
     private String paymentID;
     private SolarCalendar deadline;
     private int amount;
 
-    public ConfirmPayment(String userID, String paymentID, SolarCalendar deadline, int amount) {
+    private int paymentListIndex;
+    private int userPaymentListIndex;
+
+
+    public ConfirmPayment(String userID, String paymentID, SolarCalendar deadline, int amount, int paymentListIndex, int userPaymentListIndex) {
         this.userID = userID;
         this.paymentID = paymentID;
         this.deadline = deadline;
         this.amount = amount;
+        this.paymentListIndex = paymentListIndex;
+        this.userPaymentListIndex = userPaymentListIndex;
     }
 
     public String getUserID() {
@@ -47,5 +54,21 @@ public class ConfirmPayment {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getPaymentListIndex() {
+        return paymentListIndex;
+    }
+
+    public void setPaymentListIndex(int paymentListIndex) {
+        this.paymentListIndex = paymentListIndex;
+    }
+
+    public int getUserPaymentListIndex() {
+        return userPaymentListIndex;
+    }
+
+    public void setUserPaymentListIndex(int userPaymentListIndex) {
+        this.userPaymentListIndex = userPaymentListIndex;
     }
 }
