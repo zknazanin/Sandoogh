@@ -162,7 +162,7 @@ public class AdminPanelFragment extends Fragment {
                                     users.add(child.getValue(User.class));
                                 }
                             }
-                            UserAdapter userAdapter = new UserAdapter(getActivity(), users);
+                            UserAdapter userAdapter = new UserAdapter(getActivity(), users, sandoogh.getAdminUid());
                             listView.setAdapter(userAdapter);
 
                             // create an alert dialog

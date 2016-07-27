@@ -12,8 +12,11 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 
 public class UserAdapter extends ArrayAdapter<User> {
 
-    public UserAdapter(Context c, List<User> items) {
+    String adminId;
+
+    public UserAdapter(Context c, List<User> items, String adminId) {
         super(c, 0, items);
+        this.adminId = adminId;
     }
 
     @Override
@@ -25,7 +28,7 @@ public class UserAdapter extends ArrayAdapter<User> {
             userView = UserView.inflate(parent);
         }
 
-        userView.setItem(getItem(position), position);
+        userView.setItem(getItem(position), adminId);
         return userView;
     }
 }
