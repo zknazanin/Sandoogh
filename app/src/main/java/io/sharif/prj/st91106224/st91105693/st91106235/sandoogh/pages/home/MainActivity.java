@@ -15,6 +15,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -66,11 +70,16 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-    private  Button notifCount;
+    private Button notifCount;
     private int mNotifCount = 0;
     private ArrayList<Notification> notifications;
 
     static Activity thisActivity;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void setNotification() {
@@ -129,8 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectItem(int position) {
         // Create a new fragment
-        Fragment fragment;
-        String mTitle;
+        Fragment fragment = null;
+        String mTitle = null;
         switch (position) {
             case 1:
                 fragment = new HomeFragment();
@@ -144,16 +156,22 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new Help();
                 mTitle = getString(R.string.help);
                 break;
+//            case 4:
+//                new MainActivity();
+//                FirebaseAuth.getInstance().signOut();
+//                break;
             default:
                 fragment = new HomeFragment();
                 mTitle = getString(R.string.sandoogh);
         }
-        getSupportActionBar().setTitle(mTitle);
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment).addToBackStack(null)
-                .commit();
+//        if (mTitle != null && fragment != null) {
+            getSupportActionBar().setTitle(mTitle);
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment).addToBackStack(null)
+                    .commit();
+      //  }
 
         // Highlight the selected item, update the title, and close the drawer
         drawerList.setItemChecked(position, true);
@@ -226,16 +244,14 @@ public class MainActivity extends AppCompatActivity {
                                 BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
                         );
 
-                        Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
                         imageView.setImageBitmap(getCircleBitmap(bitmap));
 
-                    }
-
-                    else{
+                    } else {
                         imageView.setImageDrawable(getAnonymousDrawable());
                     }
 
-                    Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
                     imageView.setImageBitmap(getCircleBitmap(bitmap));
 
                 }
@@ -257,9 +273,9 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("R", "cancel name");
                 }
             });
-        }catch (RuntimeException e){
-            Log.e("R","Error in drawer database function " + e);
-            Toast.makeText(this, R.string.Error , Toast.LENGTH_SHORT).show();
+        } catch (RuntimeException e) {
+            Log.e("R", "Error in drawer database function " + e);
+            Toast.makeText(this, R.string.Error, Toast.LENGTH_SHORT).show();
         }
 
         drawerList.addHeaderView(header);
@@ -273,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
     public static Drawable getAnonymousDrawable() {
         return thisActivity.getResources().getDrawable(R.drawable.anonymos);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

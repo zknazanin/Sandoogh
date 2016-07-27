@@ -1,24 +1,22 @@
-package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount;
+package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.Admin;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -30,7 +28,6 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 public class AdminPanelFragment extends Fragment {
 
@@ -80,7 +77,7 @@ public class AdminPanelFragment extends Fragment {
         view.findViewById(R.id.view_payments_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPaymentsDialog();
+                showPaymentsDialog(sandoogh);
             }
         });
 
@@ -181,7 +178,27 @@ public class AdminPanelFragment extends Fragment {
 
     }
 
-    private void showPaymentsDialog() {
+    private void showPaymentsDialog(Sandoogh sandoogh) {
+
+        final LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        final View promptView = layoutInflater.inflate(R.layout.payment_report_dialog, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+
+        ListView listView = (ListView) promptView.findViewById(R.id.payment_list_view);
+        AdminPaymentAdapter adminPaymentAdapter = new AdminPaymentAdapter(getActivity(), sandoogh.getPaymentList());
+        listView.setAdapter(adminPaymentAdapter);
+
+        final AlertDialog alert = alertDialogBuilder.create();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+
+        alert.show();
 
     }
 
@@ -207,6 +224,8 @@ public class AdminPanelFragment extends Fragment {
         sandoogh.setMemberIds(changedMemberIds);
 
         Database.getInstance().saveSandoogh(sandoogh);
+
+        getActivity().onBackPressed();
 
     }
 

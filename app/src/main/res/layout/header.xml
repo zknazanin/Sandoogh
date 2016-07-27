@@ -9,19 +9,16 @@
         android:id="@+id/img_first"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginBottom="20dp"
         android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="140dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="120dp"
         android:background="#88f3f3f3"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
