@@ -8,7 +8,7 @@ import java.util.List;
 public class User implements Serializable{
     private String image;
     private String username,id;
-    private List<Notification> notifications;
+    private ArrayList<Notification> notifications;
 
     public User(){
         notifications = new ArrayList<>();

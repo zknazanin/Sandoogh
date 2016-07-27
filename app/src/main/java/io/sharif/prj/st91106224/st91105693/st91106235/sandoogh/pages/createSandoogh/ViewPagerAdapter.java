@@ -7,13 +7,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home.HomeFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.SolarCalendar;
@@ -28,6 +32,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private String sandooghType, sandooghName;
     private Boolean type = false, name = false;
     private FirebaseDatabase mdatabase = FirebaseDatabase.getInstance();
+    private User user;
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -97,10 +102,22 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             Database.getInstance().saveSandoogh(sandoogh);
             memberIds = sandooghInviteFragment.getMemberIds();
             for (int i=0 ; i<memberIds.size(); i++) {
-                Notification notification = new Notification();
+                final Notification notification = new Notification();
                 notification.setState("pending");
                 notification.setSandooghName(sandooghName);
-                mdatabase.getReference().child("Users").child(memberIds.get(i)).child("notifications").push().setValue(notification);
+                mdatabase.getReference().child("Users").child(memberIds.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        user = dataSnapshot.getValue(User.class);
+                        user.addNotifications(notification);
+                        Database.getInstance().saveUser(user);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new HomeFragment())
