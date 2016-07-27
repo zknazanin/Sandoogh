@@ -52,4 +52,8 @@ public class User implements Serializable{
     public void addNotifications(Notification notification) {
         this.notifications.add(notification);
     }
+
+    public void setNotifications(ArrayList<Notification> notifications) {
+        this.notifications = notifications;
+    }
 }
