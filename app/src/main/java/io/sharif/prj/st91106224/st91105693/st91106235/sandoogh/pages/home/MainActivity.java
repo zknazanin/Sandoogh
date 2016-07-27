@@ -138,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(MainActivity.this , LoginActivity.class);
-                 startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
 
                 break;
             default:
@@ -155,17 +155,11 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
             drawerList.setItemChecked(position, true);
             setTitle(drawerItemsTitles[position]);
-         }
+        }
 
         // Highlight the selected item, update the title, and close the drawer
         drawerLayout.closeDrawer(drawerList);
     }
-
-//    @Override
-//    public void setTitle(CharSequence title) {
-//        mTitle = title;
-//        getActionBar().setTitle(mTitle);
-//    }
 
 
     private boolean isFirstTime() {
@@ -283,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //pop.update(0, 0, 250, WindowManager.LayoutParams.WRAP_CONTENT);
-             //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
+                //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
                 pop.showAsDropDown(v, -5, 0);
 
             }
@@ -311,8 +305,8 @@ public class MainActivity extends AppCompatActivity {
                         notifications.add(notif);
                         notificationsText[mNotifCount] = notif.getSandooghName();
                         mNotifCount++;
-                    }else if (notif.getState().equals("accepted")){
-                        Log.e("R","accepted          gfdgfgjkdhnfnhb");
+                    } else if (notif.getState().equals("accepted")) {
+                        Log.e("R", "accepted          gfdgfgjkdhnfnhb");
                         mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -350,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
-                    }else if (notif.getState().equals("rejected")){
+                    } else if (notif.getState().equals("rejected")) {
                         mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
