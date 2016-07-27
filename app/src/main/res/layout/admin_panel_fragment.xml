@@ -53,8 +53,8 @@
 
                     <Spinner
                         android:id="@+id/period_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sandoogh_account_spinner_height"
                         android:entries="@array/period_Array" />
 
                     <EditText
@@ -125,17 +125,31 @@
                 android:layout_marginTop="@dimen/standard_layout_margin"
                 android:background="@color/colorDivider" />
 
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/view_payments_button"
-                style="@style/Widget.AppCompat.Button.Colored"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/white"
-                android:text="@string/view_payments"
-                android:textColor="@color/colorPrimaryDark"
-                android:theme="@style/CustomAccentOverlay"
-                app:backgroundTint="@android:color/white" />
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/view_payments_button"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/white"
+                    android:text="@string/view_payments"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:theme="@style/CustomAccentOverlay"
+                    app:backgroundTint="@android:color/white" />
+
+                <Spinner
+                    android:id="@+id/payment_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/sandoogh_account_spinner_height"
+                    android:layout_weight="1"
+                    android:entries="@array/period_Array" />
+            </LinearLayout>
+
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/confirm_payments_button"
