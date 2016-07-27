@@ -13,13 +13,15 @@ public class Sandoogh implements Serializable {
     private String period, name, type; //type A or B. Type B has not total --> set total = 0
     private int periodPay, total;
     private SolarCalendar startDate;
-    private ArrayList<String> memberIds;
+    private ArrayList<String> memberIds,pendingMembersIds;
     private String adminUid;
     private ArrayList<Payment> paymentList;
 
 
     public Sandoogh() {
         paymentList = new ArrayList<>();
+        memberIds = new ArrayList<>();
+        pendingMembersIds = new ArrayList<>();
     }
 
 
@@ -208,5 +210,11 @@ public class Sandoogh implements Serializable {
         this.memberIds = memberIds;
     }
 
+    public ArrayList<String> getPendingMembersIds() {
+        return pendingMembersIds;
+    }
 
+    public void setPendingMembersIds(ArrayList<String> pendingMembersIds) {
+        this.pendingMembersIds = pendingMembersIds;
+    }
 }
