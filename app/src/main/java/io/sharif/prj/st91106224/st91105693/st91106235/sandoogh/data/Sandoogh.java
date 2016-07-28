@@ -16,12 +16,14 @@ public class Sandoogh implements Serializable {
     private ArrayList<String> memberIds, pendingMembersIds;
     private String adminUid;
     private ArrayList<Payment> paymentList;
+    private ArrayList<LoanRequest> loanRequests;
 
 
     public Sandoogh() {
         paymentList = new ArrayList<>();
         memberIds = new ArrayList<>();
         pendingMembersIds = new ArrayList<>();
+        loanRequests = new ArrayList<>();
     }
 
 
@@ -227,5 +229,14 @@ public class Sandoogh implements Serializable {
 
     public void setPendingMembersIds(ArrayList<String> pendingMembersIds) {
         this.pendingMembersIds = pendingMembersIds;
+    }
+
+
+    public ArrayList<LoanRequest> getLoanRequests() {
+        return loanRequests;
+    }
+
+    public void setLoanRequests(ArrayList<LoanRequest> loanRequests) {
+        this.loanRequests = loanRequests;
     }
 }

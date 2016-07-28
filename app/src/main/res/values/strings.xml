@@ -57,7 +57,7 @@
     <string name="san_amount">مبلغ پرداختی</string>
     <string name="san_total">موجودی صندوق</string>
     <string name="start_date">تاریخ ایجاد</string>
-    <string name="moneyReq">درخواست وام</string>
+    <string name="loan_request">درخواست وام</string>
     <string name="period_payment">پرداخت پول دوره ای</string>
     <string name="back_payment">پرداخت قسط</string>
     <string name="report">گزارش</string>
@@ -68,6 +68,7 @@
     <string name="SelecIimage">انتخاب تصویر</string>
     <string name="action_drawer_title">منو</string>
     <string name="user_name">نام</string>
+    <string name="loan_count">تعداد اقساط</string>
 
     <string name="sandoogh_account_description">مشخصات صندوق</string>
     <string name="sandoogh_account_payments">پرداخت ها</string>
@@ -101,6 +102,9 @@
     <string name="view_loan_requests">بررسی درخواست های وام</string>
     <string name="view_loans">گزارش وام ها</string>
 
+    <string name="save_loan_request">ثبت درخواست</string>
+    <string name="cancel_loan_request">لغو</string>
+
     <string name="confirm">تایید</string>
 
     <string name="typeError">نوع صندوق را انتخاب کنید</string>
@@ -132,7 +136,6 @@
 لیست صندوق های کاربر در صفحه نخست نمایش داده می شود.با انتخاب هریک مشخصات آن صندوق، پرداخت های قبلی و وام ها نمایش داده می شوند. همچنین مشاهده اعضای صندوق در این بخش امکان پذیر است.  \n
 صندوق هایی که مدیریت آن ها بر عهده کاربر است با علامت ستاره در کنار آن ها نمایش داده می شوند و با انتخاب این صندوق ها کاربر میتواند وارد بخش مدیریت شود. در این بخش می توان مشخصات صندوق را تغییر داد، اعضا را کم و زیاد کرد، پرداخت ها و وام ها را تایید کرد و گزارش پرداخت ها و وام ها را دریافت کرد.  \n
 </string>
-
 
 
 </resources>

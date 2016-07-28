@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanRequest;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
@@ -34,6 +35,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.Admin.AdminPanelFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.SolarCalendar;
 
 
 public class SandooghAccountFragment extends Fragment {
@@ -59,19 +61,31 @@ public class SandooghAccountFragment extends Fragment {
         setExpandButtonsFunction(R.id.sandoogh_payments_expand_layout, R.id.sandoogh_payments_expand_button, R.id.sandoogh_payments_layout);
         setExpandButtonsFunction(R.id.sandoogh_loan_expand_layout, R.id.sandoogh_loan_expand_button, R.id.sandoogh_loan_layout);
 
-        Button periodPaymentButton = (Button) view.findViewById(R.id.period_payment_button);
-        periodPaymentButton.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.period_payment_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showInputDialog(sandoogh);
             }
         });
 
-        Button paymentReportButton = (Button) view.findViewById(R.id.payment_report);
-        paymentReportButton.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.payment_report).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPaymentReportDialog(sandoogh);
+            }
+        });
+
+        view.findViewById(R.id.sandoogh_loan_request_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLoanRequestsDialog(sandoogh);
+            }
+        });
+
+        view.findViewById(R.id.sandoogh_pay_loan_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPayLoansDialog();
             }
         });
 
@@ -287,6 +301,52 @@ public class SandooghAccountFragment extends Fragment {
             paymentTextView.setVisibility(View.VISIBLE);
             paymentTextView.setText(R.string.all_paid);
         }
+    }
+
+
+    private void showLoanRequestsDialog(final Sandoogh sandoogh) {
+
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        final View promptView = layoutInflater.inflate(R.layout.loan_request_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+
+        // create an alert dialog
+        final AlertDialog alert = alertDialogBuilder.create();
+
+        promptView.findViewById(R.id.save_loan_request).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int amount = Integer.valueOf(((EditText) promptView.findViewById(R.id.loan_amount_edit_text)).getText().toString());
+                String period = ((Spinner) promptView.findViewById(R.id.loan_period)).getSelectedItem().toString();
+                int count = Integer.valueOf(((EditText) promptView.findViewById(R.id.loan_count_edit_text)).getText().toString());
+
+                LoanRequest loanRequest = new LoanRequest(amount, new SolarCalendar(),
+                        Database.getInstance().getCurrentUserID(), period, count);
+
+                Database.getInstance().saveLoanRequest(sandoogh, loanRequest);
+
+                alert.cancel();
+            }
+        });
+
+        promptView.findViewById(R.id.cancel_loan_request).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.cancel();
+            }
+        });
+
+
+        alert.setTitle(R.string.loan_request);
+        alert.show();
+
+    }
+
+
+    private void showPayLoansDialog() {
+
     }
 
 }

@@ -280,8 +280,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //pop.update(0, 0, 250, WindowManager.LayoutParams.WRAP_CONTENT);
-                //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
-                pop.showAsDropDown(v, -5, 0);
+                //  pop.showAtLocation(v, Gravity.CENTER, 0, 0);
+             //   Log.e("R", ""+pop.getWidth());
+               pop.showAsDropDown(v, -5, 0);
 
             }
         });
