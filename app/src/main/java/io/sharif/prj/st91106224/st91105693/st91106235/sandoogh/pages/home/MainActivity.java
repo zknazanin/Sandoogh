@@ -1,6 +1,7 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,13 +30,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private int mNotifCount = 0;
     private ArrayList<Notification> notifications;
     private Notification notif;
-
+    private ListView listViewNotif;
     static Activity thisActivity;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -275,22 +274,27 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.toolbar_menu, menu);
         View count = menu.findItem(R.id.notif).getActionView();
         notifCount = (Button) count.findViewById(R.id.notif_count);
-        final PopupWindow pop = popupWindowNotif();
+        final  AlertDialog dialog = popupWindowNotif();
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //pop.update(0, 0, 250, WindowManager.LayoutParams.WRAP_CONTENT);
-                //   pop.showAtLocation(v, Gravity.CENTER, 0, 0);
-                pop.showAsDropDown(v, -5, 0);
-
+//                int[] xy = new int[2];
+  //              v.getLocationOnScreen(xy);
+                dialog.setCancelable(true);
+                dialog.show();
+                //pop.showAtLocation(v, Gravity.NO_GRAVITY, xy[0], xy[1] + v.getHeight());
+                //pop.showAsDropDown(v, -5, 0);
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
 
-    public PopupWindow popupWindowNotif() {
-        PopupWindow popupWindow = new PopupWindow(this);
-        final ListView listViewNotif = new ListView(this);
+    public AlertDialog popupWindowNotif() {
+      //  PopupWindow popupWindow = new PopupWindow(this);
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setIcon(R.drawable.icon);
+        builderSingle.setTitle(R.string.notifications);
+        listViewNotif = new ListView(this);
         tempUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase.child("Users").child(tempUser.getUid())
                 .child("notifications").addValueEventListener(new ValueEventListener() {
@@ -304,9 +308,9 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot notificationDataSnapshot : notificationDataSnapshots) {
                     notif = notificationDataSnapshot.getValue(Notification.class);
                     notif.setId(notificationDataSnapshot.getKey());
-                    if (notif.getType().equals("invite")){
+                    if (notif.getType().equals("invite")) {
                         calNotifInvite();
-                    } else if (notif.getType().equals("payment")){
+                    } else if (notif.getType().equals("payment")) {
                         calNotifPayment();
                     }
                 }
@@ -320,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
                     notifications.add(notif);
                     notificationsText[mNotifCount] = notif.getSandooghName();
                     mNotifCount++;
-                }else if (notif.getState().equals("accepted")){
+                } else if (notif.getState().equals("accepted")) {
                     mDatabase.child("sandooghs").child(notif.getSandooghName()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -335,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
                             memberIds.add(tempUser.getUid());
                             sandoogh.setMemberIds(memberIds);
                             sandoogh.addNewMemberPayments(tempUser.getUid());
+                            Log.e("R", "notifsandooghInvite  " + notif.getSandooghName());
                             mDatabase.child("sandooghs").child(notif.getSandooghName()).setValue(sandoogh);
                         }
 
@@ -362,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
-                }else if (notif.getState().equals("rejected")){
+                } else if (notif.getState().equals("rejected")) {
                     mDatabase.child("sandooghs").child(notif.getSandooghName()).child("pendingMembersIds").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -384,18 +389,20 @@ public class MainActivity extends AppCompatActivity {
                     mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
                 }
             }
+
             private void calNotifPayment() {
                 if (notif.getState().equals("pending")) {
                     notifications.add(notif);
                     notificationsText[mNotifCount] = notif.getSandooghName();
                     mNotifCount++;
-                }else if (notif.getState().equals("delete")){
+                } else if (notif.getState().equals("delete")) {
                     mDatabase.child("Users").child(tempUser.getUid()).child("notifications").child(notif.getId()).removeValue();
                     final FragmentManager fragmentManager = getSupportFragmentManager();
                     mDatabase.child("sandooghs").child(notif.getSandooghName()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
+                            Log.e("R", "notifsandoogh Payment  " + sandoogh.getName());
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("SANDOOGH", sandoogh);
                             AdminPanelFragment adminFragment = new AdminPanelFragment();
@@ -419,10 +426,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         listViewNotif.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        popupWindow.setFocusable(true);
-        popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        popupWindow.setContentView(listViewNotif);
-        return popupWindow;
+        builderSingle.setView(listViewNotif);
+        final AlertDialog editMembersDialog = builderSingle.create();
+//        builderSingle.setPositiveButton("ببند", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.cancel();
+//            }
+//        });
+//        popupWindow.setFocusable(true);
+//        popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+//        popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+//        popupWindow.setContentView(listViewNotif);
+//        return popupWindow;
+        return editMembersDialog;
     }
 
     @Override
