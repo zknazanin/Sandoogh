@@ -1,7 +1,6 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.home;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
