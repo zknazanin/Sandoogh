@@ -12,6 +12,10 @@ public class LoanRequest implements Serializable {
     private String period;
     private int count;
 
+    public LoanRequest() {
+
+    }
+
     public LoanRequest(int amount, SolarCalendar startDate, String userId, String period, int count) {
         this.amount = amount;
         StartDate = startDate;
