@@ -280,9 +280,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //pop.update(0, 0, 250, WindowManager.LayoutParams.WRAP_CONTENT);
-                //  pop.showAtLocation(v, Gravity.CENTER, 0, 0);
-             //   Log.e("R", ""+pop.getWidth());
-               pop.showAsDropDown(v, -5, 0);
+                int[] xy = new int[2];
+                v.getLocationInWindow(xy);
+                pop.showAtLocation(v, Gravity.NO_GRAVITY, xy[0] , xy[1] + v.getHeight() );
+                //pop.showAsDropDown(v, -5, 0);
+                // listViewNotif.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                //         View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                //Log.e("R", "" + pop.getWidth() + "  " + listViewNotif.getWidth());
 
             }
         });

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -318,16 +319,18 @@ public class SandooghAccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                int amount = Integer.valueOf(((EditText) promptView.findViewById(R.id.loan_amount_edit_text)).getText().toString());
+                String amount = ((EditText) promptView.findViewById(R.id.loan_amount_edit_text)).getText().toString();
                 String period = ((Spinner) promptView.findViewById(R.id.loan_period)).getSelectedItem().toString();
-                int count = Integer.valueOf(((EditText) promptView.findViewById(R.id.loan_count_edit_text)).getText().toString());
+                String count = ((EditText) promptView.findViewById(R.id.loan_count_edit_text)).getText().toString();
 
-                LoanRequest loanRequest = new LoanRequest(amount, new SolarCalendar(),
-                        Database.getInstance().getCurrentUserID(), period, count);
-
-                Database.getInstance().saveLoanRequest(sandoogh, loanRequest);
-
-                alert.cancel();
+                if (amount.equals("") || count.equals("")) {
+                    Toast.makeText(getActivity(), R.string.loan_request_dialog_empty_fields_error, Toast.LENGTH_LONG).show();
+                } else {
+                    LoanRequest loanRequest = new LoanRequest(Integer.valueOf(amount), new SolarCalendar(),
+                            Database.getInstance().getCurrentUserID(), period, Integer.valueOf(count));
+                    Database.getInstance().saveLoanRequest(sandoogh, loanRequest);
+                    alert.cancel();
+                }
             }
         });
 

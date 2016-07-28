@@ -104,6 +104,7 @@
 
     <string name="save_loan_request">ثبت درخواست</string>
     <string name="cancel_loan_request">لغو</string>
+    <string name="loan_request_dialog_empty_fields_error">لطفا اطلاعات درخواست وام را به طور کامل وارد کنید</string>
 
     <string name="confirm">تایید</string>
 
