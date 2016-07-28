@@ -321,17 +321,21 @@ public class MainActivity extends AppCompatActivity {
                     notificationsText[mNotifCount] = notif.getSandooghName();
                     mNotifCount++;
                 }else if (notif.getState().equals("accepted")){
-                    mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").addListenerForSingleValueEvent(new ValueEventListener() {
+                    mDatabase.child("sandooghs").child(notif.getSandooghName()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
-                            DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
+                            //                   List<DataSnapshot> list = Tools.iteratorToList(dataSnapshot.getChildren().iterator());
+                            //                 DataSnapshot[] membersDataSnapshots = list.toArray(new DataSnapshot[list.size()]);
                             ArrayList<String> memberIds = new ArrayList<>();
-                            for (DataSnapshot member : membersDataSnapshots) {
-                                memberIds.add(member.getValue(String.class));
-                            }
+//                            for (DataSnapshot member : membersDataSnapshots) {
+//                                memberIds.add(member.getValue(String.class));
+//                            }
+                            Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
+                            memberIds = sandoogh.getMemberIds();
                             memberIds.add(tempUser.getUid());
-                            mDatabase.child("sandooghs").child(notif.getSandooghName()).child("memberIds").setValue(memberIds);
+                            sandoogh.setMemberIds(memberIds);
+                            sandoogh.addNewMemberPayments(tempUser.getUid());
+                            mDatabase.child("sandooghs").child(notif.getSandooghName()).setValue(sandoogh);
                         }
 
                         @Override
