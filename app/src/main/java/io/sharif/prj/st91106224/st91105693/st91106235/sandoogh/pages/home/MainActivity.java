@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
                             memberIds.add(tempUser.getUid());
                             sandoogh.setMemberIds(memberIds);
                             sandoogh.addNewMemberPayments(tempUser.getUid());
-                            Log.e("R", "notifsandooghInvite  " + notif.getSandooghName());
+                  //          Log.e("R", "notifsandooghInvite  " + notif.getSandooghName());
                             mDatabase.child("sandooghs").child(notif.getSandooghName()).setValue(sandoogh);
                         }
 
@@ -402,7 +402,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
-                            Log.e("R", "notifsandoogh Payment  " + sandoogh.getName());
+                    //        Log.e("R", "notifsandoogh Payment  " + sandoogh.getName());
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("SANDOOGH", sandoogh);
                             AdminPanelFragment adminFragment = new AdminPanelFragment();
