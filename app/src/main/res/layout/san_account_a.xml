@@ -161,7 +161,7 @@
             android:id="@+id/moneyReq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/moneyReq" />
+            android:text="@string/loan_request" />
 
         <Button
             android:id="@+id/period_payment"

@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.App;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanRequest;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
@@ -25,6 +26,7 @@ public class Database {
     static final String PAYMENT_LIST = "paymentList";
     static final String USER_PAYMENT_LIST = "userPaymentList";
     static final String APPROVED = "approved";
+    static final String LOAN_REQUEST = "loanRequests";
 
     public static Database getInstance() {
         return database;
@@ -64,5 +66,12 @@ public class Database {
         sandoogh.getPaymentList().get(confirmPayment.getPaymentListIndex()).getUserPaymentList()
                 .get(confirmPayment.getUserPaymentListIndex()).setApproved(true);
         updateSandooghPayments(sandoogh);
+    }
+
+    public void saveLoanRequest(Sandoogh sandoogh, LoanRequest loanRequest) {
+        sandoogh.getLoanRequests().add(loanRequest);
+        DatabaseReference databaseReference = firebaseDatabase.getReference(SANDOOGH_ARRAY);
+        DatabaseReference sandooghReference = databaseReference.child(sandoogh.getName()).child(LOAN_REQUEST);
+        sandooghReference.setValue(sandoogh.getLoanRequests());
     }
 }
