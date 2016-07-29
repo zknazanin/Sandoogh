@@ -109,6 +109,10 @@
 
     <string name="confirm">تایید</string>
 
+    <string name="loan_check">در حال بررسی</string>
+    <string name="loan_confirm">تایید</string>
+    <string name="loan_reject">رد</string>
+
     <string name="typeError">نوع صندوق را انتخاب کنید</string>
     <string name="nameError">نام صندوق را وارد کنید</string>
     <string name="success">صندوق با موفقیت ایجاد شد</string>
