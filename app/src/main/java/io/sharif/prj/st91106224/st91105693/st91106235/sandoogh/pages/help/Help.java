@@ -55,6 +55,11 @@ public class Help extends Fragment {
             });
 
         }
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        ((AppCompatActivity)getActivity()).getSupportActionBar()
+                .setTitle(R.string.help);
     }
+}

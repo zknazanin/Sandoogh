@@ -95,4 +95,11 @@ public class userPage extends Fragment {
         }
         return view;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        ((AppCompatActivity)getActivity()).getSupportActionBar()
+                .setTitle(R.string.account);
+    }
 }

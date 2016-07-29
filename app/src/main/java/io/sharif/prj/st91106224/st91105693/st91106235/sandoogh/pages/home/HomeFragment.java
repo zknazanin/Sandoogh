@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("sandooghs").addListenerForSingleValueEvent(
+        mDatabase.child("sandooghs").addValueEventListener(
                 new ValueEventListener() {
 
                     @Override
@@ -125,7 +125,13 @@ public class HomeFragment extends Fragment {
                     }
                 });
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        ((AppCompatActivity)getActivity()).getSupportActionBar()
+                .setTitle(R.string.sandoogh);
+    }
 }
 
 class SandooghArrayAdapter extends ArrayAdapter<String> {

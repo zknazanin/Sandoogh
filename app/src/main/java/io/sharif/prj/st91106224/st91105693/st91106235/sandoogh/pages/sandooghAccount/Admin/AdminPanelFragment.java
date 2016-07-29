@@ -47,18 +47,6 @@ public class AdminPanelFragment extends Fragment {
 
         Bundle bundle = getArguments();
         final Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SANDOOGH");
-//        try{
-//            if (!sandoogh.getAdminUid().equals(Database.getInstance().getCurrentUserID())){
-//                SandooghAccountFragment fragment = new SandooghAccountFragment();
-//                fragment.setArguments(bundle);
-//                getFragmentManager().beginTransaction()
-//                        .replace(container.getId(), fragment)
-//                        .commit();
-//            }
-//        }catch (Exception e){
-//            Log.e("R", "Error in adminpanelFragment database function " + e);
-//            Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
-//        }
         view = (ViewGroup) inflater.inflate(R.layout.admin_panel_fragment, container, false);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
@@ -360,5 +348,12 @@ public class AdminPanelFragment extends Fragment {
             final int childIndex = pos - firstListItemPosition;
             return listView.getChildAt(childIndex);
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set title
+        ((AppCompatActivity)getActivity()).getSupportActionBar()
+                .setTitle(R.string.sandoogh_admin_panel);
     }
 }

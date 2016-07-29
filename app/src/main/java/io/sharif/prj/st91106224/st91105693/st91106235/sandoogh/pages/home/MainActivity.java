@@ -97,7 +97,9 @@ public class MainActivity extends AppCompatActivity {
         if (isFirstTime()) {
 
             Intent intent = new Intent(this, SignUpActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            finish();
 
         } else {
             setDrawer();
@@ -106,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, homeFragment)
                     .commit();
-
-
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -143,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    finish();
                 } catch (Exception e){
                     Log.e("R", "Error in signOut database function " + e);
                     Toast.makeText(this, R.string.Error, Toast.LENGTH_SHORT).show();
