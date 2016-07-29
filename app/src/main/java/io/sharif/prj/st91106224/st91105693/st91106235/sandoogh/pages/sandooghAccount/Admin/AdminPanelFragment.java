@@ -32,6 +32,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.UserPayment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAccount.User.SandooghAccountFragment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
 public class AdminPanelFragment extends Fragment {
@@ -47,7 +48,18 @@ public class AdminPanelFragment extends Fragment {
 
         Bundle bundle = getArguments();
         final Sandoogh sandoogh = (Sandoogh) bundle.getSerializable("SANDOOGH");
-
+        try{
+            if (!sandoogh.getAdminUid().equals(Database.getInstance().getCurrentUserID())){
+                SandooghAccountFragment fragment = new SandooghAccountFragment();
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction()
+                        .replace(container.getId(), fragment)
+                        .commit();
+            }
+        }catch (Exception e){
+            Log.e("R", "Error in adminpanelFragment database function " + e);
+            Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
         view = (ViewGroup) inflater.inflate(R.layout.admin_panel_fragment, container, false);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);

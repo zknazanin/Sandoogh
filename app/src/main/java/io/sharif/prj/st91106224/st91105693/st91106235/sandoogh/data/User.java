@@ -9,7 +9,9 @@ public class User implements Serializable{
     private String username,id;
     private ArrayList<Notification> notifications;
 
-    public User(){}
+    public User(){
+        notifications = new ArrayList<>();
+    }
 
     public User(String uid, String s, String i) {
         this.id = uid;
