@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Loan;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanPayment;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanRequest;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
@@ -39,7 +43,8 @@ public class AdminPanelFragment extends Fragment {
     ViewGroup view;
     ArrayList<String> changedMemberIds;
 
-    private AlertDialog confirmPaymentsDialog, paymentsReportDialog, editMembersDialog;
+    private AlertDialog confirmPaymentsDialog, paymentsReportDialog, editMembersDialog,
+            loansRequestDialog;
 
 
     @Override
@@ -116,7 +121,7 @@ public class AdminPanelFragment extends Fragment {
         view.findViewById(R.id.view_loan_requests_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLoanRequestsDialog();
+                showLoanRequestsDialog(sandoogh);
             }
         });
 
@@ -290,8 +295,34 @@ public class AdminPanelFragment extends Fragment {
 
     }
 
-    private void showLoanRequestsDialog() {
+    private void showLoanRequestsDialog(Sandoogh sandoogh) {
 
+        if (loansRequestDialog == null) {
+
+            final LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            final View promptView = layoutInflater.inflate(R.layout.admin_loan_request, null);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setView(promptView);
+
+            ListView listView = (ListView) promptView.findViewById(R.id.loan_request_list_view);
+
+            AdminLoanRequestAdapter adminLoanRequestAdapter =
+                    new AdminLoanRequestAdapter(getActivity(), sandoogh.getLoanRequests());
+            listView.setAdapter(adminLoanRequestAdapter);
+
+            loansRequestDialog = alertDialogBuilder.create();
+
+            loansRequestDialog.setTitle(R.string.view_loan_requests);
+
+            promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    loansRequestDialog.cancel();
+                }
+            });
+        }
+
+        loansRequestDialog.show();
     }
 
     private void confirmPayments(Sandoogh sandoogh) {
@@ -315,6 +346,36 @@ public class AdminPanelFragment extends Fragment {
         }
     }
 
+    private void confirmLoanRequests(Sandoogh sandoogh) {
+
+        if (loansRequestDialog != null) {
+
+            ArrayList<LoanRequest> newLoanRequestList = new ArrayList<>();
+            ArrayList<Loan> acceptedLoans = new ArrayList<>();
+
+            ListView listView = (ListView) loansRequestDialog.findViewById(R.id.loan_request_list_view);
+
+            for (int i = 0; i < listView.getChildCount(); i++) {
+                AdminLoanRequestView adminLoanRequestView = (AdminLoanRequestView) getViewByPosition(i, listView);
+                RadioGroup radioGroup = (RadioGroup) adminLoanRequestView.findViewById(R.id.loan_request_radio_group);
+
+                switch (radioGroup.getCheckedRadioButtonId()) {
+
+                    case R.id.loan_request_check:
+                        newLoanRequestList.add(adminLoanRequestView.getLoanRequest());
+                        break;
+
+                    case R.id.loan_request_accept:
+                        acceptedLoans.add(new Loan(adminLoanRequestView.getLoanRequest()));
+                        break;
+                }
+            }
+
+            sandoogh.setLoanRequests(newLoanRequestList);
+            sandoogh.getLoans().addAll(acceptedLoans);
+        }
+    }
+
 
     private void saveChanges(Sandoogh sandoogh) {
 
@@ -327,7 +388,9 @@ public class AdminPanelFragment extends Fragment {
             sandoogh.setMemberIds(changedMemberIds);
         }
 
+        confirmLoanRequests(sandoogh);
         confirmPayments(sandoogh);
+
         try {
             Database.getInstance().saveSandoogh(sandoogh);
         }catch (Exception e){

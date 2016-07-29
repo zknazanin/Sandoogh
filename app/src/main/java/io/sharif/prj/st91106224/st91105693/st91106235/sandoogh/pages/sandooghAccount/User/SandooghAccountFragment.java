@@ -351,10 +351,8 @@ public class SandooghAccountFragment extends Fragment {
             }
         });
 
-
         alert.setTitle(R.string.loan_request);
         alert.show();
-
     }
 
 
