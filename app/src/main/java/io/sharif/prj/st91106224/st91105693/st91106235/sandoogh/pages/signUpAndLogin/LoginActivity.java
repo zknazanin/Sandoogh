@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
-        }catch (RuntimeException e){
+        }catch (Exception e){
             Log.e("R","Error in sign in " + e);
             Toast.makeText(this,R.string.Error,Toast.LENGTH_SHORT).show();
         }
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         try {
             mAuth.addAuthStateListener(mAuthListener);
-        }catch (RuntimeException e){
+        }catch (Exception e){
             Log.e("R","Error in sign in onstart() " + e);
             Toast.makeText(this,R.string.Error,Toast.LENGTH_SHORT).show();
         }
@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
             if (mAuthListener != null) {
                 mAuth.removeAuthStateListener(mAuthListener);
             }
-        }catch (RuntimeException e){
+        }catch (Exception e){
             Log.e("R","Error in sign in onstop() " + e);
             Toast.makeText(this,R.string.Error,Toast.LENGTH_SHORT).show();
         }

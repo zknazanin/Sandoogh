@@ -20,19 +20,15 @@ public class SandooghDescriptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.san_description, container, false);
-
         Button sandooghDescriptionConfirmButton = (Button) view.findViewById(R.id.sandoogh_description_confirm_button);
         final ViewPager viewPager = (ViewPager) container.findViewById(R.id.viewpager);
-
         sandooghDescriptionConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
             }
         });
-
         return view;
     }
 

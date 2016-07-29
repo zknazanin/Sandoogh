@@ -2,7 +2,6 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAc
 
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,17 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -305,9 +303,13 @@ public class AdminPanelFragment extends Fragment {
                 AdminPaymentConfirmView adminPaymentConfirmView = (AdminPaymentConfirmView) getViewByPosition(i, listView);
 
                 if (((CheckBox) adminPaymentConfirmView.findViewById(R.id.checkBox)).isChecked()) {
-
-                    Database.getInstance().saveConfirmedPayment(sandoogh,
-                            adminPaymentConfirmView.confirmPayment);
+                    try {
+                        Database.getInstance().saveConfirmedPayment(sandoogh,
+                                adminPaymentConfirmView.confirmPayment);
+                    }catch (Exception e){
+                        Log.e("R", "Error in saveConfirmPayment database function " + e);
+                        Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
@@ -327,8 +329,12 @@ public class AdminPanelFragment extends Fragment {
         }
 
         confirmPayments(sandoogh);
-
-        Database.getInstance().saveSandoogh(sandoogh);
+        try {
+            Database.getInstance().saveSandoogh(sandoogh);
+        }catch (Exception e){
+            Log.e("R", "Error in saveSandoogh in admin database function " + e);
+            Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
 
         getActivity().onBackPressed();
     }

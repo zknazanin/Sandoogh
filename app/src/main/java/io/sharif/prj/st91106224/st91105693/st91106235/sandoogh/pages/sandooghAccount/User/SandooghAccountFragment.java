@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,12 @@ public class SandooghAccountFragment extends Fragment {
         view.findViewById(R.id.sandoogh_loan_request_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLoanRequestsDialog(sandoogh);
+                try {
+                    showLoanRequestsDialog(sandoogh);
+                }catch (Exception e){
+                    Log.e("R", "Error in notification database function " + e);
+                    Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -160,7 +166,12 @@ public class SandooghAccountFragment extends Fragment {
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton(R.string.period_payment_dialog_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        pay(sandoogh, editText.getText().toString());
+                        try {
+                            pay(sandoogh, editText.getText().toString());
+                        } catch (Exception e) {
+                            Log.e("R", "Error in notification database function " + e);
+                            Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.period_payment_dialog_cancel,
@@ -186,7 +197,6 @@ public class SandooghAccountFragment extends Fragment {
             if (paymentArrayList.get(i).getDeadline().toString().equals(selected)) {
                 selectedPayment = paymentArrayList.get(i);
                 String currentUserID = Database.getInstance().getCurrentUserID();
-
                 for (UserPayment userPayment : selectedPayment.getUserPaymentList()) {
                     if (userPayment.getUserID().equals(currentUserID)) {
                         userPayment.setPaymentID(paymentID);

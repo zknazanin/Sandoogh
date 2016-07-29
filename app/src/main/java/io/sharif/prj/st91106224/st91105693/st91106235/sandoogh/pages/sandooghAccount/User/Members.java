@@ -53,7 +53,7 @@ public class Members extends Fragment {
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
         try {
             getListItemData();
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             Log.e("R", "error in member page. (get Users)" + e);
             Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }

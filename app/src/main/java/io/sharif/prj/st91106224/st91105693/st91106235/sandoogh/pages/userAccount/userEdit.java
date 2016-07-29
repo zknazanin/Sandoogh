@@ -42,15 +42,10 @@ public class userEdit extends Fragment {
     private FirebaseUser firebaseUser;
     private String base64Image;
     private Button confirm;
-//    private FirebaseStorage storage;
-//    private StorageReference ref;
-//    private Uri downloadUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.user_editaccount, container, false);
-//        storage = FirebaseStorage.getInstance();
-//        ref = storage.getReference().child("Images/"+mAuth.getCurrentUser().getUid());
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         try {
@@ -69,10 +64,7 @@ public class userEdit extends Fragment {
                         firebaseUser.updatePassword(pass.getText().toString());
                     if (!username.getText().toString().equals(""))
                         mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());
-                    //         Bundle bundle = new Bundle();
-                    //           bundle.putSerializable("URI_DOWN", (Serializable) downloadUrl);
                     userPage frag = new userPage();
-                    //             frag.setArguments(bundle);
                     getFragmentManager().beginTransaction()
                             .replace(container.getId(), frag)
                             .commit();
@@ -101,7 +93,7 @@ public class userEdit extends Fragment {
                     startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
                 }
             });
-        }catch (RuntimeException e){
+        }catch (Exception e){
             Log.e("R","Error in userEdit database function " + e);
             Toast.makeText(view.getContext(),R.string.Error,Toast.LENGTH_SHORT).show();
         }
@@ -121,26 +113,6 @@ public class userEdit extends Fragment {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] bytes = baos.toByteArray();
                    base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
-//                    imageView.setDrawingCacheEnabled(true);
-//                    imageView.buildDrawingCache();
-//                    Bitmap bitmap = imageView.getDrawingCache();
-//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//                    byte[] data = baos.toByteArray();
-
-//                    UploadTask uploadTask = ref.putBytes(bytes);
-//                    uploadTask.addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception exception) {
-//                            Log.e("R","faaaaaaaaaaaaail image Upload");
-//                        }
-//                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-//                            downloadUrl = taskSnapshot.getDownloadUrl();
-//                        }
-//                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

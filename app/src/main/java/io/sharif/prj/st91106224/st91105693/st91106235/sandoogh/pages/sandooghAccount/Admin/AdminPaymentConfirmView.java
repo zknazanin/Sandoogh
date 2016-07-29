@@ -2,10 +2,12 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAc
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,21 +62,25 @@ public class AdminPaymentConfirmView extends RelativeLayout {
         deadlineTextVIew.setText(confirmPayment.getDeadline().toString());
         amountTextView.setText(String.valueOf(confirmPayment.getAmount()));
         idTextView.setText(confirmPayment.getPaymentID());
+        try {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(confirmPayment.getUserID()).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
 
-        FirebaseDatabase.getInstance().getReference().child("Users").child(confirmPayment.getUserID()).addListenerForSingleValueEvent(
-                new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            User user = snapshot.getValue(User.class);
+                            usernameTextView.setText(user.getUsername());
+                        }
 
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
-                        usernameTextView.setText(user.getUsername());
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+        } catch (Exception e){
+            Log.e("R", "Error in adminPaymentConfirmView database function " + e);
+            Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
 
     }
 

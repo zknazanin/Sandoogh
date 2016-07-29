@@ -42,7 +42,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         sandooghInviteFragment = new SandooghInviteFragment();
         sandooghConfirmFragment = new SandooghConfirmFragment();
         memberIds = new ArrayList<>();
-        mdatabase = FirebaseDatabase.getInstance();
     }
 
     @Override
@@ -69,6 +68,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void createSandoogh(Activity activity, FragmentManager fragmentManager) {
+        mdatabase = FirebaseDatabase.getInstance();
         Sandoogh sandoogh = new Sandoogh();
         sandoogh.setAdminUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
         sandoogh.setTotal(0);

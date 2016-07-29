@@ -43,7 +43,6 @@ public class HomeFragment extends Fragment {
     private FirebaseUser user;
     private ArrayList<Sandoogh> sandooghObjects;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,7 +58,7 @@ public class HomeFragment extends Fragment {
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             user = firebaseAuth.getCurrentUser();
             getUserSandooghs(container, getActivity().getSupportFragmentManager());
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             Log.e("R", "Error in home fragment database function " + e.toString());
             Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
@@ -127,13 +126,6 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.toolbar_menu, menu);
-//        super.onCreateOptionsMenu(menu,inflater);
-//    }
-
 }
 
 class SandooghArrayAdapter extends ArrayAdapter<String> {
@@ -156,12 +148,9 @@ class SandooghArrayAdapter extends ArrayAdapter<String> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         View rowView = inflater.inflate(R.layout.button, parent, false);
-
         TextView sandooghNameTextView = (TextView) rowView.findViewById(R.id.sandoogh_name_text_view);
         sandooghNameTextView.setText(values[position]);
-
         ImageView sandooghAdminSign = (ImageView) rowView.findViewById(R.id.sandoogh_admin_sign);
         if (sandooghObjects.get(position).getAdminUid().equals(Database.getInstance().getCurrentUserID())) {
             sandooghAdminSign.setVisibility(View.VISIBLE);
@@ -172,14 +161,10 @@ class SandooghArrayAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 SandooghAccountFragment sandooghAccountFragment = new SandooghAccountFragment();
-
                 Bundle bundle = new Bundle();
-
                 Sandoogh selectedSandoogh = sandooghObjects.get(position);
                 bundle.putSerializable("SELECTED_SANDOOGH", selectedSandoogh);
-
                 sandooghAccountFragment.setArguments(bundle);
-
                 fragmentManager.beginTransaction()
                         .replace(container.getId(), sandooghAccountFragment)
                         .addToBackStack(null)

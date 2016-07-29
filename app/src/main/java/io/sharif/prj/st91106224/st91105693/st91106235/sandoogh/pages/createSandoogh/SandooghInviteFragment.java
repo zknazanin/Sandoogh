@@ -43,13 +43,9 @@ public class SandooghInviteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.san_invite, container, false);
-
         Button sandooghInviteConfirmButton = (Button) view.findViewById(R.id.sandoogh_invite_confirm_button);
-
         final ViewPager viewPager = (ViewPager) container.findViewById(R.id.viewpager);
-
         sandooghInviteConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,13 +57,10 @@ public class SandooghInviteFragment extends Fragment {
         container1 = (LinearLayout) view.findViewById(R.id.container);
         try {
             getListItemData();
-        } catch (RuntimeException e){
+        } catch (Exception e){
             Log.e("R","Error in invite page database function " + e.toString());
             Toast.makeText(view.getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
-       // info = (TextView) view.findViewById(R.id.info);
-        //  info.setMovementMethod(new ScrollingMovementMethod());
-
         return view;
     }
 
@@ -75,16 +68,6 @@ public class SandooghInviteFragment extends Fragment {
         return memberIds;
     }
 
-    //    private void listAllAddView(){
-//        int childCount = container.getChildCount();
-//        for(int i=0; i<childCount; i++){
-//            View thisChild = container.getChildAt(i);
-//            reList.append(thisChild + "\n");
-//
-//            AutoCompleteTextView childTextView = (AutoCompleteTextView) thisChild.findViewById(R.id.textout);
-//            String childTextViewValue = childTextView.getText().toString();
-//            reList.append("= " + childTextViewValue + "\n");
-//        }
     private void getListItemData(){
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").addListenerForSingleValueEvent(
@@ -115,7 +98,7 @@ public class SandooghInviteFragment extends Fragment {
                                 }
                             }
                         });
-                        adapter = new ArrayAdapter<String>(getContext(),
+                        adapter = new ArrayAdapter<>(getContext(),
                                 android.R.layout.simple_dropdown_item_1line, userNames);
                         textIn.setAdapter(adapter);
                     }

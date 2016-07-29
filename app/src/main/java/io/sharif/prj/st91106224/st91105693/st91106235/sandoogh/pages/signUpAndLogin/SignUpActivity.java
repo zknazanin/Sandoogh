@@ -97,7 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-        } catch (RuntimeException e){
+        } catch (Exception e){
             Log.e("R","Error in user sign up database function " + e);
             Toast.makeText(this ,R.string.Error,Toast.LENGTH_SHORT).show();
         }
@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onStart();
         try {
             mAuth.addAuthStateListener(mAuthListener);
-        }catch (RuntimeException e){
+        }catch (Exception e){
             Log.e("R", "Error in sign up onstart() " + e);
             Toast.makeText(this,R.string.Error,Toast.LENGTH_SHORT).show();
         }
@@ -145,7 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
             if (mAuthListener != null) {
                 mAuth.removeAuthStateListener(mAuthListener);
             }
-        }catch (RuntimeException e){
+        }catch (Exception e){
             Log.e("R","Error in sign up onstop() " + e);
             Toast.makeText(this,R.string.Error,Toast.LENGTH_SHORT).show();
         }

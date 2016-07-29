@@ -21,13 +21,9 @@ public class SandooghTypeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.san_type, container, false);
-
-
         Button sandooghType1Button = (Button) view.findViewById(R.id.sandoogh_type_1_button);
         Button sandooghType2Button = (Button) view.findViewById(R.id.sandoogh_type_2_button);
-
         final ViewPager viewPager = (ViewPager) container.findViewById(R.id.viewpager);
         if(sandooghType == null)
                 sandooghType = "none";
