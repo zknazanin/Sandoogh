@@ -308,7 +308,6 @@ public class MainActivity extends AppCompatActivity {
                     for (DataSnapshot notificationDataSnapshot : notificationDataSnapshots) {
                         pendingNotification = notificationDataSnapshot.getValue(Notification.class);
                         pendingNotification.setId(notificationDataSnapshot.getKey());
-                        //            Log.e("R", "setID = " + pendingNotification.getId() + pendingNotification.getSandooghName());
                         if (pendingNotification.getState().equals("pending")) {
                             pendingNotifications.add(pendingNotification);
                             notificationsText[mNotifCount] = pendingNotification.getSandooghName();
@@ -334,14 +333,10 @@ public class MainActivity extends AppCompatActivity {
                     DataSnapshot[] notPendingNotificationDataSnapshots = notPendinglist.toArray(new DataSnapshot[notPendinglist.size()]);
                     for (DataSnapshot notPendingNotificationDataSnapshot : notPendingNotificationDataSnapshots) {
                         notPendingNotification = notPendingNotificationDataSnapshot.getValue(Notification.class);
-                        //           Log.e("R", "setID notPending = " + notPendingNotification.getId() + notPendingNotification.getSandooghName());
                         if (notPendingNotification.getState().equals("accepted") || notPendingNotification.getState().equals("delete")) {
-                            //             Log.e("R", "accept = " + notPendingNotification.getId() + notPendingNotification.getSandooghName());
                             mDatabase.child("sandooghs").child(notPendingNotification.getSandooghName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    //                   Log.e("R", "invite accept inside DB notification sandoogh= " + notPendingNotification.getId() + notPendingNotification.getSandooghName());
-                                    //                 Log.e("R", "invite accept inside DB  sandoogh= " + dataSnapshot.getValue(Sandoogh.class).getName());
                                     Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
                                     ArrayList<String> memberIds;
                                     memberIds = sandoogh.getMemberIds();
@@ -355,13 +350,17 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     sandoogh.setPendingMembersIds(pendingMemberIds);
                                     mDatabase.child("sandooghs").child(sandoogh.getName()).setValue(sandoogh);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("SANDOOGH", sandoogh);
-                                    AdminPanelFragment adminFragment = new AdminPanelFragment();
-                                    adminFragment.setArguments(bundle);
-                                    getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.content_frame, adminFragment).addToBackStack(null).addToBackStack(null)
-                                            .commit();
+                                    if (sandoogh.getAdminUid().equals(tempUser.getUid())) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("SANDOOGH", sandoogh);
+                                        AdminPanelFragment adminFragment = new AdminPanelFragment();
+                                        adminFragment.setArguments(bundle);
+                                        getSupportFragmentManager().beginTransaction()
+                                                .replace(R.id.content_frame, adminFragment).addToBackStack(null)
+                                                .commit();
+                                    }else {
+                                        Toast.makeText(thisActivity , R.string.inviteAccepted, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
                                 @Override
@@ -370,12 +369,9 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         } else if (notPendingNotification.getState().equals("rejected")) {
-                            //   Log.e("R", "reject = " + notPendingNotification.getId() + notPendingNotification.getSandooghName());
                             mDatabase.child("sandooghs").child(notPendingNotification.getSandooghName()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    //            Log.e("R", "invite reject inside DB notification sandoogh= " + notPendingNotification.getId() + notPendingNotification.getSandooghName());
-                                    //          Log.e("R", "invite reject inside DB  sandoogh= " + dataSnapshot.getValue(Sandoogh.class).getName());
                                     Sandoogh sandoogh = dataSnapshot.getValue(Sandoogh.class);
                                     ArrayList<String> pendingMemberIds;
                                     pendingMemberIds = sandoogh.getPendingMembersIds();
@@ -406,10 +402,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     User userRemove = dataSnapshot.getValue(User.class);
                     notPendingNotifications = userRemove.getNotifications();
-                    //          Log.e("R", "size = " + notPendingNotifications.size());
                     for (int i = 0; i < notPendingNotifications.size(); i++) {
                         if (!(notPendingNotifications.get(i).getState().equals("pending"))) {
-                            //Log.e("R", "removed notif = " + notPendingNotifications.get(i).getSandooghName());
+//                            Log.e("R", "removed notif = " + notPendingNotifications.get(i).getSandooghName());
                             notPendingNotifications.remove(notPendingNotifications.get(i));
                         }
                     }

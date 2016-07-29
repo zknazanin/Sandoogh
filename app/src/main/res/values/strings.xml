@@ -93,6 +93,7 @@
     <string name="payment_report_dialog_approved">تایید شده</string>
     <string name="payment_report_dialog_not_approved">تایید نشده</string>
     <string name="Error">خطا در اتصال</string>
+    <string name="inviteAccepted">با موفقیت به صندوق اضافه شدید</string>
 
     <string name="save_changes">ذخیره ی تغییرات</string>
     <string name="cancel_changes">لغو تغییرات</string>
