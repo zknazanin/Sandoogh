@@ -61,6 +61,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.sandooghAcc
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.LoginActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.signUpAndLogin.SignUpActivity;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccount.userPage;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.tools.Tools;
 
 
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private String mTitle;
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser user,tempUser;
+    private FirebaseUser user, tempUser;
     private Button notifCount;
     private int mNotifCount = 0;
     private ArrayList<Notification> pendingNotifications, notPendingNotifications;
@@ -93,9 +94,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         thisActivity = this;
-//     Button   isUserLoggedIn();
 
-        if (isFirstTime()) {
+        if (isFirstTime() || (Database.getInstance().getCurrentFirebaseUser() == null)) {
 
             Intent intent = new Intent(this, SignUpActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.e("R", "Error in signOut database function " + e);
                     Toast.makeText(this, R.string.Error, Toast.LENGTH_SHORT).show();
                 }
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.toolbar_menu, menu);
         View count = menu.findItem(R.id.notif).getActionView();
         notifCount = (Button) count.findViewById(R.id.notif_count);
-        final  AlertDialog dialog = popupWindowNotif();
+        final AlertDialog dialog = popupWindowNotif();
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimaryLight);
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -362,8 +362,8 @@ public class MainActivity extends AppCompatActivity {
                                         getSupportFragmentManager().beginTransaction()
                                                 .replace(R.id.content_frame, adminFragment).addToBackStack(null)
                                                 .commit();
-                                    }else {
-                                        Toast.makeText(thisActivity , R.string.inviteAccepted, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(thisActivity, R.string.inviteAccepted, Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("R", "Error in notification database function " + e);
             Toast.makeText(this, R.string.Error, Toast.LENGTH_SHORT).show();
         }
@@ -468,6 +468,7 @@ public class MainActivity extends AppCompatActivity {
 
         return circuleBitmap;
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
