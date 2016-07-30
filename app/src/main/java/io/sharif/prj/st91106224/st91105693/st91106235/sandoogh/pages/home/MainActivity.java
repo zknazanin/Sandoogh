@@ -457,8 +457,14 @@ public class MainActivity extends AppCompatActivity {
 
         final int color = Color.RED;
         final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getWidth());
+        int temp;
+        if(bitmap.getWidth() < bitmap.getHeight())
+            temp = bitmap.getHeight();
+        else
+            temp = bitmap.getWidth();
+        final Rect rect = new Rect(0, 0, temp,temp);
         final RectF rectF = new RectF(rect);
+
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
