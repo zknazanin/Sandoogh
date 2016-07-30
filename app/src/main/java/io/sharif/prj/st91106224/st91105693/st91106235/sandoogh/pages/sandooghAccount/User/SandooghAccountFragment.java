@@ -30,7 +30,6 @@ import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Loan;
-import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanRequest;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
@@ -236,6 +235,25 @@ public class SandooghAccountFragment extends Fragment {
 
         updatePayments(sandoogh);
 
+        try {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(sandoogh.getAdminUid())
+                    .child("username").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ((TextView) view.findViewById(R.id.san_Admin_edit)).setText(dataSnapshot.getValue(String.class));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }catch (Exception e){
+            Log.e("R", "Error in sandoogh getAdmin database function " + e);
+            Toast.makeText(getActivity(), R.string.Error, Toast.LENGTH_SHORT).show();
+        }
+        temp = (TextView) view.findViewById(R.id.san_name_edit);
+        temp.setText(sandoogh.getName());
         temp = (TextView) view.findViewById(R.id.san_AccNum_edit);
         temp.setText(sandoogh.getAccountNum());
         temp = (TextView) view.findViewById(R.id.san_CardNum_edit);

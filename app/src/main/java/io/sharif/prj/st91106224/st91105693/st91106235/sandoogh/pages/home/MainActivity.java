@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -285,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
         View count = menu.findItem(R.id.notif).getActionView();
         notifCount = (Button) count.findViewById(R.id.notif_count);
         final AlertDialog dialog = popupWindowNotif();
-        dialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimaryLight);
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -430,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.Error, Toast.LENGTH_SHORT).show();
         }
 
-        listViewNotif.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+  //      listViewNotif.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         listViewNotif.setDivider(new ColorDrawable(getResources().getColor(R.color.colorDivider)));
         listViewNotif.setDividerHeight(2);
         builderSingle.setView(listViewNotif);
