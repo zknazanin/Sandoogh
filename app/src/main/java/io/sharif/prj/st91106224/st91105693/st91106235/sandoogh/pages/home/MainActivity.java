@@ -15,6 +15,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -280,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
         View count = menu.findItem(R.id.notif).getActionView();
         notifCount = (Button) count.findViewById(R.id.notif_count);
         final  AlertDialog dialog = popupWindowNotif();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimaryLight);
         notifCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -425,6 +427,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         listViewNotif.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        listViewNotif.setDivider(new ColorDrawable(getResources().getColor(R.color.colorDivider)));
+        listViewNotif.setDividerHeight(2);
         builderSingle.setView(listViewNotif);
         final AlertDialog editMembersDialog = builderSingle.create();
         return editMembersDialog;

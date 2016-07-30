@@ -41,13 +41,13 @@ class NotificationAdapter extends ArrayAdapter<String> {
         notification = notifications.get(position);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.notif_list, parent, false);
-        notifText = (TextView) rowView.findViewById(R.id.notifText);
+        notifText = (TextView) rowView.findViewById(R.id.notifSandoogh);
         accept = (ImageView) rowView.findViewById(R.id.accept);
         reject = (ImageView) rowView.findViewById(R.id.reject);
         if (notification.getType().equals("invite")){
-            notifText.setText(context.getResources().getString(R.string.inviteNotif) + " \n" + notification.getSandooghName());
+            notifText.setText("صندوق " + "\"" + notification.getSandooghName() + "\"" + " " + context.getResources().getString(R.string.inviteNotif));
         }else{
-            notifText.setText(context.getResources().getString(R.string.paymentNotif) + " \n" + notification.getSandooghName());
+            notifText.setText("از صندوق "+ "\"" + notification.getSandooghName() + "\"" + " " + context.getResources().getString(R.string.paymentNotif));
             accept.setVisibility(View.GONE);
             reject.setVisibility(View.GONE);
             notifText.setOnClickListener(new View.OnClickListener() {
