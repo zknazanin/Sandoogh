@@ -248,7 +248,7 @@ public class SandooghAccountFragment extends Fragment {
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("R", "Error in sandoogh getAdmin database function " + e);
             Toast.makeText(getActivity(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
@@ -278,7 +278,8 @@ public class SandooghAccountFragment extends Fragment {
             Loan loan = sandoogh.getLoans().get(i);
             if (loan.getUserId().equals(Database.getInstance().getCurrentUserID())) {
                 for (int j = 0; j < loan.getLoanPayments().size(); j++) {
-                    if (loan.getLoanPayments().get(j).getPaymentID() == null) {
+                    if (loan.getLoanPayments().get(j).getPaymentID() == null
+                            || loan.getLoanPayments().get(j).getPaymentID().equals("")) {
                         spinnerArray.add(loan.getLoanPayments().get(j).getDeadline().toString());
                     }
                 }
@@ -288,6 +289,7 @@ public class SandooghAccountFragment extends Fragment {
         if (spinnerArray.size() == 0) {
             view.findViewById(R.id.loan_pay_button_and_spinner_layout).setVisibility(View.GONE);
         } else {
+            view.findViewById(R.id.loan_pay_button_and_spinner_layout).setVisibility(View.VISIBLE);
             Spinner spinner = (Spinner) view.findViewById(R.id.loan_deadlines);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(
                     getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
