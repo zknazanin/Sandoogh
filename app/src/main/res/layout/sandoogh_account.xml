@@ -65,6 +65,18 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/san_name_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
+
+                    <TextView
+                        android:id="@+id/san_Admin_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical" />
+
+                    <TextView
                         android:id="@+id/san_AccNum_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/sandoogh_account_text_view_height"
@@ -115,6 +127,20 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/san_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/san_name" />
+
+                    <TextView
+                        android:id="@+id/san_Admin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/sandoogh_account_text_view_height"
+                        android:gravity="center_vertical"
+                        android:text="@string/sandoogh_admin" />
 
                     <TextView
                         android:id="@+id/san_AccNum"

@@ -1,9 +1,11 @@
 package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data;
 
+import java.io.Serializable;
+
 /**
  * Created by foroughM on 7/26/2016.
  */
-public class Notification {
+public class Notification implements Serializable{
     private String type , id;
     private String sandooghName;
     private String state;

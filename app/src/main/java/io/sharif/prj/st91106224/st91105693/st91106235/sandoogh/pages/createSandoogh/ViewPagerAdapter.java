@@ -123,6 +123,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                     }
                 });
             }
+//            onBackPressed();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new HomeFragment())
                     .commit();
@@ -131,4 +132,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         }
 
     }
+//    @Override
+//    public void onBackPressed() {
+//        HomeFragment fragment = new HomeFragment();
+//        fragment.getChildFragmentManager().popBackStackImmediate();
+//
+//    }
 }
