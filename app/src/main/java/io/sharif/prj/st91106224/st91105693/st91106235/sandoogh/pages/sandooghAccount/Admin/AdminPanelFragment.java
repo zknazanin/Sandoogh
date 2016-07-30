@@ -311,10 +311,12 @@ public class AdminPanelFragment extends Fragment {
 
                     LoanPayment loanPayment = allLoans.get(i).getLoanPayments().get(j);
 
+                    int amount = allLoans.get(i).getAmount() / allLoans.get(i).getCount();
+
                     if (!loanPayment.isApproved()) {
                         notConfirmedLoans.add(new ConfirmLoan(allLoans.get(i).getUserId(),
                                 loanPayment.getPaymentID(), loanPayment.getDeadline(),
-                                allLoans.get(i).getAmount(), i, j));
+                                amount, i, j));
                     }
                 }
             }
@@ -380,6 +382,10 @@ public class AdminPanelFragment extends Fragment {
                     try {
                         Database.getInstance().saveConfirmedPayment(sandoogh,
                                 adminPaymentConfirmView.confirmPayment);
+
+                        // Update sandoogh total
+                        sandoogh.setTotal(sandoogh.getTotal() + adminPaymentConfirmView.confirmPayment.getAmount());
+
                     } catch (Exception e) {
                         Log.e("R", "Error in saveConfirmPayment database function " + e);
                         Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
@@ -432,6 +438,10 @@ public class AdminPanelFragment extends Fragment {
                     try {
                         sandoogh.getLoans().get(confirmLoan.getLoanListIndex()).getLoanPayments()
                                 .get(confirmLoan.getLoanPaymentListIndex()).setApproved(true);
+
+                        // Update sandoogh total
+                        sandoogh.setTotal(sandoogh.getTotal() + confirmLoan.getAmount());
+
                     } catch (Exception e) {
                         Log.e("R", "Error in saveConfirmPayment database function " + e);
                         Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
