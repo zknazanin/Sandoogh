@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Loan;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanRequest;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Notification;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Payment;
@@ -82,7 +84,7 @@ public class SandooghAccountFragment extends Fragment {
             public void onClick(View view) {
                 try {
                     showLoanRequestsDialog(sandoogh);
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.e("R", "Error in notification database function " + e);
                     Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                 }
@@ -92,7 +94,7 @@ public class SandooghAccountFragment extends Fragment {
         view.findViewById(R.id.sandoogh_pay_loan_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPayLoansDialog();
+                showPayLoansDialog(sandoogh);
             }
         });
 
@@ -251,6 +253,29 @@ public class SandooghAccountFragment extends Fragment {
             temp.setText(String.valueOf(sandoogh.getTotal()));
         }
 
+
+        List<String> spinnerArray = new ArrayList<>();
+
+        for (int i = 0; i < sandoogh.getLoans().size(); i++) {
+            Loan loan = sandoogh.getLoans().get(i);
+            if (loan.getUserId().equals(Database.getInstance().getCurrentUserID())) {
+                for (int j = 0; j < loan.getLoanPayments().size(); j++) {
+                    spinnerArray.add(loan.getLoanPayments().get(j).getDeadline().toString());
+                }
+            }
+        }
+
+        if (spinnerArray.size() == 0) {
+            view.findViewById(R.id.loan_pay_button_and_spinner_layout).setVisibility(View.GONE);
+        } else {
+            Spinner spinner = (Spinner) view.findViewById(R.id.loan_deadlines);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                    getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+        }
+
         if (sandoogh.getAdminUid().equals(Database.getInstance().getCurrentUserID())) {
             AppCompatButton adminPanelButton = (AppCompatButton) view.findViewById(R.id.admin_panel_button);
             adminPanelButton.setVisibility(View.VISIBLE);
@@ -356,7 +381,56 @@ public class SandooghAccountFragment extends Fragment {
     }
 
 
-    private void showPayLoansDialog() {
+    private void showPayLoansDialog(final Sandoogh sandoogh) {
+
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View promptView = layoutInflater.inflate(R.layout.loan_payment_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+
+        final EditText editText = (EditText) promptView.findViewById(R.id.loan_payment_id_edit_text);
+        TextView dateTextView = (TextView) promptView.findViewById(R.id.date_text_view);
+
+        final Spinner spinner = (Spinner) view.findViewById(R.id.loan_deadlines);
+        dateTextView.setText(spinner.getSelectedItem().toString());
+
+
+        // create an alert dialog
+        final AlertDialog alert = alertDialogBuilder.create();
+
+        promptView.findViewById(R.id.save_loan_payment_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loanPay(sandoogh, spinner.getSelectedItem().toString(), editText.getText().toString());
+                alert.cancel();
+            }
+        });
+
+        promptView.findViewById(R.id.cancel_loan_payment_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.cancel();
+            }
+        });
+
+
+        alert.show();
+    }
+
+    private void loanPay(Sandoogh sandoogh, String paymentDeadline, String paymentId) {
+
+        for (int i = 0; i < sandoogh.getLoans().size(); i++) {
+            Loan loan = sandoogh.getLoans().get(i);
+            if (loan.getUserId().equals(Database.getInstance().getCurrentUserID())) {
+                for (int j = 0; j < loan.getLoanPayments().size(); j++) {
+                    if (loan.getLoanPayments().get(j).getDeadline().toString().equals(paymentDeadline)) {
+                        loan.getLoanPayments().get(j).setPaymentID(paymentId);
+                    }
+                }
+            }
+        }
+
+        Database.getInstance().saveLoanPayment(sandoogh);
 
     }
 

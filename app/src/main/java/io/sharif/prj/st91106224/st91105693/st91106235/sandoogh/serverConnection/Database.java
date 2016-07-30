@@ -27,6 +27,7 @@ public class Database {
     static final String USER_PAYMENT_LIST = "userPaymentList";
     static final String APPROVED = "approved";
     static final String LOAN_REQUEST = "loanRequests";
+    static final String LOANS = "loans";
 
     public static Database getInstance() {
         return database;
@@ -73,5 +74,11 @@ public class Database {
         DatabaseReference databaseReference = firebaseDatabase.getReference(SANDOOGH_ARRAY);
         DatabaseReference sandooghReference = databaseReference.child(sandoogh.getName()).child(LOAN_REQUEST);
         sandooghReference.setValue(sandoogh.getLoanRequests());
+    }
+
+    public void saveLoanPayment(Sandoogh sandoogh) {
+        DatabaseReference databaseReference = firebaseDatabase.getReference(SANDOOGH_ARRAY);
+        DatabaseReference sandooghReference = databaseReference.child(sandoogh.getName()).child(LOANS);
+        sandooghReference.setValue(sandoogh.getLoans());
     }
 }
