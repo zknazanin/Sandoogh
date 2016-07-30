@@ -18,8 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,53 +28,54 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.Database;
 
 public class userEdit extends Fragment {
     private ViewGroup view;
     private Button selectImage;
     private int SELECT_FILE = 100;
     private ImageView imageView;
-    private FirebaseAuth mAuth;
     private EditText username,pass;
     private DatabaseReference mDatabase;
-    private FirebaseUser firebaseUser;
     private String base64Image;
     private Button confirm;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.user_editaccount, container, false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        Bundle bundle = getArguments();
+        user = (User) bundle.getSerializable("USER");
         try {
-            mAuth = FirebaseAuth.getInstance();
             mDatabase = FirebaseDatabase.getInstance().getReference();
-            firebaseUser = mAuth.getCurrentUser();
             pass = (EditText) view.findViewById(R.id.password_edit);
             username = (EditText) view.findViewById(R.id.username_edit);
+            username.setText(user.getUsername());
             confirm = (Button) view.findViewById(R.id.confirm);
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (base64Image != null && base64Image != "0")
-                        mDatabase.child("Users").child(firebaseUser.getUid()).child("image").setValue(base64Image);
-                    if (!pass.getText().toString().equals(""))
-                        firebaseUser.updatePassword(pass.getText().toString());
-                    if (!username.getText().toString().equals(""))
-                        mDatabase.child("Users").child(firebaseUser.getUid()).child("username").setValue(username.getText().toString());
-                    getActivity().onBackPressed();
-                }
-            });
-            mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    String name = (String) snapshot.getValue();
-                    username.setText(name);
-                }
+                    mDatabase.child("Users").child(user.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            user.setUsername(username.getText().toString());
+                            if (base64Image != null && base64Image != "0") {
+                                user.setImage(base64Image);
+                            }
+                            mDatabase.child("Users").child(user.getId()).setValue(user);
+                            getActivity().onBackPressed();
+                        }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.e("R", "cancel name");
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    if (!pass.getText().toString().equals(""))
+                        Database.getInstance().getCurrentFirebaseUser().updatePassword(pass.getText().toString());
                 }
             });
             imageView = (ImageView) view.findViewById(R.id.image);

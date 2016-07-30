@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;
 
 
 public class userPage extends Fragment {
@@ -51,42 +52,36 @@ public class userPage extends Fragment {
             imageView = (ImageView) view.findViewById(R.id.image);
             email.setText(firebaseUser.getEmail());
             pass.setText("********");
-            mDatabase.child("Users").child(firebaseUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
+            mDatabase.child("Users").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    String name = (String) snapshot.getValue();
-                    username.setText(name);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.e("R", "cancel name");
-                }
-            });
-            mDatabase.child("Users").child(firebaseUser.getUid()).child("image").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if (!snapshot.getValue().toString().equals("0")) {
-                        String base64Image = (String) snapshot.getValue();
+                    final User user = snapshot.getValue(User.class);
+                    username.setText(user.getUsername());
+                    if (!user.getImage().equals("0")) {
+                        String base64Image = user.getImage();
                         byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
                         imageView.setImageBitmap(
                                 BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
                         );
                     }
+                    Edit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            userEdit userEdit = new userEdit();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("USER", user);
+                            userEdit.setArguments(bundle);
+                            getFragmentManager().beginTransaction()
+                                    .replace(container.getId(), userEdit)
+                                    .addToBackStack(null)
+                                    .commit();
+                        }
+                    });
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Log.e("R", "cancel");
-                }
-            });
-            Edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getFragmentManager().beginTransaction()
-                            .replace(container.getId(), new userEdit())
-                            .addToBackStack(null)
-                            .commit();
+                    Log.e("R", "cancel name");
                 }
             });
         } catch (Exception e) {
