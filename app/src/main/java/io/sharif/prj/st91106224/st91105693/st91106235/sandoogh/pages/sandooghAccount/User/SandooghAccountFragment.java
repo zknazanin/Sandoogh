@@ -260,7 +260,9 @@ public class SandooghAccountFragment extends Fragment {
             Loan loan = sandoogh.getLoans().get(i);
             if (loan.getUserId().equals(Database.getInstance().getCurrentUserID())) {
                 for (int j = 0; j < loan.getLoanPayments().size(); j++) {
-                    spinnerArray.add(loan.getLoanPayments().get(j).getDeadline().toString());
+                    if (loan.getLoanPayments().get(j).getPaymentID() == null) {
+                        spinnerArray.add(loan.getLoanPayments().get(j).getDeadline().toString());
+                    }
                 }
             }
         }

@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.App;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.ConfirmLoan;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanRequest;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Sandoogh;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.User;

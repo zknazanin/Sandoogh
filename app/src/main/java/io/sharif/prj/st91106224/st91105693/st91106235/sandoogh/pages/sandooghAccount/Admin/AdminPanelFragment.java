@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.R;
+import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.ConfirmLoan;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.Loan;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanPayment;
 import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.data.LoanRequest;
@@ -44,7 +45,7 @@ public class AdminPanelFragment extends Fragment {
     ArrayList<String> changedMemberIds;
 
     private AlertDialog confirmPaymentsDialog, paymentsReportDialog, editMembersDialog,
-            loansRequestDialog;
+            loansRequestDialog, loansDialog;
 
 
     @Override
@@ -113,7 +114,7 @@ public class AdminPanelFragment extends Fragment {
         view.findViewById(R.id.view_loans_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLoansDialog();
+                showLoansDialog(sandoogh);
             }
         });
 
@@ -291,7 +292,50 @@ public class AdminPanelFragment extends Fragment {
 
     }
 
-    private void showLoansDialog() {
+    private void showLoansDialog(Sandoogh sandoogh) {
+
+        if (loansDialog == null) {
+
+            final LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            final View promptView = layoutInflater.inflate(R.layout.admin_confirm_loan_payment_dialog, null);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setView(promptView);
+
+            ListView listView = (ListView) promptView.findViewById(R.id.loan_payment_list_view);
+
+            ArrayList<Loan> allLoans = sandoogh.getLoans();
+            ArrayList<ConfirmLoan> notConfirmedLoans = new ArrayList<>();
+
+            for (int i = 0; i < allLoans.size(); i++) {
+                for (int j = 0; j < allLoans.get(i).getLoanPayments().size(); j++) {
+
+                    LoanPayment loanPayment = allLoans.get(i).getLoanPayments().get(j);
+
+                    if (!loanPayment.isApproved()) {
+                        notConfirmedLoans.add(new ConfirmLoan(allLoans.get(i).getUserId(),
+                                loanPayment.getPaymentID(), loanPayment.getDeadline(),
+                                allLoans.get(i).getAmount(), i, j));
+                    }
+                }
+            }
+
+            AdminLoanPaymentConfirmAdapter adminLoanPaymentConfirmAdapter = new
+                    AdminLoanPaymentConfirmAdapter(getActivity(), notConfirmedLoans);
+            listView.setAdapter(adminLoanPaymentConfirmAdapter);
+
+            loansDialog = alertDialogBuilder.create();
+
+            loansDialog.setTitle(R.string.confirm_payments);
+
+            promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    loansDialog.cancel();
+                }
+            });
+        }
+
+        loansDialog.show();
 
     }
 
@@ -336,7 +380,7 @@ public class AdminPanelFragment extends Fragment {
                     try {
                         Database.getInstance().saveConfirmedPayment(sandoogh,
                                 adminPaymentConfirmView.confirmPayment);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Log.e("R", "Error in saveConfirmPayment database function " + e);
                         Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
                     }
@@ -376,6 +420,32 @@ public class AdminPanelFragment extends Fragment {
         }
     }
 
+    private void confirmLoans(Sandoogh sandoogh) {
+
+        if (loansDialog != null) {
+            ListView listView = (ListView) loansDialog.findViewById(R.id.loan_payment_list_view);
+
+            for (int i = 0; i < listView.getChildCount(); i++) {
+                AdminLoanPaymentConfirmView adminLoanPaymentConfirmView = (AdminLoanPaymentConfirmView) getViewByPosition(i, listView);
+                ConfirmLoan confirmLoan = adminLoanPaymentConfirmView.confirmLoan;
+                if (((CheckBox) adminLoanPaymentConfirmView.findViewById(R.id.checkBox)).isChecked()) {
+                    try {
+                        sandoogh.getLoans().get(confirmLoan.getLoanListIndex()).getLoanPayments()
+                                .get(confirmLoan.getLoanPaymentListIndex()).setApproved(true);
+                    } catch (Exception e) {
+                        Log.e("R", "Error in saveConfirmPayment database function " + e);
+                        Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+
+            Database.getInstance().saveLoanPayment(sandoogh);
+
+        }
+
+    }
+
 
     private void saveChanges(Sandoogh sandoogh) {
 
@@ -390,10 +460,11 @@ public class AdminPanelFragment extends Fragment {
 
         confirmLoanRequests(sandoogh);
         confirmPayments(sandoogh);
+        confirmLoans(sandoogh);
 
         try {
             Database.getInstance().saveSandoogh(sandoogh);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("R", "Error in saveSandoogh in admin database function " + e);
             Toast.makeText(getContext(), R.string.Error, Toast.LENGTH_SHORT).show();
         }
@@ -412,11 +483,12 @@ public class AdminPanelFragment extends Fragment {
             return listView.getChildAt(childIndex);
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
         // Set title
-        ((AppCompatActivity)getActivity()).getSupportActionBar()
+        ((AppCompatActivity) getActivity()).getSupportActionBar()
                 .setTitle(R.string.sandoogh_admin_panel);
     }
 }
