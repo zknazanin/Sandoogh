@@ -236,8 +236,10 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                    imageView.setImageBitmap(getCircleBitmap(bitmap));
-
+                    if (bitmap != null && !bitmap.isRecycled()) {
+                        imageView.setImageBitmap(getCircleBitmap(bitmap));
+                        bitmap = null;
+                    }
                 }
 
                 @Override
