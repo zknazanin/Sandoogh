@@ -2,6 +2,7 @@ package io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.pages.userAccoun
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,7 +34,7 @@ import io.sharif.prj.st91106224.st91105693.st91106235.sandoogh.serverConnection.
 
 public class userEdit extends Fragment {
     private ViewGroup view;
-    private Button selectImage;
+    private Button selectImage, removeImage;
     private int SELECT_FILE = 100;
     private ImageView imageView;
     private EditText username,pass;
@@ -62,7 +63,7 @@ public class userEdit extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             user.setUsername(username.getText().toString());
-                            if (base64Image != null && base64Image != "0") {
+                            if (base64Image != null) {
                                 user.setImage(base64Image);
                             }
                             mDatabase.child("Users").child(user.getId()).setValue(user);
@@ -80,6 +81,16 @@ public class userEdit extends Fragment {
             });
             imageView = (ImageView) view.findViewById(R.id.image);
             selectImage = (Button) view.findViewById(R.id.image_edit);
+            removeImage = (Button) view.findViewById(R.id.image_remove);
+            if (!user.getImage().equals("0")) {
+                String base64Image1 = user.getImage();
+                byte[] imageAsBytes = Base64.decode(base64Image1.getBytes(), Base64.DEFAULT);
+                imageView.setImageBitmap(
+                        BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
+                );
+            } else {
+                removeImage.setVisibility(View.INVISIBLE);
+            }
             selectImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,6 +98,14 @@ public class userEdit extends Fragment {
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+                }
+            });
+            removeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    base64Image = "0";
+                    imageView.setImageBitmap(null);
+                    removeImage.setVisibility(View.INVISIBLE);
                 }
             });
         }catch (Exception e){
@@ -109,6 +128,7 @@ public class userEdit extends Fragment {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] bytes = baos.toByteArray();
                    base64Image = Base64.encodeToString(bytes, Base64.DEFAULT);
+                    removeImage.setVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

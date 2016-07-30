@@ -66,6 +66,7 @@
     <string name="payment">شماره رسید پرداخت را وارد کنید</string>
     <string name="username">نام کاربری</string>
     <string name="SelecIimage">انتخاب تصویر</string>
+    <string name="RemoveImage">حذف تصویر</string>
     <string name="action_drawer_title">منو</string>
     <string name="user_name">نام</string>
     <string name="loan_count">تعداد اقساط</string>

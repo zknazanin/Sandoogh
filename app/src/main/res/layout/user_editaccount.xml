@@ -7,28 +7,78 @@
         android:id="@+id/tool_bar"
         layout="@layout/toolbar" />
     <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:padding="5dp"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/image_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimaryLight"
+                    android:text="@string/SelecIimage" />
+            <Button
+                android:id="@+id/image_remove"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background="@color/colorPrimaryLight"
+                android:text="@string/RemoveImage" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+    </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_corner_shape_background_color"
+        android:layout_weight="2">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:gravity="center">
             <EditText
                 android:id="@+id/password_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:ems="10"
                 android:hint="********"
                 android:inputType="textPassword"
                 android:editable="true"/>
             <TextView
                 android:id="@+id/password"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/password_hint" />
         </LinearLayout>
         <LinearLayout
@@ -38,44 +88,30 @@
             android:gravity="center">
             <EditText
                 android:id="@+id/username_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:layout_weight="2"
                 android:editable="true"/>
             <TextView
                 android:id="@+id/username"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/username" />
         </LinearLayout>
+    </LinearLayout>
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="5dp"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"/>
-            <Button
-                android:id="@+id/image_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="@string/SelecIimage" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:gravity="center">
             <Button
                 android:id="@+id/confirm"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
                 android:text="@string/san_confirm"/>
         </LinearLayout>
-    </LinearLayout>
 </LinearLayout>
