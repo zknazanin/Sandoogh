@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, homeFragment)
                     .commit();
+
+
         }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
