@@ -104,6 +104,7 @@
     <string name="view_payments">گزارش پرداخت ها</string>
     <string name="view_loan_requests">بررسی درخواست های وام</string>
     <string name="view_loans">گزارش وام ها</string>
+    <string name="confirm_loan_payments">تایید پرداخت اقساط وام</string>
 
     <string name="save_loan_request">ثبت درخواست</string>
     <string name="cancel_loan_request">لغو</string>

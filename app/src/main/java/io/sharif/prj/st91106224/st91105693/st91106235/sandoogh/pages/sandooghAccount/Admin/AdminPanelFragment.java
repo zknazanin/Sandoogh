@@ -327,7 +327,7 @@ public class AdminPanelFragment extends Fragment {
 
             loansDialog = alertDialogBuilder.create();
 
-            loansDialog.setTitle(R.string.confirm_payments);
+            loansDialog.setTitle(R.string.confirm_loan_payments);
 
             promptView.findViewById(R.id.confirm_button).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -417,6 +417,7 @@ public class AdminPanelFragment extends Fragment {
 
                     case R.id.loan_request_accept:
                         acceptedLoans.add(new Loan(adminLoanRequestView.getLoanRequest()));
+                        sandoogh.setTotal(sandoogh.getTotal() - adminLoanRequestView.getLoanRequest().getAmount());
                         break;
                 }
             }
