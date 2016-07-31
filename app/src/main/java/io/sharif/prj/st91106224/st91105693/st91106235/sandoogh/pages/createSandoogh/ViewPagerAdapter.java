@@ -33,7 +33,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private Boolean type = false, name = false;
     private FirebaseDatabase mdatabase;
     private User user;
-    private ArrayList<String> memberIds;
+    private ArrayList<String> memberIds, pendingMemberIds;
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -101,15 +101,16 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         sandoogh.setPeriod(sandooghDescriptionFragment.getPeriod());
         sandoogh.calculateAndAddNextPayment(sandoogh.getStartDate());
         if(type && name) {
-            memberIds = sandooghInviteFragment.getMemberIds();
-            sandoogh.setPendingMembersIds(memberIds);
+            pendingMemberIds = new ArrayList<>();
+            pendingMemberIds = sandooghInviteFragment.getMemberIds();
+            sandoogh.setPendingMembersIds(pendingMemberIds);
             Database.getInstance().saveSandoogh(sandoogh);
-            for (int i=0 ; i<memberIds.size(); i++) {
+            for (int i=0 ; i<pendingMemberIds.size(); i++) {
                 final Notification notification = new Notification();
                 notification.setState("pending");
                 notification.setSandooghName(sandooghName);
                 notification.setType("invite");
-                mdatabase.getReference().child("Users").child(memberIds.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
+                mdatabase.getReference().child("Users").child(pendingMemberIds.get(i)).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         user = dataSnapshot.getValue(User.class);
